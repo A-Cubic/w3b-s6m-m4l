@@ -11,6 +11,7 @@ export default [
     ],
   },
   // app
+
   {
     path: '/',
     component: '../layouts/BasicLayout',
@@ -20,10 +21,28 @@ export default [
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
       {
+        path: '/JapanPavilion',
+        name: '日本馆',
+        component: './JapanPavilion/JapanPavilion',
+        // routes: [
+        //   {
+        //     path: '/JapanPavilion/List',
+        //     name: '日本馆',
+        //     component: './JapanPavilion/JapanPavilion',
+        //   }
+        // ]
+      },
+
+      {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
         routes: [
+          {
+            path: '/list/search/projects',
+            name: 'projects',
+            component: './List/Projects',
+          },
           {
             path: '/dashboard/analysis',
             name: 'analysis',
