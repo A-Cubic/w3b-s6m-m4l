@@ -26,18 +26,18 @@ const FormItem = Form.Item;
     dispatch({
       type: 'list/fetch',
       payload: {
-        count: 8,
+        count: 18,
       },
     });
   },
 })
-class CoverCardList extends PureComponent {
+class JapanPavilion extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'list/fetch',
       payload: {
-        count: 8,
+        count: 18,
       },
     });
   }
@@ -57,6 +57,12 @@ class CoverCardList extends PureComponent {
         loading={loading}
         grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
         dataSource={list}
+        pagination={{
+          onChange: (page) => {
+            console.log(page);
+          },
+          pageSize: 10,
+        }}
         renderItem={item => (
           <List.Item>
             <Card
@@ -92,8 +98,6 @@ class CoverCardList extends PureComponent {
       </div>
     );
     return (
-
-
       <PageHeaderWrapper
         title=""
       >
@@ -102,16 +106,15 @@ class CoverCardList extends PureComponent {
           autoplay
         >
           <div>
-            <img style={{ width:'100%',height:440 }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
           </div>
           <div>
-            <img style={{ width:'100%',height:440 }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
           </div>
         </Carousel>
 
         <div className={styles.coverCardList}>
           <Card bordered={false}>
-
             <Form layout="inline">
               <div style={{marginBottom:20}}>{mainSearch}</div>
               <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
@@ -159,14 +162,13 @@ class CoverCardList extends PureComponent {
               </StandardFormRow>
             </Form>
           </Card>
-
-          <div className={styles.cardList}>{cardList}</div>
+          <div className={styles.cardList}>
+            {cardList}
+          </div>
         </div>
-
-
       </PageHeaderWrapper>
     );
   }
 }
 
-export default CoverCardList;
+export default JapanPavilion;

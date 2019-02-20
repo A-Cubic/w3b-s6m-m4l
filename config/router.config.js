@@ -11,38 +11,43 @@ export default [
     ],
   },
   // app
-
   {
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
     authority: ['admin', 'user'],
     routes: [
-      // dashboard
-      { path: '/', redirect: '/dashboard/analysis' },
+      // JapanPavilion
       {
+        name: 'JapanPavilion',
+        icon: 'smile',
         path: '/JapanPavilion',
-        name: '日本馆',
-        component: './JapanPavilion/JapanPavilion',
-        // routes: [
-        //   {
-        //     path: '/JapanPavilion/List',
-        //     name: '日本馆',
-        //     component: './JapanPavilion/JapanPavilion',
-        //   }
-        // ]
+        // hideChildrenInMenu: true,
+        routes: [
+          {
+            path: '/JapanPavilion',
+            redirect: '/JapanPavilion/JapanPavilion',
+          },
+          {
+            path: '/JapanPavilion/JapanPavilion',
+            component: './JapanPavilion/JapanPavilion',
+            hideInMenu: true,
+          },
+        ],
       },
-
+      //GoodsDetails
+      {
+          path: '/GoodsDetails',
+          name: 'goodsDetails',
+          component: './GoodsDetails/GoodsDetails',
+      },
+      // dashboard
+      { path: '/', redirect: '/JapanPavilion/JapanPavilion' },
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
         routes: [
-          {
-            path: '/list/search/projects',
-            name: 'projects',
-            component: './List/Projects',
-          },
           {
             path: '/dashboard/analysis',
             name: 'analysis',
