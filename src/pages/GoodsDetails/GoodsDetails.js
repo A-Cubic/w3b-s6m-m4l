@@ -34,12 +34,18 @@ class GoodsDetails extends PureComponent {
             <div>
               <Row gutter={16}>
                 <Col lg={12} md={12} sm={12} xs={24}>
-                  <Carousel autoplay className={styles.carousel}>
+                  <Carousel autoplay slidesToShow={2} className={styles.carousel}>
                     <div>
-                      <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+                      <img style={{ width:'100%',padding:5 }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
                     </div>
                     <div>
-                      <img style={{ width:'100%'}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+                    </div>
+                    <div>
+                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+                    </div>
+                    <div>
+                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
                     </div>
                   </Carousel>
                 </Col>
