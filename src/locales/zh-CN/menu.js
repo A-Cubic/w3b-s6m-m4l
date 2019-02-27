@@ -1,6 +1,10 @@
 export default {
   'menu.home': '首页',
+  'menu.Home': '全部商品',
   'menu.JapanPavilion': '日本馆',
+  'menu.KoreaPavilion': '韩国馆',
+  'menu.EuropeanAmericanPavilion': '欧美馆',
+  'menu.PromotionArea': '临期促销专区',
   'menu.goodsDetails': '商品详情',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',

@@ -6,7 +6,7 @@ import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import styles from './JapanPavilion.less';
+import styles from './KoreaPavilion.less';
 
 const { Option } = Select;
 const FormItem = Form.Item;
@@ -111,10 +111,10 @@ class JapanPavilion extends PureComponent {
           autoplay
         >
           <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg" alt="" />
           </div>
           <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
+            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg" alt="" />
           </div>
         </Carousel>
 

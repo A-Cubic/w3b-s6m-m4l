@@ -17,6 +17,13 @@ export default [
     Routes: ['src/pages/Authorized'],
     authority: ['admin', 'user'],
     routes: [
+      // Home
+      {
+        name: 'Home',
+        icon: 'smile',
+        path: '/home',
+        component: './Home/Home',
+      },
       // JapanPavilion
       {
         name: 'JapanPavilion',
@@ -35,6 +42,27 @@ export default [
           },
         ],
       },
+      //韩国馆
+      {
+        name: 'KoreaPavilion',
+        icon: 'smile',
+        path: '/KoreaPavilion',
+        component: './KoreaPavilion/KoreaPavilion',
+      },
+      //欧美馆
+      {
+        name: 'EuropeanAmericanPavilion',
+        icon: 'smile',
+        path: '/EuropeanAmericanPavilion',
+        component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
+      },
+      //临期促销专区
+      {
+        name: 'PromotionArea',
+        icon: 'smile',
+        path: '/PromotionArea',
+        component: './PromotionArea/PromotionArea',
+      },
       //GoodsDetails
       {
           path: '/GoodsDetails',
@@ -42,7 +70,7 @@ export default [
           component: './GoodsDetails/GoodsDetails',
       },
       // dashboard
-      { path: '/', redirect: '/JapanPavilion/JapanPavilion' },
+      { path: '/', redirect: '/home' },
       {
         path: '/dashboard',
         name: 'dashboard',

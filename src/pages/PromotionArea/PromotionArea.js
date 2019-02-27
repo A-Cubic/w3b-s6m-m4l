@@ -6,7 +6,7 @@ import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import styles from './JapanPavilion.less';
+import styles from './PromotionArea.less';
 
 const { Option } = Select;
 const FormItem = Form.Item;
