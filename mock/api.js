@@ -1,5 +1,7 @@
 import mockjs from 'mockjs';
 
+// import {url} from './url';
+
 const titles = [
   'Alipay',
   'Angular',
