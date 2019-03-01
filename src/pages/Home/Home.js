@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
+import { Row, Col, Form, Card, Select, List, Input, Carousel,Icon  } from 'antd';
 
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
@@ -18,18 +18,18 @@ const FormItem = Form.Item;
   loading: loading.models.list,
 }))
 @Form.create({
-  onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
-  },
+  // onValuesChange({ dispatch }, changedValues, allValues) {
+  //   // 表单项变化时请求数据
+  //   // eslint-disable-next-line
+  //   console.log(changedValues, allValues);
+  //   // 模拟查询表单生效
+  //   dispatch({
+  //     type: 'list/fetch',
+  //     payload: {
+  //       count: 18,
+  //     },
+  //   });
+  // },
 })
 class JapanPavilion extends PureComponent {
   componentDidMount() {
@@ -49,7 +49,7 @@ class JapanPavilion extends PureComponent {
       form,
     } = this.props;
     const { getFieldDecorator } = form;
-
+    //console.log('list',list)
     const cardList = list ? (
       <List
         style={{ textAlign: 'center' }}
@@ -57,12 +57,12 @@ class JapanPavilion extends PureComponent {
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
         dataSource={list}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 10,
-        }}
+        // pagination={{
+        //   onChange: (page) => {
+        //     console.log('page',page);
+        //   },
+        //   pageSize: 10,
+        // }}
         renderItem={item => (
           <List.Item>
             <Card
@@ -79,6 +79,21 @@ class JapanPavilion extends PureComponent {
         )}
       />
     ) : null;
+
+    const allList = list ?(
+      <div>
+        <div className={styles.nav_top}><span className={styles.nav_top_span}> 日本馆</span><em className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+        <div grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}>
+          <Card style={{width:'49.5%'}}>
+            分类一
+          </Card>
+          <Card>
+            分类一
+          </Card>
+        </div>
+        <div></div>
+      </div>
+    ):null;      
 
     const formItemLayout = {
       wrapperCol: {
@@ -120,7 +135,7 @@ class JapanPavilion extends PureComponent {
         </Carousel>
 
         <div className={styles.coverCardList}>
-          <Card bordered={false}>
+          {/* <Card bordered={false}>
             <Form layout="inline">
 
               <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
@@ -167,9 +182,10 @@ class JapanPavilion extends PureComponent {
                 </Row>
               </StandardFormRow>
             </Form>
-          </Card>
+          </Card> */}
           <div className={styles.cardList}>
             {cardList}
+            {allList}
           </div>
         </div>
       </PageHeaderWrapper>
