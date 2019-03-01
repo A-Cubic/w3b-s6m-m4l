@@ -17,17 +17,58 @@ export default [
     Routes: ['src/pages/Authorized'],
     authority: ['admin', 'user'],
     routes: [
+      // 全部分类
+      {
+        path: '/category',
+        name: 'category',
+        routes: [
+          {
+            icon: 'smile',
+            path: '/category/mu',
+            name:'mu',
+            component: './Category/Category',
+          },
+          {
+            icon: 'coffee',
+            path: '/category/jia',
+            name:'jia',
+            component: './Category/Category',
+          },
+          {
+            icon: 'user',
+            path: '/category/ge',
+            name:'ge',
+            component: './Category/Category',
+          },
+          {
+            icon: 'heart',
+            path: '/category/mei',
+            name:'mei',
+            component: './Category/Category',
+          },
+          {
+            icon: 'safety',
+            path: '/category/shi',
+            name:'shi',
+            component: './Category/Category',
+          },
+          {
+            icon: 'skin',
+            path: '/category/fu',
+            name:'fu',
+            component: './Category/Category',
+          },
+        ],
+      },
       // Home
       {
         name: 'Home',
-        icon: 'smile',
         path: '/home',
         component: './Home/Home',
       },
       // JapanPavilion
       {
         name: 'JapanPavilion',
-        icon: 'smile',
         path: '/JapanPavilion',
         // hideChildrenInMenu: true,
         routes: [
@@ -45,21 +86,18 @@ export default [
       //韩国馆
       {
         name: 'KoreaPavilion',
-        icon: 'smile',
         path: '/KoreaPavilion',
         component: './KoreaPavilion/KoreaPavilion',
       },
       //欧美馆
       {
         name: 'EuropeanAmericanPavilion',
-        icon: 'smile',
         path: '/EuropeanAmericanPavilion',
         component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
       },
       //临期促销专区
       {
         name: 'PromotionArea',
-        icon: 'smile',
         path: '/PromotionArea',
         component: './PromotionArea/PromotionArea',
       },

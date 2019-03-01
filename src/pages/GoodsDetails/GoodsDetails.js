@@ -115,7 +115,7 @@ class GoodsDetails extends PureComponent {
             </div>
             <div className={styles.imgsDetails}>
               <Row gutter={16}>
-                <img style={{ width:'100%'}} src="http://ecc-product.oss-cn-beijing.aliyuncs.com/goodsuploads/4520060564008_xqy_1.jpg" alt="" />
+                <img style={{ width:'100%'}} src="http://img10.360buyimg.com/imgzone/jfs/t1/15060/35/8384/136378/5c7623deE92004a46/31ba5e4dc2ecb53a.jpg" alt="" />
               </Row>
             </div>
           </div>
