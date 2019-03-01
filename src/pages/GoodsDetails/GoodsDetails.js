@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Carousel, Button } from 'antd';
+import { Row, Col, Form, Card, Carousel, Button, Input } from 'antd';
 import styles from './GoodsDetails.less';
 import DescriptionList from '@/components/DescriptionList';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -16,8 +16,27 @@ const { Description } = DescriptionList;
 }))
 @Form.create()
 class GoodsDetails extends PureComponent {
+  state={
+    carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+    imgArr:[
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg'
+    ]
+  }
+
   componentDidMount() {
 
+  }
+
+  beforeChange=(a,b)=>{
+    const that = this
+    this.setState({
+      carouselImg:that.state.imgArr[b]
+    })
   }
 
   render() {
@@ -27,26 +46,53 @@ class GoodsDetails extends PureComponent {
     //     sm: { span: 16 },
     //   },
     // };
+    const mainSearch = (
+      <div style={{ textAlign: 'center' }}>
+        <Row type="flex" justify="center">
+          <Col lg={10} md={12} sm={16} xs={24}>
+            <Input.Search
+              placeholder="请输入"
+              enterButton="搜索"
+              size="large"
+              onSearch={this.handleFormSubmit}
+              // style={{ width: 522 }}
+            />
+          </Col>
+        </Row>
+      </div>
+
+    );
+    // const imgArr = [
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg'
+    // ]
     return (
-      <PageHeaderWrapper>
+      <PageHeaderWrapper
+        content={<div style={{marginBottom:20}}>{mainSearch}</div>}
+      >
         <Card bordered={false}>
           <div className={styles.goodsDetails}>
             <div>
               <Row gutter={16}>
                 <Col lg={12} md={12} sm={12} xs={24}>
-                  <Carousel autoplay slidesToShow={2} className={styles.carousel}>
-                    <div>
-                      <img style={{ width:'100%',padding:5 }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-                    </div>
-                    <div>
-                      <img style={{ width:'100%',padding:5}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-                    </div>
+                  <img style={{ width:'100%',padding:5 }} src={this.state.carouselImg} alt="" />
+                  <Carousel autoplay slidesToShow={3} className={styles.carousel} beforeChange={this.beforeChange}>
+                    {
+                      this.state.imgArr.map((item) =>
+                      (
+                        <div
+                          key={item}
+                        >
+                          <img style={{ width:'100%',padding:5 }} src={item} alt="" />
+                        </div>
+                        ))
+                    }
+
+
                   </Carousel>
                 </Col>
                 <Col lg={7} md={7} sm={7} xs={23} offset={1}>
@@ -72,10 +118,7 @@ class GoodsDetails extends PureComponent {
                 <img style={{ width:'100%'}} src="http://ecc-product.oss-cn-beijing.aliyuncs.com/goodsuploads/4520060564008_xqy_1.jpg" alt="" />
               </Row>
             </div>
-
-
           </div>
-
         </Card>,
       </PageHeaderWrapper>
     );

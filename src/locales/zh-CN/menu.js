@@ -1,6 +1,6 @@
 export default {
   'menu.home': '首页',
-  'menu.Home': '全部商品',
+  'menu.Home': '首页',
   'menu.JapanPavilion': '日本馆',
   'menu.KoreaPavilion': '韩国馆',
   'menu.EuropeanAmericanPavilion': '欧美馆',

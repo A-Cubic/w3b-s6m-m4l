@@ -5,7 +5,9 @@ import { Icon } from 'antd';
 import GlobalFooter from '@/components/GlobalFooter';
 import SelectLang from '@/components/SelectLang';
 import styles from './UserLayout.less';
-import logo from '../assets/logo.svg';
+// import logo from '../assets/logo.svg';
+import logo from '../assets/iconllwell.png';
+
 
 const links = [
   {

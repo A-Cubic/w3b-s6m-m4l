@@ -55,7 +55,7 @@ class JapanPavilion extends PureComponent {
         style={{ textAlign: 'center' }}
         rowKey="id"
         loading={loading}
-        grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
+        grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
         dataSource={list}
         pagination={{
           onChange: (page) => {
@@ -68,7 +68,7 @@ class JapanPavilion extends PureComponent {
             <Card
               className={styles.card}
               hoverable
-              cover={<img style={{padding: 20,height: 280}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+              cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
             >
               <Card.Meta
                 title={<a>{item.subDescription}</a>}
@@ -105,6 +105,7 @@ class JapanPavilion extends PureComponent {
     return (
       <PageHeaderWrapper
         title=""
+        content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
         <Carousel
           className={styles.carousel}
@@ -121,7 +122,7 @@ class JapanPavilion extends PureComponent {
         <div className={styles.coverCardList}>
           <Card bordered={false}>
             <Form layout="inline">
-              <div style={{marginBottom:20}}>{mainSearch}</div>
+
               <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
                 <FormItem>
                   {getFieldDecorator('category')(
