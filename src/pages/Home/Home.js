@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List, Input, Carousel,Icon  } from 'antd';
+import { Row, Col, Form, Card, Select, List, Input, Carousel,Icon,Button,Tag    } from 'antd';
 
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
@@ -32,6 +32,17 @@ const FormItem = Form.Item;
   // },
 })
 class JapanPavilion extends PureComponent {
+  state={
+    carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+    imgArr:[
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
+      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg'
+    ]
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -49,51 +60,131 @@ class JapanPavilion extends PureComponent {
       form,
     } = this.props;
     const { getFieldDecorator } = form;
-    //console.log('list',list)
-    const cardList = list ? (
-      <List
-        style={{ textAlign: 'center' }}
-        rowKey="id"
-        loading={loading}
-        grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
-        dataSource={list}
+    const allList = list ?(
+      <div>
+        <div style={{width: '100%',height: '50px',}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 日本馆</span ><em style={{marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+        <Row >
+          <Col md={24} sm={24} xs={24} >
+            <div style={{textAlign:'right', marginBottom:'10px'}}>
+              <Tag color="red">分类一</Tag>
+              <Tag color="red">分类二</Tag>
+              <Tag color="red">分类三</Tag>
+              <Tag color="red">分类四</Tag>
+            </div>
+          </Col>
+          
+        </Row>
+        <Row>
+           {/*  把分类 提上面
+           <Col md={12} sm={24} xs={24} className={styles.con}>
+            <Card  
+              bordered={false}
+            >
+              <div style={{paddingBottom:'60px',display: 'flex','flex-wrap': 'wrap'}}>
+                <Button className={styles.con_but}>分类一</Button>
+                <Button className={styles.con_but}>分类2</Button>
+                <Button className={styles.con_but}>分类3</Button>
+                <Button className={styles.con_but}>分类4</Button>
+                <Button className={styles.con_but}>分类5</Button>
+              </div>
+            </Card>  
+          </Col>*/}
+          <List
+            style={{ textAlign: 'center' }}
+            rowKey="id"
+            loading={loading}
+            grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+            dataSource={list}
         // pagination={{
         //   onChange: (page) => {
         //     console.log('page',page);
         //   },
         //   pageSize: 10,
         // }}
-        renderItem={item => (
-          <List.Item>
+            renderItem={item => (
+              <List.Item>
+                <Card
+                  className={styles.card}
+                  hoverable
+                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                >
+                  <Card.Meta
+                    title={<a>{item.subDescription}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </Row>
+        <Row style={{}}>
+          {/* <Col lg={2} md={4} sm={4} xs={4} style={{padding:'0'}}>
             <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+              className={styles.cardBrand}
+              bordered={false}
             >
-              <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
-              />
+              <span style={{width:'50px'}}>热销商品</span>
             </Card>
-          </List.Item>
-        )}
-      />
-    ) : null;
-
-    const allList = list ?(
-      <div>
-        <div className={styles.nav_top}><span className={styles.nav_top_span}> 日本馆</span><em className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
-        <div grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}>
-          <Card style={{width:'49.5%'}}>
-            分类一
-          </Card>
-          <Card>
-            分类一
-          </Card>
-        </div>
-        <div></div>
+              
+            
+          </Col> */}
+          <Col  lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
+            <div style={{textAlign:'center'}}>热销商品</div>
+                       </Col>
+          {
+                      this.state.imgArr.map((item) =>
+                      (
+                        <Col  
+                          
+                          lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} 
+                        >
+                       
+                          <img style={{ width:'100%',padding:0 }} src={item} alt="" />
+                          </Col>
+                        ))
+                    }
+          
+        </Row>
       </div>
     ):null;      
+
+
+
+const allList_hot = list ?(
+      <div>
+        <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span ><em style={{marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+        <Row>
+         
+          <List
+            style={{ textAlign: 'center' }}
+            rowKey="id"
+            loading={loading}
+            grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+            dataSource={list}
+      
+            renderItem={item => (
+              <List.Item>
+                <Card
+                  className={styles.card}
+                  hoverable
+                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                >
+                  <Card.Meta
+                    title={<a>{item.subDescription}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </Row>
+    
+      </div>
+    ):null;  
+
+
+
+
 
     const formItemLayout = {
       wrapperCol: {
@@ -135,62 +226,17 @@ class JapanPavilion extends PureComponent {
         </Carousel>
 
         <div className={styles.coverCardList}>
-          {/* <Card bordered={false}>
-            <Form layout="inline">
-
-              <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
-                <FormItem>
-                  {getFieldDecorator('category')(
-                    <TagSelect expandable>
-                      <TagSelect.Option value="cat1">生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
-                    </TagSelect>
-                  )}
-                </FormItem>
-              </StandardFormRow>
-              <StandardFormRow title="其它选项" grid last>
-                <Row gutter={16}>
-                  <Col lg={8} md={10} sm={10} xs={24}>
-                    <FormItem {...formItemLayout} label="热卖">
-                      {getFieldDecorator('author', {})(
-                        <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                          <Option value="lisa">后</Option>
-                        </Select>
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col lg={8} md={10} sm={10} xs={24}>
-                    <FormItem {...formItemLayout} label="好评度">
-                      {getFieldDecorator('rate', {})(
-                        <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                          <Option value="good">优秀</Option>
-                          <Option value="normal">普通</Option>
-                        </Select>
-                      )}
-                    </FormItem>
-                  </Col>
-                </Row>
-              </StandardFormRow>
-            </Form>
-          </Card> */}
+         
           <div className={styles.cardList}>
-            {cardList}
+            {/* {cardList} */}
             {allList}
+            {allList_hot}
           </div>
         </div>
       </PageHeaderWrapper>
     );
   }
 }
+
 
 export default JapanPavilion;

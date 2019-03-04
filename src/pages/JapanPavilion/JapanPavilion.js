@@ -55,30 +55,69 @@ class JapanPavilion extends PureComponent {
         style={{ textAlign: 'center' }}
         rowKey="id"
         loading={loading}
-        grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
+        grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
         dataSource={list}
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 10,
-        }}
+        // pagination={{
+        //   onChange: (page) => {
+        //     console.log(page);
+        //   },
+        //   pageSize: 10,
+        // }}
         renderItem={item => (
           <List.Item>
             <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20,height: 280}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
-            >
-              <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
-              />
+                  className={styles.card}
+                  hoverable
+                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                >
+                  <Card.Meta
+                    title={<a>{item.subDescription}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                  />
             </Card>
           </List.Item>
         )}
       />
     ) : null;
+    
+    const allList_hot = list ?(
+      <div>
+        <div style={{textAlign:'center',marginBottom:'45px',marginTop:'25px'}}>
+            <span style={{fontSize:'22px',color:'#000',fontWeight:'bold'}} >-------日本当下最火单品-------</span>
+          </div>
+          <div className={styles.bottomLine}>
+          日本当下最火单品
+          </div>
+        <Row>
+         
+          <List
+            style={{ textAlign: 'center' }}
+            rowKey="id"
+            loading={loading}
+            grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+            dataSource={list}
+      
+            renderItem={item => (
+              <List.Item>
+                <Card
+                  className={styles.card}
+                  hoverable
+                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                >
+                  <Card.Meta
+                    title={<a>{item.subDescription}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                  />
+                </Card>
+              </List.Item>
+            )}
+          />
+        </Row>
+    
+      </div>
+    ):null;  
+
+
 
     const formItemLayout = {
       wrapperCol: {
@@ -119,56 +158,14 @@ class JapanPavilion extends PureComponent {
         </Carousel>
 
         <div className={styles.coverCardList}>
-          <Card bordered={false}>
-            <Form layout="inline">
-              <div style={{marginBottom:20}}>{mainSearch}</div>
-              <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
-                <FormItem>
-                  {getFieldDecorator('category')(
-                    <TagSelect expandable>
-                      <TagSelect.Option value="cat1">生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
-                    </TagSelect>
-                  )}
-                </FormItem>
-              </StandardFormRow>
-              <StandardFormRow title="其它选项" grid last>
-                <Row gutter={16}>
-                  <Col lg={8} md={10} sm={10} xs={24}>
-                    <FormItem {...formItemLayout} label="热卖">
-                      {getFieldDecorator('author', {})(
-                        <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                          <Option value="lisa">后</Option>
-                        </Select>
-                      )}
-                    </FormItem>
-                  </Col>
-                  <Col lg={8} md={10} sm={10} xs={24}>
-                    <FormItem {...formItemLayout} label="好评度">
-                      {getFieldDecorator('rate', {})(
-                        <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
-                          <Option value="good">优秀</Option>
-                          <Option value="normal">普通</Option>
-                        </Select>
-                      )}
-                    </FormItem>
-                  </Col>
-                </Row>
-              </StandardFormRow>
-            </Form>
-          </Card>
+          <div style={{textAlign:'center',marginBottom:'45px'}}>
+            <span style={{fontSize:'22px',color:'#000',fontWeight:'bold'}}>-------日本当地百姓最爱用的品牌-------</span>
+          </div>
+
+
           <div className={styles.cardList}>
             {cardList}
+            {allList_hot}
           </div>
         </div>
       </PageHeaderWrapper>

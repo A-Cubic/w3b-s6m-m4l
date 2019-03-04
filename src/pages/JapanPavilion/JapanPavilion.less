@@ -8,11 +8,23 @@
 .ellipsis {
   color: #dd7427;
 }
+.bottomLine{
+  font-size: 24px;
+  color:red;
+  padding: 0 20px 0;
+  margin: 20px 0;
+  line-height: 1px;
+  border-left: 180px dashed rgb(104, 57, 57);
+  border-right: 180px dashed rgb(116, 58, 58);
+  text-align: center;
+  }
 .coverCardList {
   margin-bottom: -24px;
-
   .card {
     :global {
+      .ant-card-body {
+        padding: 0 34px;
+      }
       .ant-card-meta-title {
         margin-bottom: 4px;
         & > a {
@@ -27,7 +39,6 @@
         overflow: hidden;
       }
     }
-
     &:hover {
       :global {
         .ant-card-meta-title > a {
@@ -36,6 +47,8 @@
       }
     }
   }
+
+  
 
   .cardItemContent {
     display: flex;
