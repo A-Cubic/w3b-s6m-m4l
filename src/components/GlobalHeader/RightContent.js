@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { FormattedMessage, formatMessage } from 'umi/locale';
-import { Spin, Tag, Menu, Icon, Avatar, Tooltip } from 'antd';
+import { Spin, Tag, Menu, Icon, Avatar, Tooltip, Button } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import NoticeIcon from '../NoticeIcon';
@@ -104,10 +104,10 @@ export default class GlobalHeaderRight extends PureComponent {
           <FormattedMessage id="menu.account.trigger" defaultMessage="Trigger Error" />
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="logout">
-          <Icon type="logout" />
-          <FormattedMessage id="menu.account.logout" defaultMessage="logout" />
-        </Menu.Item>
+        {/*<Menu.Item key="logout">*/}
+          {/*<Icon type="logout" />*/}
+          {/*<FormattedMessage id="menu.account.logout" defaultMessage="logout" />*/}
+        {/*</Menu.Item>*/}
       </Menu>
     );
     const loadMoreProps = {
@@ -195,7 +195,7 @@ export default class GlobalHeaderRight extends PureComponent {
         {/* {...loadMoreProps} */}
         {/* /> */}
         {/* </NoticeIcon> */}
-        {currentUser.name ? (
+        {currentUser.userid ? (
           <HeaderDropdown overlay={menu}>
             <span className={`${styles.action} ${styles.account}`}>
               <Avatar
@@ -209,7 +209,29 @@ export default class GlobalHeaderRight extends PureComponent {
             </span>
           </HeaderDropdown>
         ) : (
-          <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
+          <span style={{color:'red',marginRight:10}}>
+            {/*<span style={{marginRight:10}}>注册</span>*/}
+            {/*<span>登录</span>*/}
+            <Button
+              style={{borderColor:'transparent',fontWeight:'bolder'}}
+              ghost
+              size="small"
+              href="http://console.llwell.net/"
+              target="_blank"
+            >
+              登录
+            </Button>
+            <Button
+              style={{borderColor:'transparent',fontWeight:'bolder'}}
+              ghost
+              size="small"
+              href="http://console.llwell.net/#/user/register"
+              target="_blank"
+            >
+              注册
+            </Button>
+          </span>
+          // <Spin size="small" style={{ marginLeft: 8, marginRight: 8 }} />
         )}
         {/* <SelectLang className={styles.action} /> */}
       </div>

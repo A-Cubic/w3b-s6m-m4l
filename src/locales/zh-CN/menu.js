@@ -1,6 +1,8 @@
 export default {
   'menu.home': '首页',
   'menu.category': '全部分类',
+  'menu.search': '搜索结果',
+  'menu.brand': '品牌',
   'menu.category.mu': '母婴儿童',
   'menu.category.jia': '家居生活',
   'menu.category.ge': '个人护理',

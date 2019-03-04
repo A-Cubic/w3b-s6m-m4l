@@ -15,7 +15,6 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
-    authority: ['admin', 'user'],
     routes: [
       // 全部分类
       {
@@ -90,22 +89,34 @@ export default [
         component: './KoreaPavilion/KoreaPavilion',
       },
       //欧美馆
-      {
-        name: 'EuropeanAmericanPavilion',
-        path: '/EuropeanAmericanPavilion',
-        component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
-      },
+      // {
+      //   name: 'EuropeanAmericanPavilion',
+      //   path: '/EuropeanAmericanPavilion',
+      //   component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
+      // },
       //临期促销专区
+      // {
+      //   name: 'PromotionArea',
+      //   path: '/PromotionArea',
+      //   component: './PromotionArea/PromotionArea',
+      // },
+      //商品详情
       {
-        name: 'PromotionArea',
-        path: '/PromotionArea',
-        component: './PromotionArea/PromotionArea',
-      },
-      //GoodsDetails
-      {
-          path: '/GoodsDetails',
+          path: '/goodsDetails',
           name: 'goodsDetails',
           component: './GoodsDetails/GoodsDetails',
+      },
+      //品牌页
+      {
+          path: '/brand',
+          name: 'brand',
+          component: './Brand/Brand',
+      },
+      //搜索结果页
+      {
+          path: '/search',
+          name: 'search',
+          component: './Search/Search',
       },
       // dashboard
       { path: '/', redirect: '/home' },
@@ -172,7 +183,7 @@ export default [
           {
             path: '/form/advanced-form',
             name: 'advancedform',
-            authority: ['admin'],
+            // authority: ['admin'],
             component: './Forms/AdvancedForm',
           },
         ],
@@ -240,7 +251,7 @@ export default [
           {
             path: '/profile/advanced',
             name: 'advanced',
-            authority: ['admin'],
+            // authority: ['admin'],
             component: './Profile/AdvancedProfile',
           },
         ],
