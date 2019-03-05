@@ -1,4 +1,5 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
+import {  } from '@/services/home_S';
 
 export default {
   namespace: 'japanPavilionModel',
