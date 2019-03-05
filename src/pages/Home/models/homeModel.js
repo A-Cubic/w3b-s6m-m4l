@@ -1,17 +1,61 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-import {  } from '@/services/home_S';
+import { HomePage,AllClassification } from '@/services/home_S';
 
 export default {
-  namespace: 'japanPavilionModel',
+  namespace: 'homeModel',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
+    ifOnload:'0',
+    banner:[],
+    jplist:{
+      ifOnload:0,
+      page:0,
+      classification:[],
+      goodsList:[],
+      brandimgs:[],
     },
+    korealist:{
+      ifOnload:0,
+      page:0,
+      classification:[],
+      goodsList:[],
+      brandimgs:[],
+    },
+    cHlist:{
+      ifOnload:0,
+      page:0,
+      classification:[],
+      goodsList:[],
+      brandimgs:[],
+    },
+
+
+
+
+
+    allclassification:[],
+
   },
 
   effects: {
+    // 首页上半部接口
+
+    *getHomePage({ payload }, { call, put }) {
+      const response = yield call(HomePage, payload);
+      console.log(response)
+      // yield put({
+      //   type: 'save',
+      //   payload: response,
+      // });
+    },
+    *getAllClassification({ payload }, { call, put }) {
+      const response = yield call(AllClassification, payload);
+      console.log(response)
+      // yield put({
+      //   type: 'save',
+      //   payload: response,
+      // });
+    },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryRule, payload);
       yield put({

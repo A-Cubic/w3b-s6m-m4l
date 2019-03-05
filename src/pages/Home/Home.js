@@ -13,8 +13,9 @@ const FormItem = Form.Item;
 
 /* eslint react/no-array-index-key: 0 */
 
-@connect(({ list, loading }) => ({
+@connect(({ list,homeModel, loading }) => ({
   list,
+  homeModel,
   loading: loading.models.list,
 }))
 @Form.create({
@@ -31,7 +32,7 @@ const FormItem = Form.Item;
   //   });
   // },
 })
-class JapanPavilion extends PureComponent {
+class Home extends PureComponent {
   state={
     carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
     imgArr:[
@@ -45,6 +46,10 @@ class JapanPavilion extends PureComponent {
   }
   componentDidMount() {
     const { dispatch } = this.props;
+    dispatch({
+      type: 'homeModel/getAllClassification',
+      payload: {},
+    });
     dispatch({
       type: 'list/fetch',
       payload: {
@@ -72,12 +77,12 @@ class JapanPavilion extends PureComponent {
               <Tag color="red">分类四</Tag>
             </div>
           </Col>
-          
+
         </Row>
         <Row>
            {/*  把分类 提上面
            <Col md={12} sm={24} xs={24} className={styles.con}>
-            <Card  
+            <Card
               bordered={false}
             >
               <div style={{paddingBottom:'60px',display: 'flex','flex-wrap': 'wrap'}}>
@@ -87,7 +92,7 @@ class JapanPavilion extends PureComponent {
                 <Button className={styles.con_but}>分类4</Button>
                 <Button className={styles.con_but}>分类5</Button>
               </div>
-            </Card>  
+            </Card>
           </Col>*/}
           <List
             style={{ textAlign: 'center' }}
@@ -122,21 +127,21 @@ class JapanPavilion extends PureComponent {
             <div style={{textAlign:'center',}}>热销商品</div>
                        </Col>
           {
-                      this.state.imgArr.map((item) =>
+                      this.state.imgArr.map((item,index) =>
                       (
-                        <Col  
-                          
-                          lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} 
+                        <Col
+
+                          lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
                         >
-                       
-                          <img style={{ width:'100%',padding:0 }} src={item} alt="" />
+
+                          <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
                           </Col>
                         ))
                     }
-          
+
         </Row>
       </div>
-    ):null;      
+    ):null;
 
 
 
@@ -144,14 +149,14 @@ const allList_hot = list ?(
       <div>
         <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span ><em style={{marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
         <Row>
-         
+
           <List
             style={{ textAlign: 'center' }}
             rowKey="id"
             loading={loading}
             grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
             dataSource={list}
-      
+
             renderItem={item => (
               <List.Item>
                 <Card
@@ -168,9 +173,9 @@ const allList_hot = list ?(
             )}
           />
         </Row>
-    
+
       </div>
-    ):null;  
+    ):null;
 
 
 
@@ -216,7 +221,7 @@ const allList_hot = list ?(
         </Carousel>
 
         <div className={styles.coverCardList}>
-         
+
           <div className={styles.cardList}>
             {/* {cardList} */}
             {allList}
@@ -229,4 +234,4 @@ const allList_hot = list ?(
 }
 
 
-export default JapanPavilion;
+export default Home;
