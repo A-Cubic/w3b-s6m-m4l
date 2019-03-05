@@ -56,44 +56,165 @@ class Home extends PureComponent {
         count: 18,
       },
     });
+    this.hot();
   }
 
+  hot(){
+    const {homeModel:{getDownPart:{goodsList,page}} } = this.props;
+    //console.log('page',page)
+    this.props.dispatch({
+      type: 'homeModel/getDownPart',
+      payload: {
+        page:page
+      },
+    });
+  }
+
+
+
+  
+  handleDown = () => {
+    this.hot();
+  }
+
+
   render() {
+    const {homeModel:{getDownPart:{goodsList,page}} } = this.props;
+    const {homeModel:{getDownPart} } = this.props;
+    const {homeModel:{getUpPart}} = this.props;
+    const {homeModel:{getUpPart:{banner,homePageChangeGoodsItem}}} = this.props;
+   // console.log('循环',homePageChangeGoodsItem.classification)
+    console.log(77777777,getUpPart)
+
+    const bannerPlay = banner ?(
+      <Carousel
+          className={styles.carousel}
+          autoplay
+        >
+          {
+            banner.map((item,index) =>
+            (
+              <div
+                key={index}
+              >
+                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+              </div>
+            ))
+          }
+
+      </Carousel>
+    ):null;
+
     const {
       list: { list = [] },
       loading,
       form,
     } = this.props;
     const { getFieldDecorator } = form;
-    const allList = list ?(
-      <div>
-        <div style={{width: '100%',height: '50px',}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 日本馆</span ><em style={{marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+    // const allList = list ?(
+    //   <div>
+    //     <div style={{width: '100%',height: '50px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 日本馆</span ><em style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+    //     <Row >
+    //       <Col md={24} sm={24} xs={24} >
+    //         <div style={{textAlign:'right', marginBottom:'10px'}}>
+    //           <Tag color="red">分类一</Tag>
+    //           <Tag color="red">分类二</Tag>
+    //           <Tag color="red">分类三</Tag>
+    //           <Tag color="red">分类四</Tag>
+    //         </div>
+    //       </Col>
+
+    //     </Row>
+    //     <Row>
+    //       <List
+    //         style={{ textAlign: 'center' }}
+    //         rowKey="id"
+    //         loading={loading}
+    //         grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+    //         dataSource={list}
+    //     // pagination={{
+    //     //   onChange: (page) => {
+    //     //     console.log('page',page);
+    //     //   },
+    //     //   pageSize: 10,
+    //     // }}
+    //         renderItem={item => (
+    //           <List.Item>
+    //             <Card
+    //               className={styles.card}
+    //               hoverable
+    //               cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+    //             >
+    //               <Card.Meta
+    //                 title={<a>{item.subDescription}</a>}
+    //                 description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+    //               />
+    //             </Card>
+    //           </List.Item>
+    //         )}
+    //       />
+    //     </Row>
+    //     <Row type="flex" align="middle" className={styles.demo_flex}>
+    //       <Col  lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
+    //         <div style={{textAlign:'center'}}>热销商品</div>
+    //       </Col>
+    //       {
+    //         this.state.imgArr.map((item,index) =>
+    //         (
+    //           <Col
+    //             lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
+    //           >
+    //             <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+    //           </Col>
+    //         ))
+    //       }
+    //     </Row>
+    //   </div>
+    // ):null;
+
+    //homePageChangeGoodsItem
+    // {
+    //   banner.map((item,index) =>
+    //   (
+    //     <div
+    //       key={index}
+    //     >
+    //       <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+    //     </div>
+    //   ))
+    // }
+
+
+    const allList = homePageChangeGoodsItem ?(
+
+      homePageChangeGoodsItem.map((item,index) =>
+      (
+        <div
+          key={index}
+        >
+          <div style={{width: '100%',height: '50px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 日本馆</span ><em style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
         <Row >
           <Col md={24} sm={24} xs={24} >
-            <div style={{textAlign:'right', marginBottom:'10px'}}>
+            {/* <div style={{textAlign:'right', marginBottom:'10px'}}>
               <Tag color="red">分类一</Tag>
               <Tag color="red">分类二</Tag>
               <Tag color="red">分类三</Tag>
-              <Tag color="red">分类四</Tag>
-            </div>
+              <Tag color="red">分类四</Tag> */}
+              {
+                 homePageChangeGoodsItem[index].classification.map((item,index) =>
+                 (
+                   <span
+                    style={{textAlign:'right', marginBottom:'10px',float:'right'}}
+                    key={index}
+                   >
+                     <Tag color="red">{item.allclassification}</Tag>
+                   </span>
+                 ))
+              }
+            {/* </div> */}
           </Col>
-
         </Row>
         <Row>
-           {/*  把分类 提上面
-           <Col md={12} sm={24} xs={24} className={styles.con}>
-            <Card
-              bordered={false}
-            >
-              <div style={{paddingBottom:'60px',display: 'flex','flex-wrap': 'wrap'}}>
-                <Button className={styles.con_but}>分类一</Button>
-                <Button className={styles.con_but}>分类2</Button>
-                <Button className={styles.con_but}>分类3</Button>
-                <Button className={styles.con_but}>分类4</Button>
-                <Button className={styles.con_but}>分类5</Button>
-              </div>
-            </Card>
-          </Col>*/}
           <List
             style={{ textAlign: 'center' }}
             rowKey="id"
@@ -106,6 +227,7 @@ class Home extends PureComponent {
         //   },
         //   pageSize: 10,
         // }}
+
             renderItem={item => (
               <List.Item>
                 <Card
@@ -119,54 +241,83 @@ class Home extends PureComponent {
                   />
                 </Card>
               </List.Item>
-            )}
+            )}  
+
+            // renderItem={item => (
+            //   <List.Item>
+            //     <Card
+            //       className={styles.card}
+            //       hoverable
+            //       cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+            //     >
+            //       <Card.Meta
+            //         title={<a>{item.subDescription}</a>}
+            //         description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+            //       />
+            //     </Card>
+            //   </List.Item>
+            // )}
           />
         </Row>
-        <Row style={{display:'flex',}} className={styles.demo_flex}>
+        <Row type="flex" align="middle" className={styles.demo_flex}>
           <Col  lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
-            <div style={{textAlign:'center',}}>热销商品</div>
-                       </Col>
+            <div style={{textAlign:'center'}}>热销商品</div>
+          </Col>
           {
-                      this.state.imgArr.map((item,index) =>
-                      (
-                        <Col
-
-                          lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
-                        >
-
-                          <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
-                          </Col>
-                        ))
-                    }
-
+            // this.state.imgArr.map((item,index) =>
+            // (
+            //   <Col
+            //     lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
+            //   >
+            //     <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+            //   </Col>
+            // ))
+            homePageChangeGoodsItem[index].brandimgs.map((item,index) =>
+            (
+              <Col
+                lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
+              >
+                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+              </Col>
+            ))
+          }
         </Row>
-      </div>
+        </div>
+      ))
+      
+
+
+
+      
     ):null;
 
 
 
+
+
+
+//首页下半部 热销商品
 const allList_hot = list ?(
       <div>
-        <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span ><em style={{marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
+        <div onClick={this.handleDown} style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} ><span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span ><em style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin /></em></div>
         <Row>
-
           <List
             style={{ textAlign: 'center' }}
             rowKey="id"
             loading={loading}
             grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
-            dataSource={list}
+            dataSource={goodsList}
 
             renderItem={item => (
               <List.Item>
                 <Card
                   className={styles.card}
                   hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                  cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
                 >
                   <Card.Meta
-                    title={<a>{item.subDescription}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                    title={<a>{item.goodsName}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
                   />
                 </Card>
               </List.Item>
@@ -201,14 +352,19 @@ const allList_hot = list ?(
           </Col>
         </Row>
       </div>
-
     );
+
+   
+
+
     return (
+      
       <PageHeaderWrapper
         title=""
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-        <Carousel
+      {bannerPlay}
+        {/* <Carousel
           className={styles.carousel}
           autoplay
         >
@@ -218,7 +374,7 @@ const allList_hot = list ?(
           <div>
             <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
           </div>
-        </Carousel>
+        </Carousel> */}
 
         <div className={styles.coverCardList}>
 
