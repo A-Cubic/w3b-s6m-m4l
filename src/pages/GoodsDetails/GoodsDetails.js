@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Carousel, Button, Input } from 'antd';
+import { Row, Col, Form, Card, Carousel, Button, Input, Divider, Table  } from 'antd';
 import styles from './GoodsDetails.less';
 import DescriptionList from '@/components/DescriptionList';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -70,6 +70,45 @@ class GoodsDetails extends PureComponent {
     //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
     //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg'
     // ]
+    const dataSource = [
+      {
+      key: '1',
+      name:'商品名称(中文)',
+      content: 'ISHIZAWA LABS 石泽研究所 毛孔抚子日本大米面膜 10片',
+    }, {
+      key: '2',
+      name:'品牌',
+      content: '胡彦祖',
+    }, {
+      key: '3',
+      name:'进口国',
+      content: '日本',
+    }, {
+      key: '4',
+      name:'规格',
+      content: '700g/桶',
+    }, {
+      key: '5',
+      name:'生产商',
+      content: '胡彦祖',
+    }, {
+      key: '6',
+      name:'产品功效',
+      content: '产品功效',
+    }
+    ];
+    const columns = [
+      {
+        title: '商品参数',
+        dataIndex: 'name',
+        key: 'name',
+        width:150
+      },{
+        title: '商品参数',
+        dataIndex: 'content',
+        key: 'content',
+      }
+    ]
     return (
       <PageHeaderWrapper
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
@@ -77,7 +116,7 @@ class GoodsDetails extends PureComponent {
         <Card bordered={false}>
           <div className={styles.goodsDetails}>
             <div>
-              <Row gutter={16}>
+              <Row gutter={16} type="flex" align="middle">
                 <Col lg={12} md={12} sm={12} xs={24}>
                   <img style={{ width:'100%',padding:5 }} src={this.state.carouselImg} alt="" />
                   <Carousel autoplay slidesToShow={3} className={styles.carousel} beforeChange={this.beforeChange}>
@@ -95,27 +134,51 @@ class GoodsDetails extends PureComponent {
 
                   </Carousel>
                 </Col>
-                <Col lg={7} md={7} sm={7} xs={23} offset={1}>
-                  <h2>商品名称</h2>
+                <Col lg={11} md={11} sm={11} xs={23} offset={1}>
+                  <h2>ISHIZAWA LABS 石泽研究所 毛孔抚子日本大米面膜 10片</h2>
+                  <h3>精华非常多，敷完之后滋润弹嫩。第二天早晨的饱满感和滋润感，虽然只贴了5分钟，但是保湿力非常强！使用非常舒适。</h3>
+                  <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description term="所属品牌">纪阳除</Description>
-                    <Description term="原产地/国">日本</Description>
-                    <Description term="所属分类">入浴剂</Description>
-                    <Description term="单位型号">700g/桶</Description>
-                    <Description term="保质期"> ~ 2017-08-08</Description>
-                    <Description term="所在仓库">大连保税仓H</Description>
-                    <Description term="剩余库存">13</Description>
-                    <Description term="备注">存储方式成分人群等</Description>
+                    <Description term="价格">¥ 33.33</Description>
+                    {/*<Description term="原产地/国">日本</Description>*/}
+                    {/*<Description term="所属分类">入浴剂</Description>*/}
+                    {/*<Description term="单位型号">700g/桶</Description>*/}
+                    {/*<Description term="保质期"> ~ 2017-08-08</Description>*/}
+                    {/*<Description term="所在仓库">大连保税仓H</Description>*/}
+                    {/*<Description term="剩余库存">13</Description>*/}
+                    {/*<Description term="备注">存储方式成分人群等</Description>*/}
                   </DescriptionList>
                 </Col>
-                <Col lg={4} md={4} sm={4} xs={24}>
-                  <Button type="primary">加入购物车</Button>
+                {/*<Col lg={4} md={4} sm={4} xs={24}>*/}
+                  {/*<Button type="primary">加入购物车</Button>*/}
+                {/*</Col>*/}
+              </Row>
+
+              <Divider dashed />
+              <Row gutter={16} type="flex" justify="space-around">
+                <Col lg={23} md={23} sm={23} xs={23}>
+                  <Table
+                    pagination={false}
+                    dataSource={dataSource}
+                    columns={columns}
+                    bordered
+                    size="middle"
+                    showHeader={false}
+                    title={() => '产品参数'}
+                  />
                 </Col>
               </Row>
-            </div>
-            <div className={styles.imgsDetails}>
-              <Row gutter={16}>
-                <img style={{ width:'100%'}} src="http://ecc-product.oss-cn-beijing.aliyuncs.com/goodsuploads/4520060564008_xqy_1.jpg" alt="" />
+              <Divider dashed />
+              <Row gutter={16} type="flex" justify="space-around">
+                <Col lg={23} md={23} sm={23} xs={23}>
+                  <img style={{ width:'100%'}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/%E6%B6%88%E8%B4%B9%E9%A1%BB%E7%9F%A5.jpg" alt="" />
+                </Col>
+              </Row>
+              <Divider dashed />
+              <Row gutter={16} type="flex" justify="space-around">
+                <Col lg={23} md={23} sm={23} xs={23}>
+                  <img style={{ width:'100%'}} src="http://img10.360buyimg.com/imgzone/jfs/t1/15060/35/8384/136378/5c7623deE92004a46/31ba5e4dc2ecb53a.jpg" alt="" />
+                </Col>
               </Row>
             </div>
           </div>
