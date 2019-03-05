@@ -85,9 +85,9 @@ class JapanPavilion extends PureComponent {
         <div style={{textAlign:'center',marginBottom:'45px',marginTop:'25px'}}>
             <span style={{fontSize:'22px',color:'#000',fontWeight:'bold'}} >-------日本当下最火单品-------</span>
           </div>
-          <div className={styles.bottomLine}>
+          {/* <div className={styles.bottomLine}>
           日本当下最火单品
-          </div>
+          </div> */}
         <Row>
          
           <List

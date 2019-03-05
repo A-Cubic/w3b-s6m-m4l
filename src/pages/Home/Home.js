@@ -117,19 +117,9 @@ class JapanPavilion extends PureComponent {
             )}
           />
         </Row>
-        <Row style={{}}>
-          {/* <Col lg={2} md={4} sm={4} xs={4} style={{padding:'0'}}>
-            <Card
-              className={styles.cardBrand}
-              bordered={false}
-            >
-              <span style={{width:'50px'}}>热销商品</span>
-            </Card>
-              
-            
-          </Col> */}
+        <Row style={{display:'flex',}} className={styles.demo_flex}>
           <Col  lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
-            <div style={{textAlign:'center'}}>热销商品</div>
+            <div style={{textAlign:'center',}}>热销商品</div>
                        </Col>
           {
                       this.state.imgArr.map((item) =>
