@@ -156,14 +156,15 @@ function HomePage(req, res) {
 }
 
 export default {
-  'GET /api/geographic/province': getProvince,
-  // 'GET /api/geographic/city/:province': getCity,
-  'POST /llback/NewHomePage/HomePage': getAllClassification,
+ // 'POST /llback/NewHomePage/HomePage': getAllClassification,
 
-  // 模拟首页上半部 getDownPart,
-  'POST /llback/NewHomePage/AllClassification': HomePage,
+  // 模拟首页上半部 ,
+ // 'POST /llback/NewHomePage/AllClassification': HomePage,
+// 模拟首页上半部换一批 ,
+ // 'POST /llback/NewHomePage/HomePageChangeGoods': getDownPart,
   // 模拟首页下半部 
-  'POST /llback/NewHomePage/HomePageDownPart': getDownPart,
+ // 'POST /llback/NewHomePage/HomePageDownPart': getDownPart,
   // 'POST /llback/NewHomePage/HomePageDownPart': a,
+  
 };
 
