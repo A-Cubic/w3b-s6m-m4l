@@ -23,13 +23,14 @@ export default [
         routes: [
           {
             icon: 'smile',
-            path: '/category/mu',
+            path: '/category/mu/:category=1',
             name:'mu',
+            target: '_blank',
             component: './Category/Category',
           },
           {
             icon: 'coffee',
-            path: '/category/jia',
+            path: '/category/jia/:category=2',
             name:'jia',
             component: './Category/Category',
           },
