@@ -1,55 +1,45 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-
+import { getCountryGoods } from '@/services/JapanPavilion_S';
 export default {
   namespace: 'japanPavilionModel',
+    state: {
 
-  state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
+      JapanPavilion: {
+        
+      }
+
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+   
+     // 获取日本列表接口
+     *getCountryGoods({ payload }, { call, put }) {
+      const response = yield call(getCountryGoods, payload);
+      if(response!==undefined){
+       if(response.type==1){
+          yield put({
+            type: 'getCountryGoodsR',
+            payload: response,
+          });
+        }else{
+          message.error('数据为空，请联系客服');
+        }
+      }
     },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
+
   },
 
   reducers: {
-    save(state, action) {
+    getCountryGoodsR(state, action){
       return {
         ...state,
-        data: action.payload,
-      };
-    },
+        JapanPavilion:action.payload
+       
+      }
+    },	
+
+
+
+
   },
 };

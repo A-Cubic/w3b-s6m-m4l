@@ -13,9 +13,9 @@ const FormItem = Form.Item;
 
 /* eslint react/no-array-index-key: 0 */
 
-@connect(({ list, loading }) => ({
+@connect(({ list, loading ,japanPavilionModel}) => ({
   list,
-  loading: loading.models.list,
+  loading: loading.models.list,japanPavilionModel
 }))
 @Form.create({
   onValuesChange({ dispatch }, changedValues, allValues) {
@@ -23,26 +23,58 @@ const FormItem = Form.Item;
     // eslint-disable-next-line
     console.log(changedValues, allValues);
     // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
+    // dispatch({
+    //   type: 'list/fetch',
+    //   payload: {
+    //     count: 18,
+    //   },
+    // });
   },
 })
 class JapanPavilion extends PureComponent {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
+    this.init()
+  }
+
+  init(){
+    this.props.dispatch({
+      type: 'japanPavilionModel/getCountryGoods',
       payload: {
-        count: 18,
+        country:'日本'
       },
     });
   }
 
+
+
   render() {
+    ///const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
+    const {japanPavilionModel:{JapanPavilion} } = this.props;
+    const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
+
+    
+
+    const bannerPlay = banner ?(
+      <Carousel
+          className={styles.carousel}
+          autoplay
+        >
+          {
+            banner.map((item,index) =>
+            (
+              <div
+                key={index}
+              >
+                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+              </div>
+            ))
+          }
+
+      </Carousel>
+    ):null;
+
+
+
     const {
       list: { list = [] },
       loading,
@@ -56,7 +88,7 @@ class JapanPavilion extends PureComponent {
         rowKey="id"
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
-        dataSource={list}
+        dataSource={brands}
         // pagination={{
         //   onChange: (page) => {
         //     console.log(page);
@@ -68,11 +100,11 @@ class JapanPavilion extends PureComponent {
             <Card
                   className={styles.card}
                   hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
                 >
                   <Card.Meta
-                    title={<a>{item.subDescription}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                    // title={<a>{item.subDescription}</a>}
+                    description={<Ellipsis  lines={2}>{item.brandsName}</Ellipsis>}
                   />
             </Card>
           </List.Item>
@@ -83,11 +115,10 @@ class JapanPavilion extends PureComponent {
     const allList_hot = list ?(
       <div>
         <div style={{textAlign:'center',marginBottom:'45px',marginTop:'25px'}}>
-            <span style={{fontSize:'22px',color:'#000',fontWeight:'bold'}} >-------日本当下最火单品-------</span>
+            <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}} >
+              —————<em style={{margin:'0 25px',fontStyle:'normal'}}>日本当下最火单品</em>—————
+            </span>
           </div>
-          {/* <div className={styles.bottomLine}>
-          日本当下最火单品
-          </div> */}
         <Row>
          
           <List
@@ -95,18 +126,18 @@ class JapanPavilion extends PureComponent {
             rowKey="id"
             loading={loading}
             grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
-            dataSource={list}
+            dataSource={goods}
       
             renderItem={item => (
               <List.Item>
                 <Card
                   className={styles.card}
                   hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
                 >
                   <Card.Meta
-                    title={<a>{item.subDescription}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                    title={<a>{item.goodsName}</a>}
+                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
                   />
                 </Card>
               </List.Item>
@@ -116,9 +147,6 @@ class JapanPavilion extends PureComponent {
     
       </div>
     ):null;  
-
-
-
     const formItemLayout = {
       wrapperCol: {
         xs: { span: 24 },
@@ -144,25 +172,15 @@ class JapanPavilion extends PureComponent {
     return (
       <PageHeaderWrapper
         title=""
+        content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-        <Carousel
-          className={styles.carousel}
-          autoplay
-        >
-          <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-          </div>
-          <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-          </div>
-        </Carousel>
-
+        {bannerPlay}
         <div className={styles.coverCardList}>
           <div style={{textAlign:'center',marginBottom:'45px'}}>
-            <span style={{fontSize:'22px',color:'#000',fontWeight:'bold'}}>-------日本当地百姓最爱用的品牌-------</span>
+            <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}} >
+              —————<em style={{margin:'0 25px',fontStyle:'normal'}}>日本当地百姓最爱用的品牌</em>—————
+            </span>
           </div>
-
-
           <div className={styles.cardList}>
             {cardList}
             {allList_hot}
