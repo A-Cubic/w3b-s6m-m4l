@@ -10,14 +10,15 @@ const { Description } = DescriptionList;
 /* eslint react/no-array-index-key: 0 */
 
 // 商品详情页
-@connect(({ list, loading }) => ({
+@connect(({ list, loading,goodsDetailsModel }) => ({
   list,
   loading: loading.models.list,
+  goodsDetailsModel
 }))
 @Form.create()
 class GoodsDetails extends PureComponent {
   state={
-    carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
+    carouselImg :'',
     imgArr:[
       'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
       'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
@@ -29,15 +30,43 @@ class GoodsDetails extends PureComponent {
   }
 
   componentDidMount() {
-
+    this.init()
   }
 
   beforeChange=(a,b)=>{
+    const {goodsDetailsModel:{goodsDetails:{img}} } = this.props;
+    
+    console.log(
+      'a,b',a,b,img
+    )    
     const that = this
     this.setState({
-      carouselImg:that.state.imgArr[b]
+     // carouselImg:that.state.imgArr[b]
+     carouselImg:img[b]
     })
+    
   }
+
+  init(){
+    const {match,dispatch}=this.props;
+    console.log('match',match.params.barcode)
+    this.props.dispatch({
+      type: 'goodsDetailsModel/getGoodsDetails',
+      payload: {
+        barcode:match.params.barcode
+      },
+    });
+  }
+  hot(){
+    //const {goodsDetailsModel:{getDownPart:{goodsList,page}} } = this.props;
+    this.props.dispatch({
+      type: 'goodsDetailsModel/getDownPart',
+      payload: {
+        pageSize:"30"
+      },
+    });
+  }
+
 
   render() {
     // const formItemLayout = {
@@ -46,6 +75,10 @@ class GoodsDetails extends PureComponent {
     //     sm: { span: 16 },
     //   },
     // };
+    const {goodsDetailsModel:{goodsDetails} } = this.props;
+    const {goodsDetailsModel:{goodsDetails:{img,imgone}} } = this.props;
+    //const {goodsDetailsModel:{GoodsDetails:{banner,brands,goods}} } = this.props;
+    console.log('goodsDetails',goodsDetails)
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -109,7 +142,52 @@ class GoodsDetails extends PureComponent {
         key: 'content',
       }
     ]
+    console.log(7777,img)
+
+
+    //首页下半部 热销商品
+    // const allList_hot = list ?(
+    //   <div>
+    //     <div  style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} >
+    //       <span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span >
+    //       <em onClick={this.handleDown} style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>
+    //         换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin />
+    //       </em>
+    //     </div>
+    //     <Row>
+    //       <List
+    //         style={{ textAlign: 'center' }}
+    //         rowKey="id"
+    //         loading={loading}
+    //         grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+    //         dataSource={goodsList}
+    //         renderItem={item => (
+    //           <List.Item>
+    //             <Card
+    //               className={styles.card}
+    //               hoverable
+    //               cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
+    //             >
+    //               <Card.Meta
+    //                 title={<a>{item.goodsName}</a>}
+    //                 description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+    //               />
+    //             </Card>
+    //           </List.Item>
+    //         )}
+    //       />
+    //     </Row>
+
+    //   </div>
+    // ):null;
+
     return (
+      
+      
+
+
+
+
       <PageHeaderWrapper
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
@@ -117,11 +195,14 @@ class GoodsDetails extends PureComponent {
           <div className={styles.goodsDetails}>
             <div>
               <Row gutter={16} type="flex" align="middle">
-                <Col lg={12} md={12} sm={12} xs={24}>
-                  <img style={{ width:'100%',padding:5 }} src={this.state.carouselImg} alt="" />
-                  <Carousel autoplay slidesToShow={3} className={styles.carousel} beforeChange={this.beforeChange}>
-                    {
-                      this.state.imgArr.map((item) =>
+                <Col lg={10} md={10} sm={10} xs={24}>
+                  <img style={{ width:'100%',padding:5,background:'pink' }} src={imgone} alt="" />
+                  <Carousel autoplay slidesToShow={4} className={styles.carousel} beforeChange={this.beforeChange}>
+                    { 
+                       
+                     
+                      // this.state.imgArr.map((item) =>
+                      img.map((item) =>
                       (
                         <div
                           key={item}
@@ -133,13 +214,14 @@ class GoodsDetails extends PureComponent {
 
 
                   </Carousel>
+                  
                 </Col>
-                <Col lg={11} md={11} sm={11} xs={23} offset={1}>
+                <Col lg={13} md={13} sm={13} xs={23} offset={1}>
                   <h2>ISHIZAWA LABS 石泽研究所 毛孔抚子日本大米面膜 10片</h2>
                   <h3>精华非常多，敷完之后滋润弹嫩。第二天早晨的饱满感和滋润感，虽然只贴了5分钟，但是保湿力非常强！使用非常舒适。</h3>
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description term="价格">¥ 33.33</Description>
+                    <Description term="价格">¥ {GoodsDetails.price}</Description>
                     {/*<Description term="原产地/国">日本</Description>*/}
                     {/*<Description term="所属分类">入浴剂</Description>*/}
                     {/*<Description term="单位型号">700g/桶</Description>*/}
@@ -180,9 +262,32 @@ class GoodsDetails extends PureComponent {
                   <img style={{ width:'100%'}} src="http://img10.360buyimg.com/imgzone/jfs/t1/15060/35/8384/136378/5c7623deE92004a46/31ba5e4dc2ecb53a.jpg" alt="" />
                 </Col>
               </Row>
+               {/* <Row gutter={16} type="flex" justify="space-around">
+                <Col lg={23} md={23} sm={23} xs={23}>
+                  {
+                    // this.state.imgArr.map((item) =>
+                    this.state.imgArr.map((item,index) =>
+                    (
+                      <div
+                        key={index}
+                      >
+                        <img style={{ width:'100%',padding:5 }} src={item} alt="" />
+                      </div>
+                      ))
+                  
+                  }
+                </Col>
+              </Row> */}
+              <Divider dashed />
             </div>
           </div>
         </Card>,
+        {/* <div className={styles.coverCardList}>
+          <div className={styles.cardList}>
+         
+            {allList_hot}
+          </div>
+        </div> */}
       </PageHeaderWrapper>
     );
   }

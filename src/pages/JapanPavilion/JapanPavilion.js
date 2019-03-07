@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
-
+import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -44,8 +44,10 @@ class JapanPavilion extends PureComponent {
       },
     });
   }
-
-
+  handleCommodityDetails = (item) => { 
+    //this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
+    this.props.dispatch(routerRedux.push('/goodsDetails/' + item.barcode  ));
+  }
 
   render() {
     ///const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
@@ -131,6 +133,7 @@ class JapanPavilion extends PureComponent {
             renderItem={item => (
               <List.Item>
                 <Card
+                  onClick={() => this.handleCommodityDetails(item)}
                   className={styles.card}
                   hoverable
                   cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}

@@ -103,7 +103,7 @@ export default [
       // },
       //商品详情
       {
-          path: '/goodsDetails',
+          path: '/goodsDetails/:barcode',
           name: 'goodsDetails',
           component: './GoodsDetails/GoodsDetails',
       },
