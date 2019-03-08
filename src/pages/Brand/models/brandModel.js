@@ -5,11 +5,6 @@ export default {
   namespace: 'brandModel',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
-
     brandsGoods:{
       advimg:[],
       brandName:'',
@@ -17,46 +12,12 @@ export default {
       goods:[],
       pagination:{}
     }
-
-
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-    },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-
+    //获取品牌列表 分页接口
     *getBrandsGoods({ payload }, { call, put }) {
       const response = yield call(getBrandsGoods, payload);
-     
       if(response!==undefined){
         if(response.type==1){
           yield put({
@@ -79,13 +40,6 @@ export default {
   },
 
   reducers: {
-    save(state, action) {
-      return {
-        ...state,
-        data: action.payload,
-      };
-    },
-
     getBrandsGoodsR(state, action){
     
       return {

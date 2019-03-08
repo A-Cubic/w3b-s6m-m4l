@@ -24,31 +24,14 @@ const FormItem = Form.Item;
     // eslint-disable-next-line
     console.log(changedValues, allValues);
     // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
   },
 })
 class Brand extends PureComponent {
   state={
-    imgArr:[
-      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
-      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
-      'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
-    ]
+
   }
   componentDidMount() {
     const { match,dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
-
     this.init()
 
   }
@@ -62,13 +45,26 @@ class Brand extends PureComponent {
     });
   }
 
+  inchange(page){
+    const {match,dispatch}=this.props;
+    const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
+   
+    this.props.dispatch({
+      type: 'brandModel/getBrandsGoods',
+      payload: {
+        brandsName:match.params.brandsName,
+        current:page,
+        pageSize:pagination.pageSize
+      },
+    });
+  }
 
   render() {
 
     const {brandModel:{brandsGoods} } = this.props;
     const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-    console.log(777777777777,brandsGoods)
-
+    //console.log(777777777777,brandsGoods)
+    
     const {
       list: { list = [] },
       loading,
@@ -82,12 +78,38 @@ class Brand extends PureComponent {
         rowKey="id"
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
-        dataSource={list}
+        dataSource={goods}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+           // console.log(page);
+            // const {match,dispatch}=this.props;
+            // const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
+            // this.props.dispatch({
+            //   type: 'brandModel/getBrandsGoods',
+            //   payload: {
+            //     brandsName:match.params.brandsName,
+            //     current:page,
+            //     pageSize:pagination.pageSize
+            //   },
+            // });
+            console.log('page',page)
+            this.inchange(page)
           },
-          pageSize: 10,
+          onShowSizeChange: (current, pageSize) => {
+            console.log('page',current, pageSize)
+            const {match,dispatch}=this.props;
+            const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
+            this.props.dispatch({
+              type: 'brandModel/getBrandsGoods',
+              payload: {
+                brandsName:match.params.brandsName,
+               
+                pageSize:pageSize
+              },
+            });
+
+          },
+          pageSize: pagination.pageSize,
           showSizeChanger: true,
           showQuickJumper: true,
         }}
@@ -96,18 +118,17 @@ class Brand extends PureComponent {
             <Card
               className={styles.card}
               hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
             >
               <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                title={<a>{item.goodsName}</a>}
+                description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
               />
             </Card>
           </List.Item>
         )}
       />
     ) : null;
-
     const formItemLayout = {
       wrapperCol: {
         xs: { span: 24 },
@@ -128,15 +149,12 @@ class Brand extends PureComponent {
           </Col>
         </Row>
       </div>
-
     );
     return (
       <PageHeaderWrapper
         title=""
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-
-
         <div className={styles.coverCardList}>
           <Card bordered={false}>
             <Row gutter={16} type="flex" align="top">
@@ -166,9 +184,8 @@ class Brand extends PureComponent {
                   </div>
                 </div>
                 <Divider dashed />
-                <h4>1957年8月，贝亲株式会社在日本成立，目前已成为日本知名婴儿用品公司，经历50多年的成长与发展成
-                  为国际知名母婴用品品牌。贝亲的英文名称“pigeon”是鸽子的意思，象征和平。贝亲标志中的“p”为母子
-                  的“心连心”形象，象征深厚而无尽的母爱。贝亲真诚将母子的爱融入到产品中，铸就了贝亲产品。
+                <h4>
+                  {brandsGoods.description}
                 </h4>
               </Col>
             </Row>
