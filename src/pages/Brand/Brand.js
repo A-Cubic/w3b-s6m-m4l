@@ -13,10 +13,9 @@ const FormItem = Form.Item;
 
 /* eslint react/no-array-index-key: 0 */
 
-@connect(({ list, loading,brandModel }) => ({
+@connect(({ list, loading }) => ({
   list,
   loading: loading.models.list,
-  brandModel
 }))
 @Form.create({
   onValuesChange({ dispatch }, changedValues, allValues) {
@@ -41,34 +40,16 @@ class Brand extends PureComponent {
     ]
   }
   componentDidMount() {
-    const { match,dispatch } = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'list/fetch',
       payload: {
         count: 18,
       },
     });
-
-    this.init()
-
   }
-  init(){
-    const {match,dispatch}=this.props;
-    this.props.dispatch({
-      type: 'brandModel/getBrandsGoods',
-      payload: {
-        brandsName:match.params.brandsName,
-      },
-    });
-  }
-
 
   render() {
-
-    const {brandModel:{brandsGoods} } = this.props;
-    const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-    console.log(777777777777,brandsGoods)
-
     const {
       list: { list = [] },
       loading,
@@ -143,8 +124,7 @@ class Brand extends PureComponent {
               <Col lg={12} md={12} sm={24} xs={24}>
                 <Carousel autoplay slidesToShow={1} className={styles.carousel} beforeChange={this.beforeChange}>
                   {
-                    // this.state.imgArr.map((item) =>
-                    advimg.map((item) =>
+                    this.state.imgArr.map((item) =>
                       (
                         <div
                           key={item}
@@ -158,11 +138,11 @@ class Brand extends PureComponent {
               <Col lg={11} md={11} sm={23} xs={23} offset={1}>
                 <div style={{display:'flex'}}>
                   <div>
-                    <img style={{ width:'100px',padding:5 }} src={brandimg} alt="" />
+                    <img style={{ width:'100px',padding:5 }} src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1551690059&di=a90d5d76bebd15b34299f90412ccd656&src=http://ku.90sjimg.com/element_origin_min_pic/16/11/24/0db9b6fc3024acb7b6db8c94b3db4ae1.jpg" alt="" />
                   </div>
                   <div>
-                    <h2>{brandName}</h2>
-                    <h3>在售商品 <span style={{color:'red'}}>{pagination.total}</span>个 </h3>
+                    <h2>pigeon 贝亲</h2>
+                    <h3>在售商品 <span style={{color:'red'}}>7868</span>个 </h3>
                   </div>
                 </div>
                 <Divider dashed />

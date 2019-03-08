@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
 
-import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -42,10 +41,6 @@ class KoreaPavilion extends PureComponent {
     });
   }
 
-  handleBrand = (item) => {
-    this.props.dispatch(routerRedux.push('/brand/' + item.brandsName));
-   }
-
   render() {
     const {koreaPavilionModel:{KoreaPavilion} } = this.props;
     const {koreaPavilionModel:{KoreaPavilion:{banner,brands,goods}} } = this.props;
@@ -84,7 +79,6 @@ class KoreaPavilion extends PureComponent {
         renderItem={item => (
           <List.Item>
             <Card
-                  onClick={() => this.handleBrand(item)}
                   className={styles.card}
                   hoverable
                   cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel,Icon,Button,Tag    } from 'antd';
 
-import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -61,9 +60,8 @@ class Home extends PureComponent {
   handleClassification= (item) => {
    // console.log('跳品类页',item)
   }
-  handleBrand = (item) => {
-   
-   this.props.dispatch(routerRedux.push('/brand/' + item.brandsName));
+  handleBanner = (item) => {
+  //  console.log('跳品牌页',item)
   }
 
 
@@ -73,9 +71,7 @@ class Home extends PureComponent {
     const {homeModel:{getDownPart} } = this.props;
     const {homeModel:{getUpPart}} = this.props;
     const {homeModel:{getUpPart:{banner,homePageChangeGoodsItem}}} = this.props;
-    
-    // console.log('77777getUpPart',getUpPart)
-
+   
     const bannerPlay = banner ?(
       <Carousel
           className={styles.carousel}
@@ -167,7 +163,7 @@ class Home extends PureComponent {
               <Col
                 lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
               >
-                <img onClick={() => this.handleBrand(item,index)}  style={{ width:'100%',padding:0,cursor:'pointer' }}  src={item.imgurl} alt="" />
+                <img onClick={() => this.handleBanner(item,index)}  style={{ width:'100%',padding:0 }}  src={item.imgurl} alt="" />
               </Col>
             ))
           }
