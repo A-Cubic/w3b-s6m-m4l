@@ -7,7 +7,7 @@ import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './JapanPavilion.less';
-
+import { stringify } from 'qs';
 const { Option } = Select;
 const FormItem = Form.Item;
 
@@ -44,30 +44,38 @@ class JapanPavilion extends PureComponent {
       },
     });
   }
-  handleCommodityDetails = (item) => { 
-    //this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
-    this.props.dispatch(routerRedux.push('/goodsDetails/' + item.barcode  ));
+
+  handleCommodityDetails = (item) => {
+    // this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
+    const location = {
+    pathname:`/goodsDetails/${  item.barcode}`,
+    search: stringify({
+        redirect: window.location.href,
+      })
+    }
+    this.props.dispatch(routerRedux.push( location ));
+    // window.location.href=`http://localhost:8000/goodsDetails/${item.barcode}`
   }
 
   render() {
-    ///const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
+    // /const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
     const {japanPavilionModel:{JapanPavilion} } = this.props;
     const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
 
-    
+
 
     const bannerPlay = banner ?(
       <Carousel
-          className={styles.carousel}
-          autoplay
-        >
-          {
+        className={styles.carousel}
+        autoplay
+      >
+        {
             banner.map((item,index) =>
             (
               <div
                 key={index}
               >
-                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+                <img style={{ width:'100%',padding:0 }} src={item} alt="" />
               </div>
             ))
           }
@@ -100,56 +108,58 @@ class JapanPavilion extends PureComponent {
         renderItem={item => (
           <List.Item>
             <Card
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-                >
-                  <Card.Meta
+              className={styles.card}
+              hoverable
+              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+            >
+              <Card.Meta
                     // title={<a>{item.subDescription}</a>}
-                    description={<Ellipsis  lines={2}>{item.brandsName}</Ellipsis>}
-                  />
+                description={<Ellipsis lines={2}>{item.brandsName}</Ellipsis>}
+              />
             </Card>
           </List.Item>
         )}
       />
     ) : null;
-    
+
     const allList_hot = list ?(
       <div>
         <div style={{textAlign:'center',marginBottom:'45px',marginTop:'25px'}}>
-            <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}} >
+          <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}}>
               —————<em style={{margin:'0 25px',fontStyle:'normal'}}>日本当下最火单品</em>—————
-            </span>
-          </div>
+          </span>
+        </div>
         <Row>
-         
+
           <List
             style={{ textAlign: 'center' }}
             rowKey="id"
             loading={loading}
             grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
             dataSource={goods}
-      
+
             renderItem={item => (
               <List.Item>
-                <Card
-                  onClick={() => this.handleCommodityDetails(item)}
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-                >
-                  <Card.Meta
-                    title={<a>{item.goodsName}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                  />
-                </Card>
+                <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+                  <Card
+                    // onClick={() => this.handleCommodityDetails(item)}
+                    className={styles.card}
+                    hoverable
+                    cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                  >
+                    <Card.Meta
+                      title={<p>{item.goodsName}</p>}
+                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             )}
           />
         </Row>
-    
+
       </div>
-    ):null;  
+    ):null;
     const formItemLayout = {
       wrapperCol: {
         xs: { span: 24 },
@@ -180,7 +190,7 @@ class JapanPavilion extends PureComponent {
         {bannerPlay}
         <div className={styles.coverCardList}>
           <div style={{textAlign:'center',marginBottom:'45px'}}>
-            <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}} >
+            <span style={{fontSize:'22px',color:'#555',fontWeight:'bold'}}>
               —————<em style={{margin:'0 25px',fontStyle:'normal'}}>日本当地百姓最爱用的品牌</em>—————
             </span>
           </div>

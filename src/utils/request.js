@@ -5,8 +5,8 @@ import hash from 'hash.js';
 import { isAntdPro } from './utils';
 import { getHeader } from './whole';
 
-const apiUrl = process.env.NODE_ENV === 'development' ? 'http://console.llwell.net/' : '';
-const testUrl = process.env.NODE_ENV === 'development' ? 'http://192.168.0.127:54195/' : '';
+const apiUrl = process.env.NODE_ENV === 'development' ? 'http://console.llwell.net' : '';
+const testUrl = process.env.NODE_ENV === 'development' ? 'http://192.168.0.127:54195' : '';
 export {apiUrl,testUrl};
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
