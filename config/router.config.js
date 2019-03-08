@@ -109,7 +109,7 @@ export default [
       },
       //品牌页
       {
-          path: '/brand',
+          path: '/brand/:brandsName',
           name: 'brand',
           component: './Brand/Brand',
       },
