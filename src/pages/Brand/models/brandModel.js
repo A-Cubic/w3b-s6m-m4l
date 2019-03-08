@@ -1,13 +1,24 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-
+import { getBrandsGoods } from '@/services/Brand_S';
+import { message } from 'antd';
 export default {
-  namespace: 'japanPavilionModel',
+  namespace: 'brandModel',
 
   state: {
     data: {
       list: [],
       pagination: {},
     },
+
+    brandsGoods:{
+      advimg:[],
+      brandName:'',
+      brandimg:'',
+      goods:[],
+      pagination:{}
+    }
+
+
   },
 
   effects: {
@@ -42,6 +53,29 @@ export default {
       });
       if (callback) callback();
     },
+
+    *getBrandsGoods({ payload }, { call, put }) {
+      const response = yield call(getBrandsGoods, payload);
+     
+      if(response!==undefined){
+        if(response.type==1){
+          yield put({
+            type: 'getBrandsGoodsR',
+            payload: response,
+          });
+        }else{
+          message.error('数据为空，请联系客服');
+        }
+      }
+    },
+
+
+
+
+
+
+
+
   },
 
   reducers: {
@@ -51,5 +85,14 @@ export default {
         data: action.payload,
       };
     },
+
+    getBrandsGoodsR(state, action){
+    
+      return {
+        ...state,
+         brandsGoods:action.payload
+      }
+    },	
+
   },
 };
