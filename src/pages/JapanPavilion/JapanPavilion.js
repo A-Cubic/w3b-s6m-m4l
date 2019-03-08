@@ -56,7 +56,7 @@ class JapanPavilion extends PureComponent {
 
     
 
-    const bannerPlay = banner ?(
+    const bannerPlay = list ?(
       <Carousel
           className={styles.carousel}
           autoplay
