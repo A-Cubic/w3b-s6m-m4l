@@ -23,6 +23,14 @@ export default [
         routes: [
           {
             icon: 'smile',
+            path: '/category/from/:category',
+            name:'from',
+            target: '_blank',
+            // hideInMenu: true,
+            component: './Category/Category',
+          },
+          {
+            icon: 'smile',
             path: '/category/mu/:category=1',
             name:'mu',
             target: '_blank',
