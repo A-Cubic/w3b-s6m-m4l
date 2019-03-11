@@ -59,7 +59,8 @@ class Home extends PureComponent {
     });
   }
   handleClassification= (item) => {
-   // console.log('跳品类页',item)
+   console.log('跳品类页',item)
+   //
   }
   handleBrand = (item) => {
    
@@ -122,6 +123,7 @@ class Home extends PureComponent {
               {
                  homePageChangeGoodsItem[index].classification.map((item,index) =>
                  (
+                  <Link key={index} target="_blank" to={`/category/from/${item.country}/${item.classificationST}`}>
                    <span
                     style={{textAlign:'right', marginBottom:'10px',float:'right'}}
                     key={index}
@@ -129,6 +131,7 @@ class Home extends PureComponent {
                    >
                      <Tag color="red">{item.allclassification}</Tag>
                    </span>
+                  </Link>
                  ))
               }
             {/* </div> */}

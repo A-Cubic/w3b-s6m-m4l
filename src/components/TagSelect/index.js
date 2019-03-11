@@ -7,9 +7,9 @@ import styles from './index.less';
 const { CheckableTag } = Tag;
 
 const TagSelectOption = ({ children, checked, onChange, value }) => (
-  <CheckableTag checked={checked} key={value} onChange={state => onChange(value, state)}>
+  <Tag color="#f5222d" checked={checked} key={value} onChange={state => onChange(value, state)}>
     {children}
-  </CheckableTag>
+  </Tag>
 );
 
 TagSelectOption.isTagSelectOption = true;

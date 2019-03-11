@@ -92,11 +92,11 @@ class Brand extends PureComponent {
             //     pageSize:pagination.pageSize
             //   },
             // });
-            console.log('page',page)
+          //  console.log('page',page)
             this.inchange(page)
           },
           onShowSizeChange: (current, pageSize) => {
-            console.log('page',current, pageSize)
+           // console.log('page',current, pageSize)
             const {match,dispatch}=this.props;
             const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
             this.props.dispatch({
@@ -118,7 +118,7 @@ class Brand extends PureComponent {
             <Card
               className={styles.card}
               hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+              cover={<img style={{padding: 20}}  src={item.imgurl} />}
             >
               <Card.Meta
                 title={<a>{item.goodsName}</a>}

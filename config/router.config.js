@@ -23,7 +23,8 @@ export default [
         routes: [
           {
             icon: 'smile',
-            path: '/mall/category/from/:category',
+
+            path: '/mall/category/from/:category/:con',
             name:'from',
             target: '_blank',
             // hideInMenu: true,
@@ -123,7 +124,8 @@ export default [
       },
       //搜索结果页
       {
-          path: '/mall/search',
+
+          path: '/mall/search/:value',
           name: 'search',
           component: './Search/Search',
       },
