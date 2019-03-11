@@ -9,6 +9,7 @@ export default {
   'menu.category.mei': '美容彩妆',
   'menu.category.shi': '食品保健',
   'menu.category.fu': '服饰鞋包',
+  'menu.category.from': '分类',
   'menu.Home': '首页',
   'menu.JapanPavilion': '日本馆',
   'menu.KoreaPavilion': '韩国馆',

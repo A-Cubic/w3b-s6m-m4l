@@ -2,6 +2,7 @@ import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
 import { getDownPart } from '@/services/home_S';
 import { getGoodsDetails } from '@/services/GoodsDetails_S';
 import { message } from 'antd';
+
 export default {
   namespace: 'goodsDetailsModel',
 
@@ -16,11 +17,12 @@ export default {
       imgone:''
     },
     getDownPart: {
+      goodsList:[]
     },
   },
 
   effects: {
-    
+
     // 获取详情列表
     *getGoodsDetails({ payload }, { call, put }) {
       const response = yield call(getGoodsDetails, payload);
@@ -41,7 +43,7 @@ export default {
       const response = yield call(getDownPart, payload);
      // console.log('~xxxxxxxxxx',response)
       if(response!==undefined){
-        if(response.type==1){
+        if(response.type == 1){
           yield put({
             type: 'getDownPartR',
             payload: response,
@@ -49,7 +51,7 @@ export default {
         } else {
           message.error('数据为空，请联系客服');
         }
-        
+
       }
     },
 
@@ -58,6 +60,7 @@ export default {
 
   reducers: {
     getGoodsDetailsR(state, action){
+
       return {
         ...state,
        // goodsDetails:action.payload,
@@ -69,17 +72,39 @@ export default {
           goodsName:action.payload.goodsName,
           goodsDes:action.payload.discription,
           price:action.payload.price,
-          goodsDetailImgArr:action.payload.goodsDetailImgArr,   
+          goodsDetailImgArr:action.payload.goodsDetailImgArr,
         }
       }
-    },	
+    },
 
     getDownPartR(state, action){
       return {
         ...state,
         getDownPart:action.payload
       }
-    },	
+    },
+
+    changeShowImgR(state, action){
+      if(state.goodsDetails.img.length<2){
+        return{
+          ...state,
+          goodsDetails:{
+            ...state.goodsDetails,
+            imgone:state.goodsDetails.img[0],
+          }
+        }
+      }
+        return {
+          ...state,
+          goodsDetails:{
+            ...state.goodsDetails,
+            imgone:state.goodsDetails.img[action.payload],
+          }
+        }
+
+
+
+    },
 
 
   },

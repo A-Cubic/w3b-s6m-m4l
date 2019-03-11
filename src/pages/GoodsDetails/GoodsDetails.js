@@ -18,9 +18,9 @@ const { Description } = DescriptionList;
 }))
 @Form.create()
 class GoodsDetails extends PureComponent {
-  
+
   state={
-  
+
     // carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
     // imgArr:[
     //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
@@ -38,17 +38,10 @@ class GoodsDetails extends PureComponent {
   }
 
   beforeChange=(a,b)=>{
-    const {goodsDetailsModel:{goodsDetails:{img,imgone}} } = this.props;
-    const that = this
-    // console.log('b',b)
-
-    // img[b]
-
-
-    // this.setState({
-    //  // carouselImg:that.state.imgArr[b]
-    //  imgone:img[b],
-    // })
+    this.props.dispatch({
+      type: 'goodsDetailsModel/changeShowImgR',
+      payload: b,
+    });
   }
 
   init(){
@@ -57,12 +50,12 @@ class GoodsDetails extends PureComponent {
       type: 'goodsDetailsModel/getGoodsDetails',
       payload: {
         barcode:match.params.barcode,
-
       },
     });
   }
+
   hot(){
-    //const {goodsDetailsModel:{getDownPart:{goodsList,page}} } = this.props;
+    // const {goodsDetailsModel:{getDownPart:{goodsList,page}} } = this.props;
     this.props.dispatch({
       type: 'goodsDetailsModel/getDownPart',
       payload: {
@@ -72,9 +65,8 @@ class GoodsDetails extends PureComponent {
   }
 
   render() {
-    const {goodsDetailsModel:{goodsDetails,getDownPart} } = this.props;
-    const {goodsDetailsModel:{getDownPart:{goodsList}} } = this.props;
-    const {goodsDetailsModel:{goodsDetails:{img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -129,17 +121,17 @@ class GoodsDetails extends PureComponent {
         key: 'content',
       }
     ]
-    
+
     const {
       list: { list = [] },
       loading,
     } = this.props;
 
-    //热销商品
+    // 热销商品
     const allList_hot = list ?(
       <div>
-        <div  style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} >
-          <span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span >
+        <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top}>
+          <span className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span>
         </div>
         <Row>
           <List
@@ -175,19 +167,30 @@ class GoodsDetails extends PureComponent {
           <div className={styles.goodsDetails}>
             <div>
               <Row gutter={16} type="flex" align="middle">
-                <Col lg={10} md={10} sm={10} xs={24}>
+
+                <Col lg={8} md={8} sm={8} xs={24}>
                   <img style={{ width:'100%',padding:5 }} src={imgone} alt="" />
                   {/* <img style={{ width:'100%',padding:5 }} src={imgone} alt="" /> */}
-                  <Carousel autoplay slidesToShow={4} initialSlide={0} className={styles.carousel} beforeChange={this.beforeChange}>
-                    { 
-                      //this.state.imgArr.map((item) =>
+
+                </Col>
+                <Col lg={2} md={2} sm={2} xs={24}>
+                  <Carousel
+                    vertical
+                    autoplay
+                    slidesToShow={4}
+                    initialSlide={0}
+                    className={styles.carousel}
+                    beforeChange={this.beforeChange}
+                  >
+                    {
+                      // this.state.imgArr.map((item) =>
                       img.map((item) =>
-                      (
-                        <div
-                          key={item}
-                        >
-                          <img style={{ width:'100%',padding:5 }} src={item} alt="" />
-                        </div>
+                        (
+                          <div
+                            key={item}
+                          >
+                            <img style={{ width:'100%',padding:5 }} src={item} alt="" />
+                          </div>
                         ))
                     }
                   </Carousel>
@@ -198,18 +201,18 @@ class GoodsDetails extends PureComponent {
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
                     <Description term="价格">{price}</Description>
-                    {/*<Description term="原产地/国">日本</Description>*/}
-                    {/*<Description term="所属分类">入浴剂</Description>*/}
-                    {/*<Description term="单位型号">700g/桶</Description>*/}
-                    {/*<Description term="保质期"> ~ 2017-08-08</Description>*/}
-                    {/*<Description term="所在仓库">大连保税仓H</Description>*/}
-                    {/*<Description term="剩余库存">13</Description>*/}
-                    {/*<Description term="备注">存储方式成分人群等</Description>*/}
+                    {/* <Description term="原产地/国">日本</Description> */}
+                    {/* <Description term="所属分类">入浴剂</Description> */}
+                    {/* <Description term="单位型号">700g/桶</Description> */}
+                    {/* <Description term="保质期"> ~ 2017-08-08</Description> */}
+                    {/* <Description term="所在仓库">大连保税仓H</Description> */}
+                    {/* <Description term="剩余库存">13</Description> */}
+                    {/* <Description term="备注">存储方式成分人群等</Description> */}
                   </DescriptionList>
                 </Col>
-                {/*<Col lg={4} md={4} sm={4} xs={24}>*/}
-                  {/*<Button type="primary">加入购物车</Button>*/}
-                {/*</Col>*/}
+                {/* <Col lg={4} md={4} sm={4} xs={24}> */}
+                {/* <Button type="primary">加入购物车</Button> */}
+                {/* </Col> */}
               </Row>
               <Divider dashed />
               <Row gutter={16} type="flex" justify="space-around">
@@ -233,7 +236,7 @@ class GoodsDetails extends PureComponent {
                 </Col>
               </Row>
               <Divider dashed />
-               <Row gutter={16} type="flex" justify="space-around">
+              <Row gutter={16} type="flex" justify="space-around">
                 <Col lg={23} md={23} sm={23} xs={23}>
                   {
                     goodsDetailImgArr.map((item,index) =>
