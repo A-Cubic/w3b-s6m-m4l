@@ -13,9 +13,10 @@ const FormItem = Form.Item;
 
 /* eslint react/no-array-index-key: 0 */
 
-@connect(({ list, loading }) => ({
+@connect(({ list, loading ,searchModel }) => ({
   list,
   loading: loading.models.list,
+  searchModel
 }))
 @Form.create({
   onValuesChange({ dispatch }, changedValues, allValues) {
@@ -31,7 +32,8 @@ const FormItem = Form.Item;
     });
   },
 })
-class JapanPavilion extends PureComponent {
+
+class Search extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -40,9 +42,31 @@ class JapanPavilion extends PureComponent {
         count: 18,
       },
     });
+    this.init()
   }
 
+  init(){
+    const {match,dispatch}=this.props;
+
+    console.log('match',match.params)
+
+    this.props.dispatch({
+      type: 'searchModel/getSelectGoods',
+      payload: {
+        select:match.params.value==':value'?'':match.params.value
+      },
+    });
+
+  }
+
+
+
   render() {
+
+    const {searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
+    console.log('search',search)
+
+
     const {
       list: { list = [] },
       loading,
@@ -166,4 +190,4 @@ class JapanPavilion extends PureComponent {
   }
 }
 
-export default JapanPavilion;
+export default Search;

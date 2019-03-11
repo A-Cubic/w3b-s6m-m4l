@@ -64,18 +64,19 @@ class JapanPavilion extends PureComponent {
 
 
 
-    const bannerPlay = list ?(
+ 
+    const bannerPlay = banner ?(
       <Carousel
-        className={styles.carousel}
-        autoplay
-      >
-        {
+          className={styles.carousel}
+          autoplay
+        >
+          {
             banner.map((item,index) =>
             (
               <div
                 key={index}
               >
-                <img style={{ width:'100%',padding:0 }} src={item} alt="" />
+                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
               </div>
             ))
           }

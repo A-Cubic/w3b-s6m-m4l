@@ -1,55 +1,55 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-
+import { getCategoryGoods } from '@/services/Category_S';
+import { message } from 'antd';
 export default {
-  namespace: 'japanPavilionModel',
+  namespace: 'categoryModel',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
+    Category:{
+      categoryImg:[],
+      pagination:{},
+      brands:[],
+      classificationSED:[]
+    }
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+    
+
+    //获取品类页接口与筛选接口
+    *getCategoryGoods({ payload }, { call, put }) {
+      const response = yield call(getCategoryGoods, payload);
+
+      console.log('xxxxxxxxxxxx')
+      if(response!==undefined){
+        if(response.type==1){
+          yield put({
+            type: 'getCategoryGoodsR',
+            payload: response,
+          });
+        }else{
+          message.error('暂无数据');
+        }
+      }
     },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
+
+
   },
 
   reducers: {
-    save(state, action) {
+
+    getCategoryGoodsR(state, action){
       return {
         ...state,
-        data: action.payload,
-      };
-    },
+        // getUpPart:{
+        //   banner:action.payload.banner,
+        //   homePageChangeGoodsItem:action.payload.homePageChangeGoodsItem
+        // }
+        Category:action.payload
+      }
+    },	
+
+
+
   },
 };
