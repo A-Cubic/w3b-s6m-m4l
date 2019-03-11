@@ -1,0 +1,55 @@
+sudo: required
+
+services:
+  - docker
+
+language: node_js
+
+node_js:
+  - "8"
+
+env:
+  matrix:
+#    - TEST_TYPE=lint
+    - TEST_TYPE=build
+#    - TEST_TYPE=test-all
+#    - TEST_TYPE=test-dist
+
+#addons:
+#  apt:
+#    packages:
+#      - xvfb
+
+cache:
+  directories:
+    - "node_modules"
+
+#notifications:
+  #webhooks: https://hook.bearychat.com/=bwCGO/travis/42614e695afefe41ff5437de242de91c
+
+install:
+  #- export DISPLAY=':99.0'
+  #- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - npm install
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TEST_TYPE" = build ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+    docker build -t "$REGISTRY_URL"/"$REGISTRY_IMAGE" .;
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" "$REGISTRY_URL";
+    docker push "$REGISTRY_URL"/"$REGISTRY_IMAGE";
+    fi
+
+script:
+  - |
+    if [ "$TEST_TYPE" = lint ] && [ "$TRAVIS_BRANCH" = "develop" ]; then
+      npm run lint
+    elif [ "$TEST_TYPE" = build ] && [ "$TRAVIS_BRANCH" = "master" ]; then
+      npm run build
+    elif [ "$TEST_TYPE" = test-all ] && [ "$TRAVIS_BRANCH" = "develop" ]; then
+      npm run test:all
+    elif [ "$TEST_TYPE" = test-dist ] && [ "$TRAVIS_BRANCH" = "develop" ]; then
+      npm run site
+      mv dist/* ./
+      php -S localhost:8000 &
+      DEBUG=* npm test .e2e.js
+    fi
