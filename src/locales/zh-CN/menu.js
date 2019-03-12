@@ -16,6 +16,8 @@ export default {
   'menu.EuropeanAmericanPavilion': '欧美馆',
   'menu.PromotionArea': '临期促销专区',
   'menu.goodsDetails': '商品详情',
+  'menu.attentionBrand': '关注的品牌',
+  'menu.collectionGoods': '收藏的商品',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',

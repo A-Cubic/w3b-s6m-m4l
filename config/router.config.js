@@ -129,6 +129,19 @@ export default [
           name: 'search',
           component: './Search/Search',
       },
+      //收藏的商品
+      {
+
+          path: '/mall/collectionGoods',
+          name: 'collectionGoods',
+          component: './CollectionGoods/CollectionGoods',
+      },
+      //关注的品牌
+      {
+          path: '/mall/attentionBrand',
+          name: 'attentionBrand',
+          component: './AttentionBrand/AttentionBrand',
+      },
       // dashboard
       { path: '/mall', redirect: '/mall/home' },
       {
