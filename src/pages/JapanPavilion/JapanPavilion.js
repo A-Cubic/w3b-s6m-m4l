@@ -141,7 +141,7 @@ class JapanPavilion extends PureComponent {
 
             renderItem={item => (
               <List.Item>
-                <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+                <Link target="_blank" to={`/mall/goodsDetails/${item.barcode}`}>
                   <Card
                     // onClick={() => this.handleCommodityDetails(item)}
                     className={styles.card}
