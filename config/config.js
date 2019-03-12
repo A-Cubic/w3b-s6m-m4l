@@ -110,8 +110,8 @@ export default {
     basePath: '/',
   },
 
-  base: '/mall',
-  publicPath: '/mall',
+  base: '/mall/',
+  publicPath: '/mall/',
 
   chainWebpack: webpackPlugin,
 };
