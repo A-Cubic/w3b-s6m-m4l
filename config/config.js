@@ -107,7 +107,7 @@ export default {
     },
   },
   manifest: {
-    basePath: '/',
+    basePath: '/mall',
   },
 
   chainWebpack: webpackPlugin,
