@@ -37,22 +37,11 @@ const FormItem = Form.Item;
 class Category extends PureComponent {
   componentDidMount() {
     const { match,dispatch } = this.props;
-    // console.log('match',match.params)
-    // dispatch({
-    //   type: 'list/fetch',
-    //   payload: {
-    //     count: 18,
-    //   },
-    // });
-
     this.init()
   }
 
   init(){
     const {match,dispatch}=this.props;
-
-    console.log('match',match.params)
-
     this.props.dispatch({
       type: 'categoryModel/getCategoryGoods',
       payload: {
@@ -81,28 +70,23 @@ class Category extends PureComponent {
   
   handleCategory = (item,index) => {
     const {match,dispatch}=this.props;
-    // console.log('item',item)
-    // console.log('match.params',match.params.con)
     this.props.dispatch({
       type: 'categoryModel/getCategoryGoods',
       payload: {
         country:match.params.category,
         classificationST:match.params.con,
-
         classificationSED:item.classificationST
-        
-        
       },
     });
   }
 
 
   handleCategoryBrands = (item,index) =>{
-    console.log(77777,item)
+    //console.log(77777,item)
     const {match,dispatch}=this.props;
     const {categoryModel:{Category:{classificationSED}} } = this.props;
-    console.log('hao',classificationSED[0].classificationST)
-    console.log('==',classificationSED.length)
+    // console.log('hao',classificationSED[0].classificationST)
+    // console.log('==',classificationSED.length)
     this.props.dispatch({
       type: 'categoryModel/getCategoryGoods',
       payload: {
@@ -117,19 +101,14 @@ class Category extends PureComponent {
   }
 
   handleFormSubmit = (value) => {
-    console.log('value',value)
-
     this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
    // this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
   }
 
 
   render() {
-
     const {categoryModel:{Category} } = this.props;
     const {categoryModel:{Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
-    console.log('Category',Category)
-
     const {
       list: { list = [] },
       loading,
@@ -168,24 +147,22 @@ class Category extends PureComponent {
         dataSource={changeGoods}
         pagination={{
           onChange: (page) => {
-            console.log(page);
             this.inchange(page)
           },
           onShowSizeChange: (current, pageSize) => {
-            console.log('page',current, pageSize)
             const {match,dispatch}=this.props;
             const {categoryModel:{Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
             this.props.dispatch({
               type: 'categoryModel/getCategoryGoods',
               payload: {
-                classificationST:match.con,
+                classificationST:match.params.con,
                 country:match.params.category,
                 pageSize:pageSize
               },
             });
  
            },
-          pageSize: 20,
+          pageSize: pagination.pageSize,
           showSizeChanger: true,
           showQuickJumper: true,
         }}
@@ -212,23 +189,7 @@ class Category extends PureComponent {
         sm: { span: 16 },
       },
     };
-    // const mainSearch = (
-    //   <div style={{ textAlign: 'center' }}>
-    //     <Row type="flex" justify="center">
-    //       <Col lg={10} md={12} sm={16} xs={24}>
-    //         <Input.Search
-    //           placeholder="请输入"
-    //           enterButton=""
-    //           size="large"
-    //           onSearch={this.handleFormSubmit}
-    //           // style={{ width: 522 }}
-    //         />
-    //       </Col>
-    //     </Row>
-    //   </div>
-
-    // );
-
+   
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -252,19 +213,7 @@ class Category extends PureComponent {
         title=""
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-        {/* <Carousel
-          className={styles.carousel}
-          autoplay
-        >
-          <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-          </div>
-          <div>
-            <img style={{ width:'100%' }} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg" alt="" />
-          </div>
-        </Carousel> */}
         {bannerPlay}
-
         <div className={styles.coverCardList}>
           <Card bordered={false}>
             <Form layout="inline">
@@ -273,19 +222,7 @@ class Category extends PureComponent {
                 <FormItem>
                   {getFieldDecorator('category')(
                     <TagSelect hideCheckAll expandable style={{background:'none'}}>
-                      {/* <TagSelect.Option value="cat1">1生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option> */}
-
+                  
                       {
                         classificationSED.map((item,index) =>
                         (
@@ -300,7 +237,6 @@ class Category extends PureComponent {
                         ))
                       }
 
-
                     </TagSelect>
                   )}
                 </FormItem>
@@ -309,18 +245,6 @@ class Category extends PureComponent {
                 <FormItem>
                   {getFieldDecorator('Brand')(
                     <TagSelect hideCheckAll expandable>
-                      {/* <TagSelect.Option value="cat1">2生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option> */}
 
                       {
                         brands.map((item,index) =>
@@ -333,9 +257,6 @@ class Category extends PureComponent {
                           </TagSelect.Option>
                         ))
                       }
-
-
-
 
                     </TagSelect>
                   )}

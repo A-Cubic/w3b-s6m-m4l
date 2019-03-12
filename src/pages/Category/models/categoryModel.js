@@ -19,8 +19,6 @@ export default {
     //获取品类页接口与筛选接口
     *getCategoryGoods({ payload }, { call, put }) {
       const response = yield call(getCategoryGoods, payload);
-
-      console.log('xxxxxxxxxxxx')
       if(response!==undefined){
         if(response.type==1){
           yield put({
