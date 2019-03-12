@@ -24,47 +24,54 @@ export default [
           {
             icon: 'smile',
 
-            path: '/mall/category/from/:category/:con',
+            path: '/mall/category/from/:category/:country',
             name:'from',
             target: '_blank',
-            // hideInMenu: true,
+            hideInMenu: true,
             component: './Category/Category',
           },
+          // 母婴儿童
           {
             icon: 'smile',
-            path: '/mall/category/mu/:category=1',
-            name:'mu',
-            target: '_blank',
+            path: '/mall/category/category1/category=3',
+            name:'category1',
+            // target: '_blank',
             component: './Category/Category',
           },
+          // 家具生活
           {
             icon: 'coffee',
-            path: '/mall/category/jia/:category=2',
-            name:'jia',
+            path: '/mall/category/category2/category=1',
+            name:'category2',
+            // target: '_blank',
             component: './Category/Category',
           },
+          // 个人护理
           {
             icon: 'user',
-            path: '/mall/category/ge',
-            name:'ge',
+            path: '/mall/category/category3/category=2',
+            name:'category3',
             component: './Category/Category',
           },
+          // 美容彩妆
           {
             icon: 'heart',
-            path: '/mall/category/mei',
-            name:'mei',
+            path: '/mall/category/category4/category=13',
+            name:'category4',
             component: './Category/Category',
           },
+          // 食品保健
           {
             icon: 'safety',
-            path: '/mall/category/shi',
-            name:'shi',
+            path: '/mall/category/category5/category=11',
+            name:'category5',
             component: './Category/Category',
           },
+          // 服饰鞋包
           {
             icon: 'skin',
-            path: '/mall/category/fu',
-            name:'fu',
+            path: '/mall/category/category6/category=10',
+            name:'category6',
             component: './Category/Category',
           },
         ],
