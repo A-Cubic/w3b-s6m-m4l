@@ -19,7 +19,7 @@ const FormItem = Form.Item;
   europeanAmericanPavilionModel
 }))
 @Form.create({
- 
+
 })
 class EuropeanAmericanPavilion extends PureComponent {
   componentDidMount() {
@@ -48,7 +48,6 @@ class EuropeanAmericanPavilion extends PureComponent {
 
   render() {
     const {europeanAmericanPavilionModel:{europeanAmericanPavilion,europeanAmericanPavilion:{banner,brands,goods}} } = this.props;
-    console.log(77777777,europeanAmericanPavilion)
     const bannerPlay = banner ?(
       <Carousel
           className={styles.carousel}

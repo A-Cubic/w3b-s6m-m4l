@@ -9,7 +9,7 @@ export async function queryCity(province) {
 }
 
 export async function getBrandsGoods(params) {
-  return request(`${testUrl}/llback/NewHomePage/BrandsGoods`, {
+  return request(`${apiUrl}/llback/NewHomePage/BrandsGoods`, {
    method: 'POST',
    body: params,
  });
