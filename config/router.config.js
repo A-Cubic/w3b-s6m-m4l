@@ -12,59 +12,65 @@ export default [
   },
   // app
   {
-    path: '/mall',
+    path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
     routes: [
       // 全部分类
       {
-        path: '/mall/category',
+        path: '/category',
         name: 'category',
         routes: [
           {
             icon: 'smile',
-
-            path: '/mall/category/from/:category/:con',
+            path: '/category/from/:category/:country',
             name:'from',
             target: '_blank',
-            // hideInMenu: true,
+            hideInMenu: true,
             component: './Category/Category',
           },
+          // 母婴儿童
           {
             icon: 'smile',
-            path: '/mall/category/mu/:category=1',
-            name:'mu',
-            target: '_blank',
+            path: '/category/category1/category=3',
+            name:'category1',
+            // target: '_blank',
             component: './Category/Category',
           },
+          // 家具生活
           {
             icon: 'coffee',
-            path: '/mall/category/jia/:category=2',
-            name:'jia',
+            path: '/category/category2/category=1',
+            name:'category2',
+            // target: '_blank',
             component: './Category/Category',
           },
+          // 个人护理
           {
             icon: 'user',
-            path: '/mall/category/ge',
-            name:'ge',
+            path: '/category/category3/category=2',
+            name:'category3',
             component: './Category/Category',
           },
+          // 美容彩妆
           {
             icon: 'heart',
-            path: '/mall/category/mei',
-            name:'mei',
+            path: '/category/category4/category=13',
+            name:'category4',
             component: './Category/Category',
           },
+          // 食品保健
           {
             icon: 'safety',
-            path: '/mall/category/shi',
-            name:'shi',
+            path: '/category/category5/category=11',
+            name:'category5',
             component: './Category/Category',
           },
+          // 服饰鞋包
           {
             icon: 'skin',
-            path: '/mall/category/fu',
-            name:'fu',
+            path: '/category/category6/category=10',
+            name:'category6',
             component: './Category/Category',
           },
         ],
@@ -72,21 +78,21 @@ export default [
       // Home
       {
         name: 'Home',
-        path: '/mall/home',
+        path: '/home',
         component: './Home/Home',
       },
       // JapanPavilion
       {
         name: 'JapanPavilion',
-        path: '/mall/JapanPavilion',
+        path: '/JapanPavilion',
         // hideChildrenInMenu: true,
         routes: [
           {
-            path: '/mall/JapanPavilion',
-            redirect: '/mall/JapanPavilion/JapanPavilion',
+            path: '/JapanPavilion',
+            redirect: '/JapanPavilion/JapanPavilion',
           },
           {
-            path: '/mall/JapanPavilion/JapanPavilion',
+            path: '/JapanPavilion/JapanPavilion',
             component: './JapanPavilion/JapanPavilion',
             hideInMenu: true,
           },
@@ -95,7 +101,7 @@ export default [
       //韩国馆
       {
         name: 'KoreaPavilion',
-        path: '/mall/KoreaPavilion',
+        path: '/KoreaPavilion',
         component: './KoreaPavilion/KoreaPavilion',
       },
       //欧美馆
@@ -107,60 +113,60 @@ export default [
       //临期促销专区
       // {
       //   name: 'PromotionArea',
-      //   path: '/mall/PromotionArea',
+      //   path: '/PromotionArea',
       //   component: './PromotionArea/PromotionArea',
       // },
       //商品详情
       {
-          path: '/mall/goodsDetails/:barcode',
+          path: '/goodsDetails/:barcode',
           name: 'goodsDetails',
           component: './GoodsDetails/GoodsDetails',
       },
       //品牌页
       {
-          path: '/mall/brand/:brandsName',
+          path: '/brand/:brandsName',
           name: 'brand',
           component: './Brand/Brand',
       },
       //搜索结果页
       {
 
-          path: '/mall/search/:value',
+          path: '/search/:value',
           name: 'search',
           component: './Search/Search',
       },
       //收藏的商品
       {
 
-          path: '/mall/collectionGoods',
+          path: '/collectionGoods',
           name: 'collectionGoods',
           component: './CollectionGoods/CollectionGoods',
       },
       //关注的品牌
       {
-          path: '/mall/attentionBrand',
+          path: '/attentionBrand',
           name: 'attentionBrand',
           component: './AttentionBrand/AttentionBrand',
       },
       // dashboard
-      { path: '/mall', redirect: '/mall/home' },
+      { path: '/mall', redirect: '/home' },
       {
-        path: '/mall/dashboard',
+        path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
         routes: [
           {
-            path: '/mall/dashboard/analysis',
+            path: '/dashboard/analysis',
             name: 'analysis',
             component: './Dashboard/Analysis',
           },
           {
-            path: '/mall/dashboard/monitor',
+            path: '/dashboard/monitor',
             name: 'monitor',
             component: './Dashboard/Monitor',
           },
           {
-            path: '/mall/dashboard/workplace',
+            path: '/dashboard/workplace',
             name: 'workplace',
             component: './Dashboard/Workplace',
           },
@@ -168,44 +174,44 @@ export default [
       },
       // forms
       {
-        path: '/mall/form',
+        path: '/form',
         icon: 'form',
         name: 'form',
         routes: [
           {
-            path: '/mall/form/basic-form',
+            path: '/form/basic-form',
             name: 'basicform',
             component: './Forms/BasicForm',
           },
           {
-            path: '/mall/form/step-form',
+            path: '/form/step-form',
             name: 'stepform',
             component: './Forms/StepForm',
             hideChildrenInMenu: true,
             routes: [
               {
-                path: '/mall/form/step-form',
+                path: '/form/step-form',
                 redirect: '/form/step-form/info',
               },
               {
-                path: '/mall/form/step-form/info',
+                path: '/form/step-form/info',
                 name: 'info',
                 component: './Forms/StepForm/Step1',
               },
               {
-                path: '/mall/form/step-form/confirm',
+                path: '/form/step-form/confirm',
                 name: 'confirm',
                 component: './Forms/StepForm/Step2',
               },
               {
-                path: '/mall/form/step-form/result',
+                path: '/form/step-form/result',
                 name: 'result',
                 component: './Forms/StepForm/Step3',
               },
             ],
           },
           {
-            path: '/mall/form/advanced-form',
+            path: '/form/advanced-form',
             name: 'advancedform',
             // authority: ['admin'],
             component: './Forms/AdvancedForm',
@@ -214,46 +220,46 @@ export default [
       },
       // list
       {
-        path: '/mall/list',
+        path: '/list',
         icon: 'table',
         name: 'list',
         routes: [
           {
-            path: '/mall/list/table-list',
+            path: '/list/table-list',
             name: 'searchtable',
             component: './List/TableList',
           },
           {
-            path: '/mall/list/basic-list',
+            path: '/list/basic-list',
             name: 'basiclist',
             component: './List/BasicList',
           },
           {
-            path: '/mall/list/card-list',
+            path: '/list/card-list',
             name: 'cardlist',
             component: './List/CardList',
           },
           {
-            path: '/mall/list/search',
+            path: '/list/search',
             name: 'searchlist',
             component: './List/List',
             routes: [
               {
-                path: '/mall/list/search',
-                redirect: '/mall/list/search/articles',
+                path: '/list/search',
+                redirect: '/list/search/articles',
               },
               {
-                path: '/mall/list/search/articles',
+                path: '/list/search/articles',
                 name: 'articles',
                 component: './List/Articles',
               },
               {
-                path: '/mall/list/search/projects',
+                path: '/list/search/projects',
                 name: 'projects',
                 component: './List/Projects',
               },
               {
-                path: '/mall/list/search/applications',
+                path: '/list/search/applications',
                 name: 'applications',
                 component: './List/Applications',
               },
@@ -262,18 +268,18 @@ export default [
         ],
       },
       {
-        path: '/mall/profile',
+        path: '/profile',
         name: 'profile',
         icon: 'profile',
         routes: [
           // profile
           {
-            path: '/mall/profile/basic',
+            path: '/profile/basic',
             name: 'basic',
             component: './Profile/BasicProfile',
           },
           {
-            path: '/mall/profile/advanced',
+            path: '/profile/advanced',
             name: 'advanced',
             // authority: ['admin'],
             component: './Profile/AdvancedProfile',
@@ -283,40 +289,40 @@ export default [
       {
         name: 'result',
         icon: 'check-circle-o',
-        path: '/mall/result',
+        path: '/result',
         routes: [
           // result
           {
-            path: '/mall/result/success',
+            path: '/result/success',
             name: 'success',
             component: './Result/Success',
           },
-          { path: '/mall/result/fail', name: 'fail', component: './Result/Error' },
+          { path: '/result/fail', name: 'fail', component: './Result/Error' },
         ],
       },
       {
         name: 'exception',
         icon: 'warning',
-        path: '/mall/exception',
+        path: '/exception',
         routes: [
           // exception
           {
-            path: '/mall/exception/403',
+            path: '/exception/403',
             name: 'not-permission',
             component: './Exception/403',
           },
           {
-            path: '/mall/exception/404',
+            path: '/exception/404',
             name: 'not-find',
             component: './Exception/404',
           },
           {
-            path: '/mall/exception/500',
+            path: '/exception/500',
             name: 'server-error',
             component: './Exception/500',
           },
           {
-            path: '/mall/exception/trigger',
+            path: '/exception/trigger',
             name: 'trigger',
             hideInMenu: true,
             component: './Exception/TriggerException',
@@ -326,54 +332,54 @@ export default [
       {
         name: 'account',
         icon: 'user',
-        path: '/mall/account',
+        path: '/account',
         routes: [
           {
-            path: '/mall/account/center',
+            path: '/account/center',
             name: 'center',
             component: './Account/Center/Center',
             routes: [
               {
-                path: '/mall/account/center',
-                redirect: '/mall/account/center/articles',
+                path: '/account/center',
+                redirect: '/account/center/articles',
               },
               {
-                path: '/mall/account/center/articles',
+                path: '/account/center/articles',
                 component: './Account/Center/Articles',
               },
               {
-                path: '/mall/account/center/applications',
+                path: '/account/center/applications',
                 component: './Account/Center/Applications',
               },
               {
-                path: '/mall/account/center/projects',
+                path: '/account/center/projects',
                 component: './Account/Center/Projects',
               },
             ],
           },
           {
-            path: '/mall/account/settings',
+            path: '/account/settings',
             name: 'settings',
             component: './Account/Settings/Info',
             routes: [
               {
-                path: '/mall/account/settings',
-                redirect: '/mall/account/settings/base',
+                path: '/account/settings',
+                redirect: '/account/settings/base',
               },
               {
-                path: '/mall/account/settings/base',
+                path: '/account/settings/base',
                 component: './Account/Settings/BaseView',
               },
               {
-                path: '/mall/account/settings/security',
+                path: '/account/settings/security',
                 component: './Account/Settings/SecurityView',
               },
               {
-                path: '/mall/account/settings/binding',
+                path: '/account/settings/binding',
                 component: './Account/Settings/BindingView',
               },
               {
-                path: '/mall/account/settings/notification',
+                path: '/account/settings/notification',
                 component: './Account/Settings/NotificationView',
               },
             ],

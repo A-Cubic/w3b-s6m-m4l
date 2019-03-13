@@ -11,7 +11,12 @@ export async function queryCity(province) {
 
 export async function getCategoryGoods(params) {
   return request('http://192.168.0.127:54195/llback/NewHomePage/CategoryGoods', {
-   //return request('/llback/NewHomePage/HomePageDownPart', {
+   method: 'POST',
+   body: params,
+ });
+}
+export async function getAllClassification(params) {
+  return request('http://192.168.0.127:54195/llback/NewHomePage/AllClassification', {
    method: 'POST',
    body: params,
  });

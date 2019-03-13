@@ -21,101 +21,104 @@ const FormItem = Form.Item;
 
 }))
 @Form.create({
-  onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    //console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    // dispatch({
-    //   type: 'list/fetch',
-    //   payload: {
-    //     count: 18,
-    //   },
-    // });
-  },
+  onValuesChange({ dispatch }, changedValues, allValues) {},
 })
 class Category extends PureComponent {
+  state={
+    curClassificationST:'',
+    country:'',
+    classificationSED:'',
+    brand:''
+  }
   componentDidMount() {
-    const { match,dispatch } = this.props;
     this.init()
   }
 
   init(){
-    const {match,dispatch}=this.props;
-    this.props.dispatch({
-      type: 'categoryModel/getCategoryGoods',
-      payload: {
-        classificationST:match.params.con,
-        country:match.params.category
-      },
-    });
-
+    const payloadParams = this.props.match.params;
+    const bolPayloadParams = JSON.stringify(this.props.match.params)==="{}"
+    if(bolPayloadParams){
+      console.warn('这是全部分类')
+      this.getAllClassification()
+    }else{
+      console.warn('这是首页')
+      this.setState({
+        curClassificationST:payloadParams.category,
+        country:payloadParams.country
+      })
+      this.getData()
+    }
   }
 
-  inchange(page){
-    const {match,dispatch}=this.props;
-    const {categoryModel:{Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+  // 获取页面轮播、分类、品牌、列表数据
+  getData=(payloadClassificationSED,payloadBrand,page)=>{
+
+    const payloadParams = this.props.match.params;
+    const bolPayloadParams = JSON.stringify(this.props.match.params)==="{}"
+
     this.props.dispatch({
       type: 'categoryModel/getCategoryGoods',
       payload: {
-        classificationST:match.con,
-        country:match.params.category,
-        current:page,
-        pageSize:pagination.pageSize
-      },
-    });
-
-  }
-
-  
-  handleCategory = (item,index) => {
-    const {match,dispatch}=this.props;
-    this.props.dispatch({
-      type: 'categoryModel/getCategoryGoods',
-      payload: {
-        country:match.params.category,
-        classificationST:match.params.con,
-        classificationSED:item.classificationST
+        classificationST:bolPayloadParams?this.state.curClassificationST:payloadParams.category,
+        country:bolPayloadParams?this.state.country:payloadParams.country,
+        classificationSED:payloadClassificationSED,
+        brand:payloadBrand,
+        ...page
       },
     });
   }
 
-
-  handleCategoryBrands = (item,index) =>{
-    //console.log(77777,item)
-    const {match,dispatch}=this.props;
-    const {categoryModel:{Category:{classificationSED}} } = this.props;
-    // console.log('hao',classificationSED[0].classificationST)
-    // console.log('==',classificationSED.length)
+  // 获取所有分类
+  getAllClassification(){
     this.props.dispatch({
-      type: 'categoryModel/getCategoryGoods',
-      payload: {
-        country:match.params.category,
-        classificationST:match.params.con,
-        //classificationSED:item.classificationST,
-        classificationSED:classificationSED.length==2?classificationSED[1].classificationST:'',
-        brand:item,    
-        
-      },
+      type: 'categoryModel/getAllClassification',
+      payload: {},
+      callback:this.findClassification
     });
+  }
+
+  // 匹配并获取当前一级分类数据
+  findClassification=()=>{
+    const allclassification = this.props.match.path.split('=')[1]
+    const {categoryModel:{allClassificationArr} } = this.props;
+    allClassificationArr.filter((item)=>{
+      if(item.classificationST === allclassification){
+        this.setState({
+          curClassificationST:item.classificationST
+        })
+        this.getData()
+      }
+    })
+  }
+
+  onChangeTable(page){
+    const {categoryModel:{Category:{brands,classificationSED,pagination}} } = this.props;
+    this.getData(classificationSED.length==2?classificationSED[1].classificationST:'',brands.length==2?brands[1]:'',page)
+  }
+
+  // 切换分类
+  handleCategory = (a) => {
+    this.getData(a)
+  }
+
+  // 切换品牌
+  handleCategoryBrands = (b) =>{
+    const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+    this.getData(classificationSED.length==2?classificationSED[1].classificationST:'',b)
   }
 
   handleFormSubmit = (value) => {
-    this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
-   // this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
+    this.props.dispatch(routerRedux.push(`/mall/search/${JSON.stringify(value)}`));
   }
 
-
   render() {
-    const {categoryModel:{Category} } = this.props;
-    const {categoryModel:{Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+    const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
     const {
       list: { list = [] },
       loading,
       form,
     } = this.props;
     const { getFieldDecorator } = form;
-
 
     const bannerPlay = list ?(
       <Carousel
@@ -132,7 +135,6 @@ class Category extends PureComponent {
               </div>
             ))
           }
-
       </Carousel>
     ):null;
 
@@ -147,20 +149,12 @@ class Category extends PureComponent {
         dataSource={changeGoods}
         pagination={{
           onChange: (page) => {
-            this.inchange(page)
+            this.onChangeTable(page)
           },
           onShowSizeChange: (current, pageSize) => {
-            const {match,dispatch}=this.props;
-            const {categoryModel:{Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
-            this.props.dispatch({
-              type: 'categoryModel/getCategoryGoods',
-              payload: {
-                classificationST:match.params.con,
-                country:match.params.category,
-                pageSize:pageSize
-              },
-            });
- 
+            const that = this;
+            const {categoryModel:{Category:{brands,classificationSED,pagination}} } = this.props;
+            that.getData(classificationSED.length==2?classificationSED[1].classificationST:'',brands.length==2?brands[1]:'',{pageSize})
            },
           pageSize: pagination.pageSize,
           showSizeChanger: true,
@@ -189,7 +183,7 @@ class Category extends PureComponent {
         sm: { span: 16 },
       },
     };
-   
+
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -222,7 +216,6 @@ class Category extends PureComponent {
                 <FormItem>
                   {getFieldDecorator('category')(
                     <TagSelect hideCheckAll expandable style={{background:'none'}}>
-                  
                       {
                         classificationSED.map((item,index) =>
                         (
@@ -230,7 +223,10 @@ class Category extends PureComponent {
                             key={index}
                             value={item.classificationST}
                           >
-                            <span style={{display:'inline-block'}} onClick={() => this.handleCategory(item,index)}>
+                            <span
+                              style={{display:'inline-block'}}
+                              onClick={() => this.handleCategory(item.classificationST)}
+                            >
                               {item.allclassification}
                             </span>
                           </TagSelect.Option>
@@ -253,7 +249,11 @@ class Category extends PureComponent {
                             key={index}
                             value={index}
                           >
-                            <span onClick={() => this.handleCategoryBrands(item,index)}>{item}</span>
+                            <span
+                              onClick={() => this.handleCategoryBrands(item)}
+                            >
+                              {item}
+                            </span>
                           </TagSelect.Option>
                         ))
                       }
