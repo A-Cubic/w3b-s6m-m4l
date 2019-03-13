@@ -10,7 +10,9 @@ export default {
       brandName:'',
       brandimg:'',
       goods:[],
-      pagination:{}
+      pagination:{
+        pageSize:0,
+      }
     }
   },
 
@@ -41,12 +43,12 @@ export default {
 
   reducers: {
     getBrandsGoodsR(state, action){
-    
+
       return {
         ...state,
          brandsGoods:action.payload
       }
-    },	
+    },
 
   },
 };

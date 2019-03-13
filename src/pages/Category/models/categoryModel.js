@@ -10,7 +10,9 @@ export default {
       brands:[],
       classificationSED:[],
       changeGoods:[],
-      pagination:{},
+      pagination:{
+        pageSize:0,
+      },
     },
     allClassificationArr:[]
   },

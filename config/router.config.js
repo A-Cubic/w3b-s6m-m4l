@@ -121,23 +121,24 @@ export default [
           path: '/goodsDetails/:barcode',
           name: 'goodsDetails',
           component: './GoodsDetails/GoodsDetails',
+          hideInMenu: true,
       },
       //品牌页
       {
           path: '/brand/:brandsName',
           name: 'brand',
           component: './Brand/Brand',
+          hideInMenu: true,
       },
       //搜索结果页
       {
-
           path: '/search/:value',
           name: 'search',
           component: './Search/Search',
+          hideInMenu: true,
       },
       //收藏的商品
       {
-
           path: '/collectionGoods',
           name: 'collectionGoods',
           component: './CollectionGoods/CollectionGoods',

@@ -5,22 +5,19 @@ export default {
   namespace: 'searchModel',
 
   state: {
-   
     search:{
       classificationSED:[],
       brands:[],
-      pagination: {},
+      pagination: {
+        pageSize:0,
+      },
       select:'',
-
     }
-
-
-
   },
 
   effects: {
-    
-     //获取搜索结果页面接口
+
+     // 获取搜索结果页面接口
      *getSelectGoods({ payload }, { call, put }) {
       const response = yield call(getSelectGoods, payload);
       if(response!==undefined){
@@ -34,23 +31,14 @@ export default {
         }
       }
     },
-
-
-
   },
-
   reducers: {
-    
     getSelectGoodsR(state, action){
       return {
         ...state,
-        // getUpPart:{
-        //   banner:action.payload.banner,
-        //   homePageChangeGoodsItem:action.payload.homePageChangeGoodsItem
-        // }
         search:action.payload
       }
-    },	
+    },
 
 
   },
