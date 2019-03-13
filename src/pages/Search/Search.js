@@ -18,12 +18,7 @@ const FormItem = Form.Item;
   loading: loading.models.list,
   searchModel
 }))
-@Form.create({
-  onValuesChange({ dispatch }, changedValues, allValues) {
-   
-    
-  },
-})
+@Form.create()
 
 class Search extends PureComponent {
   componentDidMount() {
@@ -32,12 +27,11 @@ class Search extends PureComponent {
 
   init(){
     const {match,dispatch}=this.props;
-    //解析搜索传值
-    const a= JSON.parse(match.params.value)
+    // 解析搜索传值
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
-        select:match.params.value==':value'?'':a
+        select:match.params.value==="undefined"||match.params.value===":value"?'':match.params.value
       },
     });
 
@@ -45,12 +39,11 @@ class Search extends PureComponent {
 
   changePage(page){
     const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
-    //解析搜索传值
-    const a= JSON.parse(match.params.value)
+    // 解析搜索传值
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
-        select:select,
+        select,
         current:page,
         pageSize:pagination.pageSize,
         classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
@@ -62,38 +55,36 @@ class Search extends PureComponent {
   handleCategory(item,index){
    // console.log(item)
     const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
-    //解析搜索传值
-    const a= JSON.parse(match.params.value)
+    // 解析搜索传值
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
-        select:select,
+        select,
         classificationSED:item.allclassification
       },
     });
 
   }
+
   handleBrand(item,index){
-    //console.log('itemhandleBrand',item)
     const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
         brand:item,
-        select:select,
+        select,
         classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
-        
+
       },
     });
   }
 
   handleFormSubmit= (value) => {
-    //console.log('ppp',value)
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
         select:value,
-        
+
       },
     });
   }
@@ -101,8 +92,6 @@ class Search extends PureComponent {
 
   render() {
     const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
-  //  const valuea = JSON.parse(match.params.value)
-    //console.log('search',search)
     const {
       list: { list = [] },
       loading,
@@ -123,15 +112,14 @@ class Search extends PureComponent {
           },
           onShowSizeChange: (current, pageSize) => {
 
-            const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
-           
-            //解析搜索传值
-            const a= JSON.parse(match.params.value)
+            const {searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
+
+            // 解析搜索传值
             this.props.dispatch({
               type: 'searchModel/getSelectGoods',
               payload: {
-                pageSize:pageSize,
-                select:match.params.value==':value'?'':a,
+                pageSize,
+                select,
                 classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
                 brands:brands.length==2?brands[1]:''
               },
@@ -158,46 +146,22 @@ class Search extends PureComponent {
       />
     ) : null;
 
-    const formItemLayout = {
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
           <Col lg={10} md={12} sm={16} xs={24}>
-            {/* <Input.Search
-              placeholder="请输入"
-              enterButton="搜索"
-              size="large"
-              value={JSON.parse(match.params.value)}
-              onSearch={this.handleFormSubmit}
-              // style={{ width: 522 }}
-            /> */}
-
             <FormItem label="">
               {getFieldDecorator('value', {
-                initialValue: JSON.parse(match.params.value)==':value'?'':JSON.parse(match.params.value),
-                
+                initialValue: match.params.value==="undefined"?'':match.params.value,
               })(
-                // <Input placeholder="请输入姓名"/>
-
                 <Input.Search
-                placeholder="请输入"
-                enterButton="搜索"
-                size="large"
-                //value={valuea}
-                onSearch={this.handleFormSubmit}
-                // style={{ width: 522 }}
-              />
-
+                  placeholder="请输入"
+                  enterButton="搜索"
+                  size="large"
+                  onSearch={this.handleFormSubmit}
+                />
               )}
             </FormItem>
-
-
-
           </Col>
         </Row>
       </div>
@@ -208,28 +172,24 @@ class Search extends PureComponent {
         title=""
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-
         <div className={styles.coverCardList}>
           <Card bordered={false}>
             <Form layout="inline">
-
               <StandardFormRow title="分类" block style={{ paddingBottom: 11 }}>
                 <FormItem>
                   {getFieldDecorator('category')(
                     <TagSelect hideCheckAll expandable>
                       {
                         classificationSED.map((item,index) => (
-                          //{item.allclassification}
-                         
+                          // {item.allclassification}
                           <TagSelect.Option
                             value={index}
                             key={index}
                           >
-                            <span onClick={() => this.handleCategory(item,index)} >{item.allclassification}</span>
+                            <span onClick={() => this.handleCategory(item,index)}>{item.allclassification}</span>
                           </TagSelect.Option>
                         ))
                       }
-
                     </TagSelect>
                   )}
                 </FormItem>
@@ -238,23 +198,20 @@ class Search extends PureComponent {
                 <FormItem>
                   {getFieldDecorator('Brand')(
                     <TagSelect hideCheckAll expandable>
-                      
-                        {
+                      {
                           brands.map((item,index) => (
-                            <TagSelect.Option 
+                            <TagSelect.Option
                               value={index}
                               key={index}
                             >
-                            <span onClick={()=>this.handleBrand(item,index)}>{item}</span>
+                              <span onClick={()=>this.handleBrand(item,index)}>{item}</span>
                             </TagSelect.Option>
                           ))
                         }
-
                     </TagSelect>
                   )}
                 </FormItem>
               </StandardFormRow>
-
             </Form>
           </Card>
           <div className={styles.cardList}>

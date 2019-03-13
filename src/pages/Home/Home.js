@@ -24,6 +24,7 @@ const FormItem = Form.Item;
 class Home extends PureComponent {
   state={
   }
+
   componentDidMount() {
     this.getDataAll()
     this.hot();
@@ -34,17 +35,19 @@ class Home extends PureComponent {
     this.props.dispatch({
       type: 'homeModel/getDownPart',
       payload: {
-        page:page,
+        page,
         pageSize:"30"
       },
     });
   }
+
   getDataAll(){
     this.props.dispatch({
       type: 'homeModel/getAllClassification',
       payload: {},
     });
   }
+
   handleDown = () => {
     this.hot();
   }
@@ -55,56 +58,38 @@ class Home extends PureComponent {
       payload: {
         page:item.page,
         country:item.country,
-        index:index
+        index
       },
     });
   }
-  handleClassification= (item) => {
-  // console.log('跳品类页',item)
-   //
-  }
-  handleBrand = (item) => {
-   
-   this.props.dispatch(routerRedux.push('/mall/brand/' + item.brandsName));
-  }
 
+  handleBrand = (item) => {
+   this.props.dispatch(routerRedux.push(`/brand/${  item.brandsName}`));
+  }
 
   handleFormSubmit = (value) => {
-    
-   // console.log('value',value.includes('/'))
-
     if(value.includes('/')){
       message.error('不可输入特殊字符');
     } else {
-      this.props.dispatch(routerRedux.push('/mall/search/' + JSON.stringify(value)));
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
     }
-
-
-  //  this.props.dispatch(routerRedux.push('/mall/search/' + JSON.stringify(value)));
-   // this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
   }
 
-
   render() {
-    const {homeModel:{getDownPart:{goodsList,page}} } = this.props;
-    const {homeModel:{getDownPart} } = this.props;
-    const {homeModel:{getUpPart}} = this.props;
-    const {homeModel:{getUpPart:{banner,homePageChangeGoodsItem}}} = this.props;
-    
-    // console.log('77777getUpPart',getUpPart)
-
+    const {homeModel:{getUpPart:{banner,homePageChangeGoodsItem},getDownPart:{goodsList,page}}} = this.props;
     const bannerPlay = banner ?(
       <Carousel
-          className={styles.carousel}
-          autoplay
-        >
-          {
+        className={styles.carousel}
+        autoplay
+      >
+        {
             banner.map((item,index) =>
             (
               <div
                 key={index}
               >
-                <img style={{ width:'100%',padding:0 }}  src={item} alt="" />
+                <img style={{ width:'100%',padding:0 }} src={item} alt="" />
               </div>
             ))
           }
@@ -117,8 +102,6 @@ class Home extends PureComponent {
       loading,
       form,
     } = this.props;
-    const { getFieldDecorator } = form;
-    
     const allList = homePageChangeGoodsItem ?(
       homePageChangeGoodsItem.map((item,index) =>
       (
@@ -126,121 +109,118 @@ class Home extends PureComponent {
           key={index}
           style={{marginBottom:'30px'}}
         >
-          <div style={{width: '100%',height: '50px'}} className={styles.nav_top} >
-            <span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 
+          <div style={{width: '100%',height: '50px'}} className={styles.nav_top}>
+            <span className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}>
               {homePageChangeGoodsItem[index].country}
-            </span >
+            </span>
             <em onClick={() => this.handleUp(item,index)} style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>
               换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin />
             </em>
-            </div>
-        <Row >
-          <Col md={24} sm={24} xs={24} >
+          </div>
+          <Row>
+            <Col md={24} sm={24} xs={24}>
               {
                  homePageChangeGoodsItem[index].classification.map((item,index) =>
                  (
-                  <Link key={index}  to={`/mall/category/from/${item.country}/${item.classificationST}`}>
-                   <span
-                    style={{textAlign:'right', marginBottom:'10px',float:'right'}}
-                    key={index}
-                    onClick={() => this.handleClassification(item)}
-                   >
-                     <Tag color="#f5222d">{item.allclassification}</Tag>
-                   </span>
-                  </Link>
+                   <Link key={index} to={`/category/from/${item.classificationST}/${item.country}`}>
+                     <span
+                       style={{textAlign:'right', marginBottom:'10px',float:'right'}}
+                     >
+                       <Tag color="#f5222d">{item.allclassification}</Tag>
+                     </span>
+                   </Link>
                  ))
               }
-            {/* </div> */}
-          </Col>
-        </Row>
-        <Row>
-          <List
-            style={{ textAlign: 'center' }}
-            rowKey="id"
-            loading={loading}
-            grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
-            dataSource={homePageChangeGoodsItem[index].goodsList}
-            renderItem={item => (
-              <List.Item>
-                <Link target="_blank" to={`/mall/goodsDetails/${item.barcode}`}>
-                  <Card
-                    className={styles.card}
-                    hoverable
-                    cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-                  >
-                    <Card.Meta
-                      title={<p>{item.goodsName}</p>}
-                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                    />
-                  </Card>
-                </Link>
-              </List.Item>
-            )}  
-          />
-        </Row>
-        <Row type="flex" align="middle" className={styles.demo_flex}>
-          <Col  lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
-            <div style={{textAlign:'center'}}>热卖品牌</div>
-          </Col>
-          {
+              {/* </div> */}
+            </Col>
+          </Row>
+          <Row>
+            <List
+              style={{ textAlign: 'center' }}
+              rowKey="id"
+              loading={loading}
+              grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+              dataSource={homePageChangeGoodsItem[index].goodsList}
+              renderItem={item => (
+                <List.Item>
+                  <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+                    <Card
+                      className={styles.card}
+                      hoverable
+                      cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                    >
+                      <Card.Meta
+                        title={<p>{item.goodsName}</p>}
+                        description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                      />
+                    </Card>
+                  </Link>
+                </List.Item>
+            )}
+            />
+          </Row>
+          <Row type="flex" align="middle" className={styles.demo_flex}>
+            <Col lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
+              <div style={{textAlign:'center'}}>热卖品牌</div>
+            </Col>
+            {
             homePageChangeGoodsItem[index].brandimgs.map((item,index) =>
             (
               <Col
-                lg={2} md={4} sm={6} xs={8} style={{padding:'0'}} key={index}
+                lg={2}
+                md={4}
+                sm={6}
+                xs={8}
+                style={{padding:'0'}}
+                key={index}
               >
-                <img onClick={() => this.handleBrand(item,index)}  style={{ width:'100%',padding:0,cursor:'pointer' }}  src={item.imgurl} alt="" />
+                <img onClick={() => this.handleBrand(item,index)} style={{ width:'100%',padding:0,cursor:'pointer' }} src={item.imgurl} alt="" />
               </Col>
             ))
           }
-        </Row>
+          </Row>
         </div>
       ))
     ):null;
 
-//首页下半部 热销商品
+// 首页下半部 热销商品
 const allList_hot = list ?(
-      <div>
-        <div  style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top} >
-          <span  className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span >
-          <em onClick={this.handleDown} style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>
+  <div>
+    <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top}>
+      <span className={styles.nav_top_span} style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 热销商品</span>
+      <em onClick={this.handleDown} style={{cursor:'pointer',marginTop:'12px',float:'right',fontStyle:'normal'}} className={styles.nav_top_em}>
             换一批 <Icon style={{marginLeft:'10px'}} type="sync" spin />
-          </em>
-        </div>
-        <Row>
-          <List
-            style={{ textAlign: 'center' }}
-            rowKey="id"
-            loading={loading}
-            grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
-            dataSource={goodsList}
-            renderItem={item => (
-              <List.Item>
-                <Link target="_blank" to={`/mall/goodsDetails/${item.barcode}`}>
-                  <Card
-                    className={styles.card}
-                    hoverable
-                    cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
-                  >
-                    <Card.Meta
-                      title={<p>{item.goodsName}</p>}
-                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                    />
-                  </Card>
-                </Link>
-              </List.Item>
+      </em>
+    </div>
+    <Row>
+      <List
+        style={{ textAlign: 'center' }}
+        rowKey="id"
+        loading={loading}
+        grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
+        dataSource={goodsList}
+        renderItem={item => (
+          <List.Item>
+            <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+              <Card
+                className={styles.card}
+                hoverable
+                cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
+              >
+                <Card.Meta
+                  title={<p>{item.goodsName}</p>}
+                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                />
+              </Card>
+            </Link>
+          </List.Item>
             )}
-          />
-        </Row>
+      />
+    </Row>
 
-      </div>
+  </div>
     ):null;
 
-    const formItemLayout = {
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -258,12 +238,12 @@ const allList_hot = list ?(
     );
 
     return (
-      
+
       <PageHeaderWrapper
         title=""
         content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
-      {bannerPlay}
+        {bannerPlay}
         <div className={styles.coverCardList}>
           <div className={styles.cardList}>
             {/* {cardList} */}

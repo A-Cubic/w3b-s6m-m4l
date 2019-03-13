@@ -104,18 +104,18 @@ export default [
         path: '/KoreaPavilion',
         component: './KoreaPavilion/KoreaPavilion',
       },
-      //欧美馆
-      // {
-      //   name: 'EuropeanAmericanPavilion',
-      //   path: '/EuropeanAmericanPavilion',
-      //   component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
-      // },
+      // 欧美馆
+      {
+        name: 'EuropeanAmericanPavilion',
+        path: '/EuropeanAmericanPavilion',
+        component: './EuropeanAmericanPavilion/EuropeanAmericanPavilion',
+      },
       //临期促销专区
-      // {
-      //   name: 'PromotionArea',
-      //   path: '/PromotionArea',
-      //   component: './PromotionArea/PromotionArea',
-      // },
+      {
+        name: 'PromotionArea',
+        path: '/PromotionArea',
+        component: './PromotionArea/PromotionArea',
+      },
       //商品详情
       {
           path: '/goodsDetails/:barcode',

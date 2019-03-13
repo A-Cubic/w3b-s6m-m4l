@@ -108,7 +108,7 @@ class Category extends PureComponent {
   }
 
   handleFormSubmit = (value) => {
-    this.props.dispatch(routerRedux.push(`/mall/search/${JSON.stringify(value)}`));
+    this.props.dispatch(routerRedux.push(`/search/${JSON.stringify(value)}`));
   }
 
   render() {

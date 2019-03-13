@@ -13,7 +13,7 @@ export default {
   'menu.Home': '首页',
   'menu.JapanPavilion': '日本馆',
   'menu.KoreaPavilion': '韩国馆',
-  'menu.EuropeanAmericanPavilion': '欧美馆',
+  'menu.EuropeanAmericanPavilion': '国内购',
   'menu.PromotionArea': '临期促销专区',
   'menu.goodsDetails': '商品详情',
   'menu.attentionBrand': '关注的品牌',
