@@ -20,53 +20,89 @@ const FormItem = Form.Item;
 }))
 @Form.create({
   onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
+   
+    
   },
 })
 
 class Search extends PureComponent {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
     this.init()
   }
 
   init(){
     const {match,dispatch}=this.props;
-
-    console.log('match',match.params)
-
+    //解析搜索传值
+    const a= JSON.parse(match.params.value)
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
-        select:match.params.value==':value'?'':match.params.value
+        select:match.params.value==':value'?'':a
       },
     });
 
   }
 
+  changePage(page){
+    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    //解析搜索传值
+    const a= JSON.parse(match.params.value)
+    this.props.dispatch({
+      type: 'searchModel/getSelectGoods',
+      payload: {
+        select:select,
+        current:page,
+        pageSize:pagination.pageSize,
+        classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+        brands:brands.length==2?brands[1]:''
+      },
+    });
+  }
+
+  handleCategory(item,index){
+   // console.log(item)
+    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    //解析搜索传值
+    const a= JSON.parse(match.params.value)
+    this.props.dispatch({
+      type: 'searchModel/getSelectGoods',
+      payload: {
+        select:select,
+        classificationSED:item.allclassification
+      },
+    });
+
+  }
+  handleBrand(item,index){
+    //console.log('itemhandleBrand',item)
+    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    this.props.dispatch({
+      type: 'searchModel/getSelectGoods',
+      payload: {
+        brand:item,
+        select:select,
+        classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+        
+      },
+    });
+  }
+
+  handleFormSubmit= (value) => {
+    //console.log('ppp',value)
+    this.props.dispatch({
+      type: 'searchModel/getSelectGoods',
+      payload: {
+        select:value,
+        
+      },
+    });
+  }
 
 
   render() {
-
-    const {searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
-    console.log('search',search)
-
-
+    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+  //  const valuea = JSON.parse(match.params.value)
+    //console.log('search',search)
     const {
       list: { list = [] },
       loading,
@@ -80,12 +116,28 @@ class Search extends PureComponent {
         rowKey="id"
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
-        dataSource={list}
+        dataSource={changeGoods}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            this.changePage(page)
           },
-          pageSize: 10,
+          onShowSizeChange: (current, pageSize) => {
+
+            const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
+           
+            //解析搜索传值
+            const a= JSON.parse(match.params.value)
+            this.props.dispatch({
+              type: 'searchModel/getSelectGoods',
+              payload: {
+                pageSize:pageSize,
+                select:match.params.value==':value'?'':a,
+                classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+                brands:brands.length==2?brands[1]:''
+              },
+            });
+           },
+          pageSize: pagination.pageSize,
           showSizeChanger: true,
           showQuickJumper: true,
         }}
@@ -94,11 +146,11 @@ class Search extends PureComponent {
             <Card
               className={styles.card}
               hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
+              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
             >
               <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                title={<a>{item.goodsName}</a>}
+                description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
               />
             </Card>
           </List.Item>
@@ -116,13 +168,36 @@ class Search extends PureComponent {
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
           <Col lg={10} md={12} sm={16} xs={24}>
-            <Input.Search
+            {/* <Input.Search
               placeholder="请输入"
               enterButton="搜索"
               size="large"
+              value={JSON.parse(match.params.value)}
               onSearch={this.handleFormSubmit}
               // style={{ width: 522 }}
-            />
+            /> */}
+
+            <FormItem label="">
+              {getFieldDecorator('value', {
+                initialValue: JSON.parse(match.params.value)==':value'?'':JSON.parse(match.params.value),
+                
+              })(
+                // <Input placeholder="请输入姓名"/>
+
+                <Input.Search
+                placeholder="请输入"
+                enterButton="搜索"
+                size="large"
+                //value={valuea}
+                onSearch={this.handleFormSubmit}
+                // style={{ width: 522 }}
+              />
+
+              )}
+            </FormItem>
+
+
+
           </Col>
         </Row>
       </div>
@@ -141,19 +216,20 @@ class Search extends PureComponent {
               <StandardFormRow title="分类" block style={{ paddingBottom: 11 }}>
                 <FormItem>
                   {getFieldDecorator('category')(
-                    <TagSelect expandable>
-                      <TagSelect.Option value="cat1">生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
+                    <TagSelect hideCheckAll expandable>
+                      {
+                        classificationSED.map((item,index) => (
+                          //{item.allclassification}
+                         
+                          <TagSelect.Option
+                            value={index}
+                            key={index}
+                          >
+                            <span onClick={() => this.handleCategory(item,index)} >{item.allclassification}</span>
+                          </TagSelect.Option>
+                        ))
+                      }
+
                     </TagSelect>
                   )}
                 </FormItem>
@@ -161,19 +237,19 @@ class Search extends PureComponent {
               <StandardFormRow title="品牌" block style={{ paddingBottom: 11 }}>
                 <FormItem>
                   {getFieldDecorator('Brand')(
-                    <TagSelect expandable>
-                      <TagSelect.Option value="cat1">生活用品</TagSelect.Option>
-                      <TagSelect.Option value="cat2">洗护用品</TagSelect.Option>
-                      <TagSelect.Option value="cat3">母婴</TagSelect.Option>
-                      <TagSelect.Option value="cat4">护肤品</TagSelect.Option>
-                      <TagSelect.Option value="cat5">类目五</TagSelect.Option>
-                      <TagSelect.Option value="cat6">类目六</TagSelect.Option>
-                      <TagSelect.Option value="cat7">类目七</TagSelect.Option>
-                      <TagSelect.Option value="cat8">类目八</TagSelect.Option>
-                      <TagSelect.Option value="cat9">类目九</TagSelect.Option>
-                      <TagSelect.Option value="cat10">类目十</TagSelect.Option>
-                      <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
-                      <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
+                    <TagSelect hideCheckAll expandable>
+                      
+                        {
+                          brands.map((item,index) => (
+                            <TagSelect.Option 
+                              value={index}
+                              key={index}
+                            >
+                            <span onClick={()=>this.handleBrand(item,index)}>{item}</span>
+                            </TagSelect.Option>
+                          ))
+                        }
+
                     </TagSelect>
                   )}
                 </FormItem>

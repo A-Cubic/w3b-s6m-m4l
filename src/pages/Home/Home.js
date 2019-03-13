@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel,Icon,Button,Tag    } from 'antd';
 
+import { message } from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
@@ -59,14 +60,29 @@ class Home extends PureComponent {
     });
   }
   handleClassification= (item) => {
-   console.log('跳品类页',item)
+  // console.log('跳品类页',item)
    //
   }
   handleBrand = (item) => {
    
-   this.props.dispatch(routerRedux.push('/brand/' + item.brandsName));
+   this.props.dispatch(routerRedux.push('/mall/brand/' + item.brandsName));
   }
 
+
+  handleFormSubmit = (value) => {
+    
+   // console.log('value',value.includes('/'))
+
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      this.props.dispatch(routerRedux.push('/mall/search/' + JSON.stringify(value)));
+    }
+
+
+  //  this.props.dispatch(routerRedux.push('/mall/search/' + JSON.stringify(value)));
+   // this.props.dispatch(routerRedux.push('/bulkPurchases/initiateInquiryCan/' + JSON.stringify(getdata)  ));
+  }
 
 
   render() {
@@ -123,13 +139,13 @@ class Home extends PureComponent {
               {
                  homePageChangeGoodsItem[index].classification.map((item,index) =>
                  (
-                  <Link key={index} target="_blank" to={`/category/from/${item.country}/${item.classificationST}`}>
+                  <Link key={index}  to={`/mall/category/from/${item.country}/${item.classificationST}`}>
                    <span
                     style={{textAlign:'right', marginBottom:'10px',float:'right'}}
                     key={index}
                     onClick={() => this.handleClassification(item)}
                    >
-                     <Tag color="red">{item.allclassification}</Tag>
+                     <Tag color="#f5222d">{item.allclassification}</Tag>
                    </span>
                   </Link>
                  ))
@@ -146,16 +162,18 @@ class Home extends PureComponent {
             dataSource={homePageChangeGoodsItem[index].goodsList}
             renderItem={item => (
               <List.Item>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-                >
-                  <Card.Meta
-                    title={<a>{item.goodsName}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                  />
-                </Card>
+                <Link target="_blank" to={`/mall/goodsDetails/${item.barcode}`}>
+                  <Card
+                    className={styles.card}
+                    hoverable
+                    cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                  >
+                    <Card.Meta
+                      title={<p>{item.goodsName}</p>}
+                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             )}  
           />
@@ -197,16 +215,18 @@ const allList_hot = list ?(
             dataSource={goodsList}
             renderItem={item => (
               <List.Item>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
-                >
-                  <Card.Meta
-                    title={<a>{item.goodsName}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                  />
-                </Card>
+                <Link target="_blank" to={`/mall/goodsDetails/${item.barcode}`}>
+                  <Card
+                    className={styles.card}
+                    hoverable
+                    cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
+                  >
+                    <Card.Meta
+                      title={<p>{item.goodsName}</p>}
+                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             )}
           />

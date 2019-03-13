@@ -5,55 +5,24 @@ export default {
   namespace: 'searchModel',
 
   state: {
-    data: {
-      list: [],
+   
+    search:{
+      classificationSED:[],
+      brands:[],
       pagination: {},
-    },
+      select:'',
 
-    search:{}
+    }
 
 
 
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-    },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-
+    
      //获取搜索结果页面接口
      *getSelectGoods({ payload }, { call, put }) {
       const response = yield call(getSelectGoods, payload);
-
-      console.log('xxxxxxxxxxxx')
       if(response!==undefined){
         if(response.type==1){
           yield put({
@@ -61,7 +30,7 @@ export default {
             payload: response,
           });
         }else{
-          message.error('暂无数据');
+          message.error('不可输入特殊字符');
         }
       }
     },
@@ -71,13 +40,7 @@ export default {
   },
 
   reducers: {
-    save(state, action) {
-      return {
-        ...state,
-        data: action.payload,
-      };
-    },
-
+    
     getSelectGoodsR(state, action){
       return {
         ...state,
