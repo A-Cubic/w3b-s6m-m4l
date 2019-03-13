@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Carousel, Button, Input, Divider, Table,List  } from 'antd';
+import { routerRedux, Link } from 'dva/router';
 import styles from './GoodsDetails.less';
 import Ellipsis from '@/components/Ellipsis';
 import DescriptionList from '@/components/DescriptionList';
@@ -62,6 +63,14 @@ class GoodsDetails extends PureComponent {
         pageSize:"12"
       },
     });
+  }
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
   }
 
   render() {
@@ -142,17 +151,19 @@ class GoodsDetails extends PureComponent {
             dataSource={goodsList}
             renderItem={item => (
               <List.Item>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
-                >
-                  <Card.Meta
-                    style={{marginTop:'-30px'}}
-                    title={<a>{item.goodsName}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                  />
-                </Card>
+                <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+                  <Card
+                    className={styles.card}
+                    hoverable
+                    cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
+                  >
+                    <Card.Meta
+                      style={{marginTop:'-30px'}}
+                      title={<p>{item.goodsName}</p>}
+                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             )}
           />

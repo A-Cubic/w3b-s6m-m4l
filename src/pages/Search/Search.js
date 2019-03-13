@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
-
+import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -131,16 +131,18 @@ class Search extends PureComponent {
         }}
         renderItem={item => (
           <List.Item>
-            <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-            >
-              <Card.Meta
-                title={<a>{item.goodsName}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-              />
-            </Card>
+            <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+              <Card
+                className={styles.card}
+                hoverable
+                cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+              >
+                <Card.Meta
+                  title={<p>{item.goodsName}</p>}
+                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                />
+              </Card>
+            </Link>
           </List.Item>
         )}
       />

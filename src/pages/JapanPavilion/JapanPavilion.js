@@ -18,18 +18,6 @@ const FormItem = Form.Item;
   loading: loading.models.list,japanPavilionModel
 }))
 @Form.create({
-  onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    // dispatch({
-    //   type: 'list/fetch',
-    //   payload: {
-    //     count: 18,
-    //   },
-    // });
-  },
 })
 class JapanPavilion extends PureComponent {
   componentDidMount() {
@@ -56,15 +44,20 @@ class JapanPavilion extends PureComponent {
     this.props.dispatch(routerRedux.push( location ));
     // window.location.href=`http://localhost:8000/goodsDetails/${item.barcode}`
   }
+  handleBrand = (item) => {
+    this.props.dispatch(routerRedux.push('/brand/' + item.brandsName));
+  }
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
+  }
 
   render() {
-    // /const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
-    const {japanPavilionModel:{JapanPavilion} } = this.props;
-    const {japanPavilionModel:{JapanPavilion:{banner,brands,goods}} } = this.props;
-
-
-
-
+    const {japanPavilionModel:{JapanPavilion,JapanPavilion:{banner,brands,goods}} } = this.props;
     const bannerPlay = banner ?(
       <Carousel
           className={styles.carousel}
@@ -100,6 +93,7 @@ class JapanPavilion extends PureComponent {
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
         dataSource={brands}
+        
         // pagination={{
         //   onChange: (page) => {
         //     console.log(page);
@@ -109,6 +103,7 @@ class JapanPavilion extends PureComponent {
         renderItem={item => (
           <List.Item>
             <Card
+              onClick={() => this.handleBrand(item)}
               className={styles.card}
               hoverable
               cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
@@ -181,7 +176,6 @@ class JapanPavilion extends PureComponent {
           </Col>
         </Row>
       </div>
-
     );
     return (
       <PageHeaderWrapper

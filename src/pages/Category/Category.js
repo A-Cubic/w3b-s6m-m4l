@@ -55,6 +55,7 @@ class Category extends PureComponent {
 
     const payloadParams = this.props.match.params;
     const bolPayloadParams = JSON.stringify(this.props.match.params)==="{}"
+    const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
 
     this.props.dispatch({
       type: 'categoryModel/getCategoryGoods',
@@ -63,6 +64,7 @@ class Category extends PureComponent {
         country:bolPayloadParams?this.state.country:payloadParams.country,
         classificationSED:payloadClassificationSED,
         brand:payloadBrand,
+        pageSize:pagination.pageSize,
         ...page
       },
     });
@@ -109,6 +111,15 @@ class Category extends PureComponent {
 
   handleFormSubmit = (value) => {
     this.props.dispatch(routerRedux.push(`/search/${JSON.stringify(value)}`));
+  }
+
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
   }
 
   render() {
@@ -162,16 +173,18 @@ class Category extends PureComponent {
         }}
         renderItem={item => (
           <List.Item>
-            <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-            >
-              <Card.Meta
-                title={<a>{item.goodsName}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-              />
-            </Card>
+            <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+              <Card
+                className={styles.card}
+                hoverable
+                cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+              >
+                <Card.Meta
+                  title={<p>{item.goodsName}</p>}
+                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                />
+              </Card>
+            </Link>
           </List.Item>
         )}
       />

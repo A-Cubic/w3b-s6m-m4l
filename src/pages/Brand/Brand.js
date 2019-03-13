@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel, Divider } from 'antd';
-
+import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -57,6 +57,14 @@ class Brand extends PureComponent {
         pageSize:pagination.pageSize
       },
     });
+  }
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
   }
 
   render() {
@@ -115,16 +123,18 @@ class Brand extends PureComponent {
         }}
         renderItem={item => (
           <List.Item>
-            <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20}}  src={item.imgurl} />}
-            >
-              <Card.Meta
-                title={<a>{item.goodsName}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-              />
-            </Card>
+            <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+              <Card
+                className={styles.card}
+                hoverable
+                cover={<img style={{padding: 20}}  src={item.imgurl} />}
+              >
+                <Card.Meta
+                  title={<p>{item.goodsName}</p>}
+                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                />
+              </Card>
+            </Link>
           </List.Item>
         )}
       />

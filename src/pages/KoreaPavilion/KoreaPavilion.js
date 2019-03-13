@@ -20,13 +20,7 @@ const FormItem = Form.Item;
   koreaPavilionModel
 }))
 @Form.create({
-  // onValuesChange({ dispatch }, changedValues, allValues) {
-  //   // 表单项变化时请求数据
-  //   // eslint-disable-next-line
-  //   console.log(changedValues, allValues);
-  //   // 模拟查询表单生效
-    
-  // },
+  
 })
 class KoreaPavilion extends PureComponent {
   componentDidMount() {
@@ -44,7 +38,15 @@ class KoreaPavilion extends PureComponent {
 
   handleBrand = (item) => {
     this.props.dispatch(routerRedux.push('/brand/' + item.brandsName));
-   }
+  }
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      // this.props.dispatch(routerRedux.push('/search/' + JSON.stringify(value)));
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
+  }
 
   render() {
     const {koreaPavilionModel:{KoreaPavilion} } = this.props;
@@ -115,16 +117,18 @@ class KoreaPavilion extends PureComponent {
       
             renderItem={item => (
               <List.Item>
-                <Card
-                  className={styles.card}
-                  hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
-                >
-                  <Card.Meta
-                    title={<a>{item.goodsName}</a>}
-                    description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
-                  />
-                </Card>
+                <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+                  <Card
+                    className={styles.card}
+                    hoverable
+                    cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                  >
+                    <Card.Meta
+                      title={<p>{item.goodsName}</p>}
+                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                    />
+                  </Card>
+                </Link>
               </List.Item>
             )}
           />

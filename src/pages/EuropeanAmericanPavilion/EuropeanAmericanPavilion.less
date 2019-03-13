@@ -10,9 +10,12 @@
 }
 .coverCardList {
   margin-bottom: -24px;
-
   .card {
     :global {
+      .ant-card-body {
+        // padding: 0 34px;
+        padding: 0 34px 10px 34px;
+      }
       .ant-card-meta-title {
         margin-bottom: 4px;
         & > a {
@@ -27,7 +30,6 @@
         overflow: hidden;
       }
     }
-
     &:hover {
       :global {
         .ant-card-meta-title > a {
@@ -36,6 +38,8 @@
       }
     }
   }
+
+  
 
   .cardItemContent {
     display: flex;
