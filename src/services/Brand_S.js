@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-
+import {apiUrl,testUrl} from '@/utils/request';
 export async function queryProvince() {
   return request('/api/geographic/province');
 }
@@ -9,8 +9,7 @@ export async function queryCity(province) {
 }
 
 export async function getBrandsGoods(params) {
-  return request('http://192.168.0.127:54195/llback/NewHomePage/BrandsGoods', {
-   //return request('/llback/NewHomePage/HomePageDownPart', {
+  return request(`${testUrl}/llback/NewHomePage/BrandsGoods`, {
    method: 'POST',
    body: params,
  });

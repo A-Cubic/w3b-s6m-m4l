@@ -149,7 +149,7 @@ export default [
           component: './AttentionBrand/AttentionBrand',
       },
       // dashboard
-      { path: '/mall', redirect: '/home' },
+      { path: '/', redirect: '/home' },
       {
         path: '/dashboard',
         name: 'dashboard',
