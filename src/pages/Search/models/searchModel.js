@@ -5,6 +5,8 @@ export default {
   namespace: 'searchModel',
 
   state: {
+    clickClassificationSED:'全部',
+    clickBrand:'全部',
     search:{
       classificationSED:[],
       brands:[],
@@ -37,6 +39,21 @@ export default {
       return {
         ...state,
         search:action.payload
+      }
+    },
+
+    saveClickClassificationSEDR(state, action){
+    //  console.log('aaaa',action.payload)
+      return {
+        ...state,
+        clickClassificationSED:action.payload
+      }
+    },
+    saveClickBrandR(state, action){
+      console.log(action.payload)
+      return {
+        ...state,
+        clickBrand:action.payload
       }
     },
 

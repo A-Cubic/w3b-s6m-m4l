@@ -71,7 +71,7 @@ export default {
       }
     },
     saveClickClassificationSEDR(state, action){
-      console.log('aaaa',action.payload)
+     // console.log('aaaa',action.payload)
       return {
         ...state,
         clickClassificationSED:action.payload

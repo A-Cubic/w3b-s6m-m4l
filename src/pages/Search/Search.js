@@ -38,7 +38,7 @@ class Search extends PureComponent {
   }
 
   changePage(page){
-    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
     // 解析搜索传值
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
@@ -46,38 +46,54 @@ class Search extends PureComponent {
         select,
         current:page,
         pageSize:pagination.pageSize,
-        classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
-        brands:brands.length==2?brands[1]:''
+        // classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+        // brands:brands.length==2?brands[1]:''
+        classificationSED:clickClassificationSED,
+        brands:clickBrand
       },
     });
   }
 
-  handleCategory(item,index){
-   // console.log(item)
+  // 切换分类
+  handleCategory = (a) => {
+    
     const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
-    // 解析搜索传值
+    this.props.dispatch({
+      type: 'searchModel/saveClickClassificationSEDR',
+      payload: a,
+    });
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
         select,
-        classificationSED:item.allclassification
+        // classificationSED:item.allclassification
+        classificationSED:a
       },
     });
-
   }
 
-  handleBrand(item,index){
-    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+
+  
+  // 切换品牌
+  handleCategoryBrands = (b) =>{
+    const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    console.log('clickClassificationSED',clickClassificationSED)
+    this.props.dispatch({
+      type: 'searchModel/saveClickBrandR',
+      payload: b,
+    });
+
     this.props.dispatch({
       type: 'searchModel/getSelectGoods',
       payload: {
-        brand:item,
+        brand:b,
         select,
-        classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
-
+        //classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+        clickClassificationSED:clickClassificationSED
       },
     });
   }
+
 
   handleFormSubmit= (value) => {
     this.props.dispatch({
@@ -91,7 +107,7 @@ class Search extends PureComponent {
 
 
   render() {
-    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
     const {
       list: { list = [] },
       loading,
@@ -112,7 +128,7 @@ class Search extends PureComponent {
           },
           onShowSizeChange: (current, pageSize) => {
 
-            const {searchModel:{search,search:{brands,changeGoods,classificationSED,pagination}} } = this.props;
+            const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
 
             // 解析搜索传值
             this.props.dispatch({
@@ -120,8 +136,10 @@ class Search extends PureComponent {
               payload: {
                 pageSize,
                 select,
-                classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
-                brands:brands.length==2?brands[1]:''
+                // classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
+                // brands:brands.length==2?brands[1]:''
+                classificationSED:clickClassificationSED,
+                brands:clickBrand
               },
             });
            },
@@ -182,41 +200,97 @@ class Search extends PureComponent {
           <Card bordered={false}>
             <Form layout="inline">
               <StandardFormRow title="分类" block style={{ paddingBottom: 11 }}>
-                <FormItem>
+                
+                  <FormItem>
                   {getFieldDecorator('category')(
-                    <TagSelect hideCheckAll expandable>
+                    <TagSelect hideCheckAll expandable style={{background:'none'}}>
                       {
-                        classificationSED.map((item,index) => (
-                          // {item.allclassification}
-                          <TagSelect.Option
-                            value={index}
-                            key={index}
-                          >
-                            <span onClick={() => this.handleCategory(item,index)}>{item.allclassification}</span>
-                          </TagSelect.Option>
+                        classificationSED.map((item,index) =>
+                        (
+                          item.allclassification===clickClassificationSED?(
+                            <TagSelect.Option
+                              backgroudColor="#f5222d"
+                              fontColor="#fff"
+                              key={index}
+                              value={item.allclassification}
+                            >
+                              <span
+                                style={{display:'inline-block'}}
+                                onClick={() => this.handleCategory(item.allclassification)}
+                              >
+                                {item.allclassification}
+                              </span>
+                            </TagSelect.Option>
+                            ):(
+                            <TagSelect.Option
+                              backgroudColor="#fff"
+                              fontColor="#f5222d"
+                              key={index}
+                              value={item.classificationST}
+                            >
+                              <span
+                                style={{display:'inline-block'}}
+                                onClick={() => this.handleCategory(item.allclassification,item)}
+                              >
+                                {item.allclassification}
+                              </span>
+                            </TagSelect.Option>
+                          )
+
                         ))
                       }
+
                     </TagSelect>
                   )}
                 </FormItem>
+
+
               </StandardFormRow>
               <StandardFormRow title="品牌" block style={{ paddingBottom: 11 }}>
+                
+
                 <FormItem>
                   {getFieldDecorator('Brand')(
                     <TagSelect hideCheckAll expandable>
                       {
-                          brands.map((item,index) => (
-                            <TagSelect.Option
-                              value={index}
-                              key={index}
+                        brands.map((item,index) =>
+                        (
+                          item===clickBrand?(
+                           <TagSelect.Option
+                             backgroudColor="#f5222d"
+                             fontColor="#fff"
+                             key={index}
+                             value={index}
+                           >
+                            <span
+                              onClick={() => this.handleCategoryBrands(item)}
                             >
-                              <span onClick={()=>this.handleBrand(item,index)}>{item}</span>
-                            </TagSelect.Option>
-                          ))
-                        }
+                              {item}
+                            </span>
+                           </TagSelect.Option>
+                           ):(
+                           <TagSelect.Option
+                             backgroudColor="#fff"
+                             fontColor="#f5222d"
+                             key={index}
+                             value={index}
+                           >
+                            <span
+                              onClick={() => this.handleCategoryBrands(item)}
+                            >
+                              {item}
+                            </span>
+                           </TagSelect.Option>
+                         )
+                        ))
+                      }
+
                     </TagSelect>
                   )}
-                </FormItem>
+                </FormItem>  
+
+
+
               </StandardFormRow>
             </Form>
           </Card>

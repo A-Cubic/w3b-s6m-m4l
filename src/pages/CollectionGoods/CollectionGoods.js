@@ -115,7 +115,7 @@ class CollectionGoods extends PureComponent {
                   description={
                   	<div>
 	                    <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
-	                    <Ellipsis className={styles.ellipsis} lines={2}>item.price</Ellipsis>
+	                    <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
 	                  </div>
                   }
                 />
