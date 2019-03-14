@@ -1,55 +1,55 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
+import { getUserCollectionGoods } from '@/services/CollectionGoods_S';
+import { message } from 'antd';
 
 export default {
-  namespace: 'japanPavilionModel',
+  namespace: 'collectionGoodsModel',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
+   
+    collectionGoods:{
+      goodsList:[],
+      pagination:{
+        pageSize:0,
+      }
+    }
+
+
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+    
+    // 获取我收藏的商品列表接口
+    *getUserCollectionGoods({ payload }, { call, put }) {
+      const response = yield call(getUserCollectionGoods, payload);
+      console.log('xxxxxxxxxxxxxxxx')
+      if(response!==undefined){
+       if(response.type==1){
+          yield put({
+            type: 'getUserCollectionGoodsR',
+            payload: response,
+          });
+        }else{
+          message.error('数据为空，请联系客服');
+        }
+      }
     },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
+
+
+
   },
 
   reducers: {
-    save(state, action) {
+   
+    getUserCollectionGoodsR(state, action){
       return {
         ...state,
-        data: action.payload,
-      };
-    },
+        collectionGoods:action.payload
+       
+      }
+    },	
+
+
+
   },
 };

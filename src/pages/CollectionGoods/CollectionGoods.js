@@ -1,37 +1,27 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
-
+import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './CollectionGoods.less';
-
+import { message } from 'antd';
 const { Option } = Select;
 const FormItem = Form.Item;
 
 /* eslint react/no-array-index-key: 0 */
 
-@connect(({ list, loading }) => ({
+@connect(({ list, loading ,collectionGoodsModel}) => ({
   list,
   loading: loading.models.list,
+  collectionGoodsModel
 }))
 @Form.create({
-  onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
-  },
+ 
 })
-class JapanPavilion extends PureComponent {
+class CollectionGoods extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -40,9 +30,51 @@ class JapanPavilion extends PureComponent {
         count: 18,
       },
     });
+    this.init()
+  }
+
+
+  init(){
+    this.props.dispatch({
+      type: 'collectionGoodsModel/getUserCollectionGoods',
+      payload: {
+        country:'韩国'
+      },
+    });
+  } 
+
+  handleFormSubmit = (value) => {
+    if(value.includes('/')){
+      message.error('不可输入特殊字符');
+    } else {
+      this.props.dispatch(routerRedux.push(`/search/${value===''?undefined:value}`))
+    }
+  }
+  changePage(page){
+    const {collectionGoodsModel:{collectionGoods,collectionGoods:{goodsList,pagination}} } = this.props;
+   
+    this.props.dispatch({
+      type: 'collectionGoodsModel/getUserCollectionGoods',
+      payload: {
+        current:page,
+        pageSize:pagination.pageSize
+      },
+    });
+  }
+
+  changePageSize(current, pageSize){
+   
+    const {collectionGoodsModel:{collectionGoods,collectionGoods:{goodsList,pagination}} } = this.props;
+    this.props.dispatch({
+      type: 'collectionGoodsModel/getUserCollectionGoods',
+      payload: {
+        pageSize:pageSize
+      },
+    });
   }
 
   render() {
+    const {collectionGoodsModel:{collectionGoods,collectionGoods:{goodsList,pagination}} } = this.props;
     const {
       list: { list = [] },
       loading,
@@ -56,27 +88,34 @@ class JapanPavilion extends PureComponent {
         rowKey="id"
         loading={loading}
         grid={{ gutter: 12, xl: 6, lg: 4, md: 3, sm: 2, xs: 1 }}
-        dataSource={list}
+        dataSource={goodsList}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            this.changePage(page)
           },
-          pageSize: 10,
+          onShowSizeChange: (current, pageSize) => {
+            // console.log('page',current, pageSize)
+             this.changePageSize(current, pageSize)
+ 
+           },
+          pageSize: pagination.pageSize,
           showSizeChanger: true,
           showQuickJumper: true,
         }}
         renderItem={item => (
           <List.Item>
-            <Card
-              className={styles.card}
-              hoverable
-              cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
-            >
-              <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
-              />
-            </Card>
+            <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
+              <Card
+                className={styles.card}
+                hoverable
+                cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+              >
+                <Card.Meta
+                  title={<p>{item.goodsName}</p>}
+                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                />
+              </Card>
+            </Link>
           </List.Item>
         )}
       />
@@ -111,6 +150,9 @@ class JapanPavilion extends PureComponent {
       >
 
         <div className={styles.coverCardList}>
+          <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top}>
+            <span style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 我收藏的商品</span> 
+          </div>
           <div className={styles.cardList}>
             {cardList}
           </div>
@@ -120,4 +162,4 @@ class JapanPavilion extends PureComponent {
   }
 }
 
-export default JapanPavilion;
+export default CollectionGoods;
