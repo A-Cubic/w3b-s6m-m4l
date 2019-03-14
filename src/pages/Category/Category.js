@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Form, Card, Select, List, Input, Carousel } from 'antd';
-
+import { message } from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';

@@ -6,7 +6,7 @@ import styles from './GoodsDetails.less';
 import Ellipsis from '@/components/Ellipsis';
 import DescriptionList from '@/components/DescriptionList';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-
+import { message } from 'antd';
 const { Description } = DescriptionList;
 
 /* eslint react/no-array-index-key: 0 */

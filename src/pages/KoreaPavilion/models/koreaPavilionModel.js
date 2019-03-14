@@ -1,5 +1,6 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
 import { getCountryGoods } from '@/services/JapanPavilion_S';
+import { message } from 'antd';
 export default {
   namespace: 'koreaPavilionModel',
 
