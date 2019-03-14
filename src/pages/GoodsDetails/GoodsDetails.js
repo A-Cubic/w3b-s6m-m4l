@@ -159,8 +159,13 @@ class GoodsDetails extends PureComponent {
                   >
                     <Card.Meta
                       style={{marginTop:'-30px'}}
-                      title={<p>{item.goodsName}</p>}
-                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                      // title={<p>{item.goodsName}</p>}
+                      description={
+                        <div>
+                          <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                        </div>
+                      }
                     />
                   </Card>
                 </Link>

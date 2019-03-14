@@ -73,8 +73,13 @@ class JapanPavilion extends PureComponent {
               cover={<img style={{padding: 20}} alt={item.title} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/goodtest.png" />}
             >
               <Card.Meta
-                title={<a>{item.subDescription}</a>}
-                description={<Ellipsis className={styles.ellipsis} lines={2}>¥99.9999</Ellipsis>}
+                // title={<a>{item.subDescription}</a>}
+                description={
+                  <div>
+                    <Ellipsis className={styles.ellipsisName} lines={2}>{item.subDescription}</Ellipsis>
+                    <Ellipsis className={styles.ellipsis} lines={2}>888888</Ellipsis>
+                  </div>
+                }
               />
             </Card>
           </List.Item>
