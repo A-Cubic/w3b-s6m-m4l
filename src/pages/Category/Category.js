@@ -38,10 +38,10 @@ class Category extends PureComponent {
     const payloadParams = this.props.match.params;
     const bolPayloadParams = JSON.stringify(this.props.match.params)==="{}"
     if(bolPayloadParams){
-      console.warn('这是全部分类')
+      // console.warn('这是全部分类')
       this.getAllClassification()
     }else{
-      console.warn('这是首页')
+      // console.warn('这是首页')
       this.setState({
         curClassificationST:payloadParams.category,
         country:payloadParams.country
@@ -101,12 +101,21 @@ class Category extends PureComponent {
   // 切换分类
   handleCategory = (a) => {
     this.getData(a)
+    this.props.dispatch({
+      type: 'categoryModel/saveClickClassificationSEDR',
+      payload: a,
+    });
+
   }
 
   // 切换品牌
   handleCategoryBrands = (b) =>{
     const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
     this.getData(classificationSED.length==2?classificationSED[1].classificationST:'',b)
+    this.props.dispatch({
+      type: 'categoryModel/saveClickBrandR',
+      payload: b,
+    });
   }
 
   handleFormSubmit = (value) => {
@@ -123,7 +132,7 @@ class Category extends PureComponent {
   }
 
   render() {
-    const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+    const {categoryModel:{clickClassificationSED,clickBrand,Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
     const {
       list: { list = [] },
       loading,
@@ -180,8 +189,12 @@ class Category extends PureComponent {
                 cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
               >
                 <Card.Meta
-                  title={<p>{item.goodsName}</p>}
-                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                  description={
+                    <div>
+                      <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                      <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                    </div>
+                  }
                 />
               </Card>
             </Link>
@@ -232,17 +245,36 @@ class Category extends PureComponent {
                       {
                         classificationSED.map((item,index) =>
                         (
-                          <TagSelect.Option
-                            key={index}
-                            value={item.classificationST}
-                          >
-                            <span
-                              style={{display:'inline-block'}}
-                              onClick={() => this.handleCategory(item.classificationST)}
+                          item.classificationST===clickClassificationSED?(
+                            <TagSelect.Option
+                              backgroudColor="#f5222d"
+                              fontColor="#fff"
+                              key={index}
+                              value={item.classificationST}
                             >
-                              {item.allclassification}
-                            </span>
-                          </TagSelect.Option>
+                              <span
+                                style={{display:'inline-block'}}
+                                onClick={() => this.handleCategory(item.classificationST)}
+                              >
+                                {item.allclassification}
+                              </span>
+                            </TagSelect.Option>
+                            ):(
+                            <TagSelect.Option
+                              backgroudColor="#fff"
+                              fontColor="#f5222d"
+                              key={index}
+                              value={item.classificationST}
+                            >
+                              <span
+                                style={{display:'inline-block'}}
+                                onClick={() => this.handleCategory(item.classificationST,item)}
+                              >
+                                {item.allclassification}
+                              </span>
+                            </TagSelect.Option>
+                          )
+
                         ))
                       }
 
@@ -258,16 +290,33 @@ class Category extends PureComponent {
                       {
                         brands.map((item,index) =>
                         (
-                          <TagSelect.Option
-                            key={index}
-                            value={index}
-                          >
+                          item===clickBrand?(
+                           <TagSelect.Option
+                             backgroudColor="#f5222d"
+                             fontColor="#fff"
+                             key={index}
+                             value={index}
+                           >
                             <span
                               onClick={() => this.handleCategoryBrands(item)}
                             >
                               {item}
                             </span>
-                          </TagSelect.Option>
+                           </TagSelect.Option>
+                           ):(
+                           <TagSelect.Option
+                             backgroudColor="#fff"
+                             fontColor="#f5222d"
+                             key={index}
+                             value={index}
+                           >
+                            <span
+                              onClick={() => this.handleCategoryBrands(item)}
+                            >
+                              {item}
+                            </span>
+                           </TagSelect.Option>
+                         )
                         ))
                       }
 

@@ -48,7 +48,7 @@ class Brand extends PureComponent {
   inchange(page){
     const {match,dispatch}=this.props;
     const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-   
+
     this.props.dispatch({
       type: 'brandModel/getBrandsGoods',
       payload: {
@@ -71,8 +71,7 @@ class Brand extends PureComponent {
 
     const {brandModel:{brandsGoods} } = this.props;
     const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-    //console.log(777777777777,brandsGoods)
-    
+
     const {
       list: { list = [] },
       loading,
@@ -104,14 +103,13 @@ class Brand extends PureComponent {
             this.inchange(page)
           },
           onShowSizeChange: (current, pageSize) => {
-           // console.log('page',current, pageSize)
             const {match,dispatch}=this.props;
             const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
             this.props.dispatch({
               type: 'brandModel/getBrandsGoods',
               payload: {
                 brandsName:match.params.brandsName,
-               
+
                 pageSize:pageSize
               },
             });
@@ -130,8 +128,12 @@ class Brand extends PureComponent {
                 cover={<img style={{padding: 20}}  src={item.imgurl} />}
               >
                 <Card.Meta
-                  title={<p>{item.goodsName}</p>}
-                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                  description={
+                    <div>
+                      <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                      <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                    </div>
+                  }
                 />
               </Card>
             </Link>
@@ -139,12 +141,6 @@ class Brand extends PureComponent {
         )}
       />
     ) : null;
-    const formItemLayout = {
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
-      },
-    };
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -154,7 +150,6 @@ class Brand extends PureComponent {
               enterButton="搜索"
               size="large"
               onSearch={this.handleFormSubmit}
-              // style={{ width: 522 }}
             />
           </Col>
         </Row>

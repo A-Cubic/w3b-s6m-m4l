@@ -131,7 +131,6 @@ class Home extends PureComponent {
                    </Link>
                  ))
               }
-              {/* </div> */}
             </Col>
           </Row>
           <Row>
@@ -150,8 +149,13 @@ class Home extends PureComponent {
                       cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
                     >
                       <Card.Meta
-                        title={<p>{item.goodsName}</p>}
-                        description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                        // title={<p>{item.goodsName}</p>}
+                        description={
+                          <div>
+                            <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                            <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                          </div>
+                        }
                       />
                     </Card>
                   </Link>
@@ -159,7 +163,7 @@ class Home extends PureComponent {
             )}
             />
           </Row>
-          <Row type="flex" align="middle" className={styles.demo_flex}>
+          <Row type="flex" align="middle">
             <Col lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
               <div style={{textAlign:'center'}}>热卖品牌</div>
             </Col>
@@ -208,8 +212,12 @@ const allList_hot = list ?(
                 cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
               >
                 <Card.Meta
-                  title={<p>{item.goodsName}</p>}
-                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                  description={
+                    <div>
+                      <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                      <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                    </div>
+                  }
                 />
               </Card>
             </Link>

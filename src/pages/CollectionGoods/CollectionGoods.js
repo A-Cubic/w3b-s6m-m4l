@@ -104,6 +104,7 @@ class CollectionGoods extends PureComponent {
         }}
         renderItem={item => (
           <List.Item>
+
             <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
               <Card
                 className={styles.card}
@@ -111,11 +112,16 @@ class CollectionGoods extends PureComponent {
                 cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
               >
                 <Card.Meta
-                  title={<p>{item.goodsName}</p>}
-                  description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                  description={
+                  	<div>
+	                    <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+	                    <Ellipsis className={styles.ellipsis} lines={2}>item.price</Ellipsis>
+	                  </div>
+                  }
                 />
               </Card>
             </Link>
+
           </List.Item>
         )}
       />

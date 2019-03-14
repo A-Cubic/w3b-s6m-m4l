@@ -20,7 +20,7 @@ const FormItem = Form.Item;
   koreaPavilionModel
 }))
 @Form.create({
-  
+
 })
 class KoreaPavilion extends PureComponent {
   componentDidMount() {
@@ -114,7 +114,7 @@ class KoreaPavilion extends PureComponent {
             loading={loading}
             grid={{ gutter: 12, xl: 6, lg: 4, md: 4, sm: 2, xs: 1 }}
             dataSource={goods}
-      
+
             renderItem={item => (
               <List.Item>
                 <Link target="_blank" to={`/goodsDetails/${item.barcode}`}>
@@ -124,8 +124,13 @@ class KoreaPavilion extends PureComponent {
                     cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
                   >
                     <Card.Meta
-                      title={<p>{item.goodsName}</p>}
-                      description={<Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>}
+                      // title={<p>{item.goodsName}</p>}
+                      description={
+                        <div>
+                          <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
+                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                        </div>
+                      }
                     />
                   </Card>
                 </Link>
@@ -134,7 +139,7 @@ class KoreaPavilion extends PureComponent {
           />
         </Row>
       </div>
-    ):null;          
+    ):null;
     const formItemLayout = {
       wrapperCol: {
         xs: { span: 24 },

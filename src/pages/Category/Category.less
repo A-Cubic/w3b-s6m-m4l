@@ -8,13 +8,20 @@
 .ellipsis {
   color: #dd7427;
 }
+.ellipsisName {
+  color: #777;
+  height: 44px;
+}
+.ellipsisName:hover {
+  color: #f00;
+}
 .coverCardList {
   margin-bottom: -24px;
 
   .card {
     :global {
       .ant-card-body {
-        padding: 0 24px;
+        padding: 0 34px 8px;
       }
       .ant-card-meta-title {
         margin-bottom: 4px;
@@ -23,15 +30,9 @@
           display: inline-block;
           max-width: 100%;
         }
-        & > p {
-          overflow: hidden;
-          text-overflow:ellipsis;
-          white-space: nowrap;
-          -webkit-line-clamp:2;
-        }
       }
       .ant-card-meta-description {
-        height: 44px;
+        height: 88px;
         line-height: 22px;
         overflow: hidden;
       }
@@ -63,11 +64,5 @@
   }
   .cardList {
     margin-top: 24px;
-  }
-
-  :global {
-    .ant-list .ant-list-item-content-single {
-      max-width: 100%;
-    }
   }
 }
