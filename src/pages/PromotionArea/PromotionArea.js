@@ -21,14 +21,14 @@ const FormItem = Form.Item;
   onValuesChange({ dispatch }, changedValues, allValues) {
     // 表单项变化时请求数据
     // eslint-disable-next-line
-    console.log(changedValues, allValues);
+    // console.log(changedValues, allValues);
     // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
+    // dispatch({
+    //   type: 'list/fetch',
+    //   payload: {
+    //     count: 18,
+    //   },
+    // });
   },
 })
 class JapanPavilion extends PureComponent {
@@ -59,7 +59,7 @@ class JapanPavilion extends PureComponent {
         dataSource={list}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            // console.log(page);
           },
           pageSize: 10,
         }}

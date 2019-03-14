@@ -21,14 +21,14 @@ const FormItem = Form.Item;
   onValuesChange({ dispatch }, changedValues, allValues) {
     // 表单项变化时请求数据
     // eslint-disable-next-line
-    console.log(changedValues, allValues);
-    // 模拟查询表单生效
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 8,
-      },
-    });
+    // console.log(changedValues, allValues);
+    // // 模拟查询表单生效
+    // dispatch({
+    //   type: 'list/fetch',
+    //   payload: {
+    //     count: 8,
+    //   },
+    // });
   },
 })
 class GoodsDetails extends PureComponent {
@@ -59,7 +59,7 @@ class GoodsDetails extends PureComponent {
         dataSource={list}
         pagination={{
           onChange: (page) => {
-            console.log(page);
+            // console.log(page);
           },
           pageSize: 5,
         }}

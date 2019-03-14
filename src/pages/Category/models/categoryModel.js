@@ -71,14 +71,12 @@ export default {
       }
     },
     saveClickClassificationSEDR(state, action){
-      console.log('aaaa',action.payload)
       return {
         ...state,
         clickClassificationSED:action.payload
       }
     },
     saveClickBrandR(state, action){
-      console.log(action.payload)
       return {
         ...state,
         clickBrand:action.payload

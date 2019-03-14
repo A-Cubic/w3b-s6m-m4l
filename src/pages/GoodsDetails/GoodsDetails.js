@@ -44,6 +44,12 @@ class GoodsDetails extends PureComponent {
       payload: b,
     });
   }
+  handleClickImg=(a)=>{
+    this.props.dispatch({
+      type: 'goodsDetailsModel/clickShowImgR',
+      payload: a,
+    });
+  }
 
   init(){
     const {match,dispatch}=this.props;
@@ -205,7 +211,7 @@ class GoodsDetails extends PureComponent {
                           <div
                             key={item}
                           >
-                            <img style={{ width:'100%',padding:5 }} src={item} alt="" />
+                            <img style={{ width:'100%',padding:5 }} onClick={()=>this.handleClickImg(item)} src={item} alt="" />
                           </div>
                         ))
                     }

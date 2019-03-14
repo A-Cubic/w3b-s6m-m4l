@@ -22,7 +22,7 @@ const FormItem = Form.Item;
   onValuesChange({ dispatch }, changedValues, allValues) {
     // 表单项变化时请求数据
     // eslint-disable-next-line
-    console.log(changedValues, allValues);
+    // console.log(changedValues, allValues);
     // 模拟查询表单生效
   },
 })

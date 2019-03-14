@@ -30,6 +30,7 @@ class Category extends PureComponent {
     classificationSED:'',
     brand:''
   }
+
   componentDidMount() {
     this.init()
   }
@@ -260,19 +261,19 @@ class Category extends PureComponent {
                               </span>
                             </TagSelect.Option>
                             ):(
-                            <TagSelect.Option
-                              backgroudColor="#fff"
-                              fontColor="#f5222d"
-                              key={index}
-                              value={item.classificationST}
-                            >
-                              <span
-                                style={{display:'inline-block'}}
-                                onClick={() => this.handleCategory(item.classificationST,item)}
+                              <TagSelect.Option
+                                backgroudColor="#fff"
+                                fontColor="#f5222d"
+                                key={index}
+                                value={item.classificationST}
                               >
-                                {item.allclassification}
-                              </span>
-                            </TagSelect.Option>
+                                <span
+                                  style={{display:'inline-block'}}
+                                  onClick={() => this.handleCategory(item.classificationST,item)}
+                                >
+                                  {item.allclassification}
+                                </span>
+                              </TagSelect.Option>
                           )
 
                         ))
@@ -291,31 +292,31 @@ class Category extends PureComponent {
                         brands.map((item,index) =>
                         (
                           item===clickBrand?(
-                           <TagSelect.Option
-                             backgroudColor="#f5222d"
-                             fontColor="#fff"
-                             key={index}
-                             value={index}
-                           >
-                            <span
-                              onClick={() => this.handleCategoryBrands(item)}
+                            <TagSelect.Option
+                              backgroudColor="#f5222d"
+                              fontColor="#fff"
+                              key={index}
+                              value={index}
                             >
-                              {item}
-                            </span>
-                           </TagSelect.Option>
+                              <span
+                                onClick={() => this.handleCategoryBrands(item)}
+                              >
+                                {item}
+                              </span>
+                            </TagSelect.Option>
                            ):(
-                           <TagSelect.Option
-                             backgroudColor="#fff"
-                             fontColor="#f5222d"
-                             key={index}
-                             value={index}
-                           >
-                            <span
-                              onClick={() => this.handleCategoryBrands(item)}
-                            >
-                              {item}
-                            </span>
-                           </TagSelect.Option>
+                             <TagSelect.Option
+                               backgroudColor="#fff"
+                               fontColor="#f5222d"
+                               key={index}
+                               value={index}
+                             >
+                               <span
+                                 onClick={() => this.handleCategoryBrands(item)}
+                               >
+                                 {item}
+                               </span>
+                             </TagSelect.Option>
                          )
                         ))
                       }

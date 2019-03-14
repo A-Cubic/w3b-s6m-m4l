@@ -101,11 +101,16 @@ export default {
             imgone:state.goodsDetails.img[action.payload],
           }
         }
-
-
-
     },
-
+    clickShowImgR(state, action){
+      return {
+        ...state,
+        goodsDetails:{
+          ...state.goodsDetails,
+          imgone:action.payload,
+        }
+      }
+    },
 
   },
 };
