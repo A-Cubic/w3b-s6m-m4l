@@ -211,7 +211,7 @@ class GoodsDetails extends PureComponent {
                           <div
                             key={item}
                           >
-                            <img style={{ width:'100%',padding:5 }} onClick={()=>this.handleClickImg(item)} src={item} alt="" />
+                            <img style={{ width:'100%',padding:5 }} onMouseOver={()=>this.handleClickImg(item)} onClick={()=>this.handleClickImg(item)} src={item} alt="" />
                           </div>
                         ))
                     }
