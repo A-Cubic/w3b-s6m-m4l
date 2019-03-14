@@ -5,6 +5,8 @@ export default {
   namespace: 'categoryModel',
 
   state: {
+    clickClassificationSED:'',
+    clickBrand:'全部',
     Category:{
       categoryImg:[],
       brands:[],
@@ -66,6 +68,20 @@ export default {
       return {
         ...state,
         allClassificationArr:action.payload
+      }
+    },
+    saveClickClassificationSEDR(state, action){
+      console.log('aaaa',action.payload)
+      return {
+        ...state,
+        clickClassificationSED:action.payload
+      }
+    },
+    saveClickBrandR(state, action){
+      console.log(action.payload)
+      return {
+        ...state,
+        clickBrand:action.payload
       }
     },
 
