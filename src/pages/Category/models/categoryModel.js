@@ -78,7 +78,7 @@ export default {
       }
     },
     saveClickBrandR(state, action){
-      console.log(action.payload)
+      //console.log(action.payload)
       return {
         ...state,
         clickBrand:action.payload

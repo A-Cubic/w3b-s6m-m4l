@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List, Input, Carousel, Divider } from 'antd';
+import { Row, Col, Form, Card, Select, List, Input, Carousel, Divider ,Tag} from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
@@ -70,8 +70,8 @@ class Brand extends PureComponent {
   render() {
 
     const {brandModel:{brandsGoods} } = this.props;
-    const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-
+    const {brandModel:{brandsGoods:{attentionType,advimg,brandName,brandimg,goods,pagination}} } = this.props;
+    console.log(777777,attentionType)
     const {
       list: { list = [] },
       loading,
@@ -186,7 +186,13 @@ class Brand extends PureComponent {
                   <div>
                     <h2>{brandName}</h2>
                     <h3>在售商品 <span style={{color:'red'}}>{pagination.total}</span>个 </h3>
+                    {/* <Tag color="#f5222d">attentionType</Tag> */}
+                    {
+                      
+                      attentionType=='0'?(<Tag color="#f5222d">+关注</Tag>):(<Tag color="#f5222d">已关注</Tag>)
+                    }
                   </div>
+                 
                 </div>
                 <Divider dashed />
                 <h4>

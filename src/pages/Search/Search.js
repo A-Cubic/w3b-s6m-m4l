@@ -57,17 +57,19 @@ class Search extends PureComponent {
   // 切换分类
   handleCategory = (a) => {
     
-    const {match,dispatch,searchModel:{search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+    const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
     this.props.dispatch({
       type: 'searchModel/saveClickClassificationSEDR',
       payload: a,
     });
     this.props.dispatch({
+      
       type: 'searchModel/getSelectGoods',
       payload: {
         select,
         // classificationSED:item.allclassification
-        classificationSED:a
+        classificationSED:a,
+        brand:clickBrand
       },
     });
   }
@@ -77,7 +79,7 @@ class Search extends PureComponent {
   // 切换品牌
   handleCategoryBrands = (b) =>{
     const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
-    console.log('clickClassificationSED',clickClassificationSED)
+    //console.log('clickClassificationSED',clickClassificationSED)
     this.props.dispatch({
       type: 'searchModel/saveClickBrandR',
       payload: b,
@@ -89,7 +91,7 @@ class Search extends PureComponent {
         brand:b,
         select,
         //classificationSED:classificationSED.length==2?classificationSED[1].allclassification:'',
-        clickClassificationSED:clickClassificationSED
+        classificationSED:clickClassificationSED
       },
     });
   }
@@ -108,6 +110,7 @@ class Search extends PureComponent {
 
   render() {
     const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
+
     const {
       list: { list = [] },
       loading,
