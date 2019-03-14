@@ -64,7 +64,6 @@ export default {
       }
     },
     getAllClassificationR(state, action){
-      // console.log(action.payload)
       return {
         ...state,
         allClassificationArr:action.payload

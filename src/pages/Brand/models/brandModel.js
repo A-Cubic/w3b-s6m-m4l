@@ -9,6 +9,7 @@ export default {
       advimg:[],
       brandName:'',
       brandimg:'',
+      attentionType:'',
       goods:[],
       pagination:{
         pageSize:0,

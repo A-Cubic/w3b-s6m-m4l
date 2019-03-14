@@ -95,13 +95,15 @@ class Category extends PureComponent {
   }
 
   onChangeTable(page){
-    const {categoryModel:{Category:{brands,classificationSED,pagination}} } = this.props;
-    this.getData(classificationSED.length==2?classificationSED[1].classificationST:'',brands.length==2?brands[1]:'',page)
+    const {categoryModel:{clickClassificationSED,clickBrand,Category:{brands,classificationSED,pagination}} } = this.props;
+    this.getData(clickClassificationSED,clickBrand,page)
   }
 
   // 切换分类
   handleCategory = (a) => {
-    this.getData(a)
+    const {categoryModel:{clickClassificationSED,clickBrand,Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+
+    this.getData(a,clickBrand)
     this.props.dispatch({
       type: 'categoryModel/saveClickClassificationSEDR',
       payload: a,
@@ -111,8 +113,8 @@ class Category extends PureComponent {
 
   // 切换品牌
   handleCategoryBrands = (b) =>{
-    const {categoryModel:{Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
-    this.getData(classificationSED.length==2?classificationSED[1].classificationST:'',b)
+    const {categoryModel:{clickClassificationSED,clickBrand,Category,Category:{brands,categoryImg,changeGoods,classificationSED,pagination}} } = this.props;
+    this.getData(clickClassificationSED,b)
     this.props.dispatch({
       type: 'categoryModel/saveClickBrandR',
       payload: b,
@@ -174,8 +176,8 @@ class Category extends PureComponent {
           },
           onShowSizeChange: (current, pageSize) => {
             const that = this;
-            const {categoryModel:{Category:{brands,classificationSED,pagination}} } = this.props;
-            that.getData(classificationSED.length==2?classificationSED[1].classificationST:'',brands.length==2?brands[1]:'',{pageSize})
+            const {categoryModel:{clickClassificationSED,clickBrand,Category:{brands,classificationSED,pagination}} } = this.props;
+            that.getData(clickClassificationSED,clickBrand,{pageSize})
            },
           pageSize: pagination.pageSize,
           showSizeChanger: true,
