@@ -175,14 +175,14 @@ class GoodsDetails extends PureComponent {
     ):null;
     return (
       <PageHeaderWrapper
-        content={<div style={{marginBottom:20}}>{mainSearch}</div>}
+        // content={<div style={{marginBottom:20}}>{mainSearch}</div>}
       >
         <Card bordered={false}>
           <div className={styles.goodsDetails}>
             <div>
               <Row gutter={16} type="flex" align="middle">
 
-                <Col lg={8} md={8} sm={8} xs={24}>
+                <Col lg={7} md={7} sm={7} xs={24}>
                   <img style={{ width:'100%',padding:5 }} src={imgone} alt="" />
                   {/* <img style={{ width:'100%',padding:5 }} src={imgone} alt="" /> */}
 
