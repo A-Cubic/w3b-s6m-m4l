@@ -21,8 +21,8 @@ const { Description } = DescriptionList;
 class GoodsDetails extends PureComponent {
 
   state={
-    
-    
+
+
   }
 
   componentDidMount() {
@@ -85,11 +85,11 @@ class GoodsDetails extends PureComponent {
           collectionType:1
         },
       });
-   
+
     }else {
       message.error('请登入账号！');
     }
-   
+
   }
 
   render() {
@@ -243,10 +243,10 @@ class GoodsDetails extends PureComponent {
                     {/* <Description term="剩余库存">13</Description> */}
                     {/* <Description term="备注">存储方式成分人群等</Description> */}
                   </DescriptionList>
-                 
+
                   {/* <div style={{marginTop:'48px'}}><Icon type="heart" theme="twoTone" twoToneColor="#f5222d" /><span>收藏</span></div> */}
 
-                  {                      
+                  {
                       attentionType=='0'?(
                         <div onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>):
                       (<div  onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>)
@@ -276,7 +276,7 @@ class GoodsDetails extends PureComponent {
               <Divider dashed />
               <Row gutter={16} type="flex" justify="space-around">
                 <Col lg={23} md={23} sm={23} xs={23}>
-                  <img style={{ width:'100%'}} src="http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/%E6%B6%88%E8%B4%B9%E9%A1%BB%E7%9F%A5.jpg" alt="" />
+                  <img style={{ width:'100%'}} src="http://ecc-product.oss-cn-beijing.aliyuncs.com/b2bmall/consumerNotification.jpg" alt="" />
                 </Col>
               </Row>
               <Divider dashed />
