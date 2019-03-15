@@ -31,15 +31,9 @@ const FormItem = Form.Item;
     // });
   },
 })
-class JapanPavilion extends PureComponent {
+class PromotionArea extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
   }
 
   render() {
@@ -177,4 +171,4 @@ class JapanPavilion extends PureComponent {
   }
 }
 
-export default JapanPavilion;
+export default PromotionArea;

@@ -32,15 +32,15 @@ export default [
           // 母婴儿童
           {
             icon: 'smile',
-            path: '/category/category1/category=3',
+            path: '/category/category1/category=1',
             name:'category1',
             // target: '_blank',
             component: './Category/Category',
           },
-          // 家具生活
+          // 家居生活
           {
             icon: 'coffee',
-            path: '/category/category2/category=1',
+            path: '/category/category2/category=2',
             name:'category2',
             // target: '_blank',
             component: './Category/Category',
@@ -48,28 +48,28 @@ export default [
           // 个人护理
           {
             icon: 'user',
-            path: '/category/category3/category=2',
+            path: '/category/category3/category=3',
             name:'category3',
             component: './Category/Category',
           },
           // 美容彩妆
           {
             icon: 'heart',
-            path: '/category/category4/category=13',
+            path: '/category/category4/category=4',
             name:'category4',
             component: './Category/Category',
           },
           // 食品保健
           {
             icon: 'safety',
-            path: '/category/category5/category=11',
+            path: '/category/category5/category=6',
             name:'category5',
             component: './Category/Category',
           },
           // 服饰鞋包
           {
             icon: 'skin',
-            path: '/category/category6/category=10',
+            path: '/category/category6/category=7',
             name:'category6',
             component: './Category/Category',
           },
