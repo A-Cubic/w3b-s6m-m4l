@@ -1,5 +1,6 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
 import { getDownPart } from '@/services/home_S';
+import { getUserCollection} from '@/services/Brand_S';
 import { getGoodsDetails } from '@/services/GoodsDetails_S';
 import { message } from 'antd';
 
@@ -14,7 +15,9 @@ export default {
       goodsParameters:[],
       goodsDetailImgArr:[],
       img:[],
-      imgone:''
+      imgone:'',
+      ifOnload:'',
+      attentionType:''
     },
     getDownPart: {
       goodsList:[]
@@ -55,6 +58,23 @@ export default {
       }
     },
 
+    //获取收藏接口
+    *getUserCollection({ payload }, { call, put }) {
+      const response = yield call(getUserCollection, payload);
+      if(response!==undefined){
+
+        if(response.type==1){
+          //message.success(response.msg);
+          yield put({
+            type: 'getUserCollectionR',
+            payload: payload.type
+          });
+        }else{
+          message.error(response.msg);
+        }
+      }
+    },
+
 
   },
 
@@ -73,6 +93,8 @@ export default {
           goodsDes:action.payload.discription,
           price:action.payload.price,
           goodsDetailImgArr:action.payload.goodsDetailImgArr,
+          ifOnload:action.payload.ifOnload,
+          attentionType:action.payload.attentionType
         }
       }
     },
@@ -109,6 +131,19 @@ export default {
           ...state.goodsDetails,
           imgone:action.payload,
         }
+      }
+    },
+
+
+    getUserCollectionR(state, action){
+     
+      return {
+        ...state,
+        goodsDetails:{
+          ...state.goodsDetails,
+          attentionType:action.payload
+        }
+        
       }
     },
 

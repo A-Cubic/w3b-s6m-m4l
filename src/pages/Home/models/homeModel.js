@@ -1,5 +1,5 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-import { HomePage,AllClassification,getDownPart,getUpCountry } from '@/services/home_S';
+import { HomePage,AllClassification,getDownPart,getUpCountry ,getChain} from '@/services/home_S';
 import { message } from 'antd';
 
 export default {
@@ -42,7 +42,7 @@ export default {
       }
     },
      // 首页上半部接口换一批
-     *getUpCountry({ payload }, { call, put }) {
+    *getUpCountry({ payload }, { call, put }) {
       const response = yield call(getUpCountry, payload);
      // console.log('payload',payload)
       if(response!==undefined){
@@ -59,6 +59,28 @@ export default {
         }
       }
     },
+
+
+     // 首页国内换一批
+     *getChain({ payload }, { call, put }) {
+      const response = yield call(getChain, payload);
+     // console.log('payload',payload)
+      if(response!==undefined){
+        if(response.type==1){
+          yield put({
+            type: 'getChainR',
+            payload: {
+              response,
+              ...payload
+            }
+          });
+        }else{
+          message.error('数据为空，请联系客服');
+        }
+      }
+    },
+
+
      // 首页下半部接口+换一批
     *getDownPart({ payload },{ call,put }){
       const response = yield call(getDownPart, payload);
@@ -93,15 +115,27 @@ export default {
          getDownPart:action.payload
        }
      },
-     getUpCountryR(state, action){
- state.getUpPart.homePageChangeGoodsItem[action.payload.index] = action.payload.response
-       return {
-         ...state,
-         getUpPart:{
-          ...state.getUpPart,
-          homePageChangeGoodsItem:state.getUpPart.homePageChangeGoodsItem
-         }
-       }
-     },
+    getUpCountryR(state, action){
+      state.getUpPart.homePageChangeGoodsItem[action.payload.index] = action.payload.response
+        return {
+          ...state,
+          getUpPart:{
+            ...state.getUpPart,
+            homePageChangeGoodsItem:state.getUpPart.homePageChangeGoodsItem
+          }
+        }
+    },
+
+    getChainR(state, action){
+      state.getUpPart.homePageChangeGoodsItem[action.payload.index] = action.payload.response
+        return {
+          ...state,
+          getUpPart:{
+            ...state.getUpPart,
+            homePageChangeGoodsItem:state.getUpPart.homePageChangeGoodsItem
+          }
+        }
+    },
+    
   },
 };

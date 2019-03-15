@@ -53,14 +53,29 @@ class Home extends PureComponent {
   }
 
   handleUp = (item,index) => {
-    this.props.dispatch({
-      type: 'homeModel/getUpCountry',
-      payload: {
-        page:item.page,
-        country:item.country,
-        index
-      },
-    });
+
+    //console.log('num',index)
+   
+    if(item.country=='国内购'){
+      this.props.dispatch({
+        type: 'homeModel/getChain',
+        payload: {
+          page:item.page,
+          country:item.country,
+          index
+        },
+      });
+    } else {
+      this.props.dispatch({
+        type: 'homeModel/getUpCountry',
+        payload: {
+          page:item.page,
+          country:item.country,
+          index
+        },
+      });
+    }
+    
   }
 
   handleBrand = (item) => {

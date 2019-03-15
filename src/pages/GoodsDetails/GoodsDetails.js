@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Carousel, Button, Input, Divider, Table,List  } from 'antd';
+import { Row, Col, Form, Card, Carousel, Button, Input, Divider, Table,List ,Icon  ,Tag} from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import styles from './GoodsDetails.less';
 import Ellipsis from '@/components/Ellipsis';
@@ -71,9 +71,29 @@ class GoodsDetails extends PureComponent {
     }
   }
 
-  render() {
-    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+  //点击收藏
+  handleCollection=() => {
+    const {match,dispatch}=this.props;
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
 
+    if(ifOnload==1){
+      this.props.dispatch({
+        type: 'goodsDetailsModel/getUserCollection',
+        payload: {
+          collectionValue:match.params.barcode,
+          type:attentionType==0?1:0,
+          collectionType:1
+        },
+      });
+   
+    }else {
+      message.error('请登入账号！');
+    }
+   
+  }
+
+  render() {
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -214,7 +234,7 @@ class GoodsDetails extends PureComponent {
                   <h3>{goodsDes}</h3>
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description term="价格">{price}</Description>
+                    <Description style={{fontSize:'16px'}} term="价格">{price}</Description>
                     {/* <Description term="原产地/国">日本</Description> */}
                     {/* <Description term="所属分类">入浴剂</Description> */}
                     {/* <Description term="单位型号">700g/桶</Description> */}
@@ -223,7 +243,16 @@ class GoodsDetails extends PureComponent {
                     {/* <Description term="剩余库存">13</Description> */}
                     {/* <Description term="备注">存储方式成分人群等</Description> */}
                   </DescriptionList>
-                  <div>7777</div>
+                 
+                  {/* <div style={{marginTop:'48px'}}><Icon type="heart" theme="twoTone" twoToneColor="#f5222d" /><span>收藏</span></div> */}
+
+                  {                      
+                      attentionType=='0'?(
+                        <div onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>):
+                      (<div  onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>)
+                  }
+
+
                 </Col>
                 {/* <Col lg={4} md={4} sm={4} xs={24}> */}
                 {/* <Button type="primary">加入购物车</Button> */}

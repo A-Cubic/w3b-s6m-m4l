@@ -22,3 +22,11 @@ export async function getUpCountry(params) {
     body: params,
   });
 }
+
+
+export async function getChain(params) {
+  return request(`${apiUrl}/llback/NewHomePage/HomePageChangeGoodsCHINA`, {
+    method: 'POST',
+    body: params,
+  });
+}

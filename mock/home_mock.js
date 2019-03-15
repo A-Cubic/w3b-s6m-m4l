@@ -165,6 +165,8 @@ export default {
   // 模拟首页下半部 
  // 'POST /llback/NewHomePage/HomePageDownPart': getDownPart,
   // 'POST /llback/NewHomePage/HomePageDownPart': a,
-  
+  //首页换一换国内
+  //'POST /llback/NewHomePage/AllClassification': HomePage,  
+
 };
 
