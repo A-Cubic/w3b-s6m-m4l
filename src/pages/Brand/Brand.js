@@ -7,6 +7,7 @@ import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './Brand.less';
+import { message } from 'antd';
 
 const { Option } = Select;
 const FormItem = Form.Item;
@@ -20,14 +21,12 @@ const FormItem = Form.Item;
 }))
 @Form.create({
   onValuesChange({ dispatch }, changedValues, allValues) {
-    // 表单项变化时请求数据
-    // eslint-disable-next-line
-    // console.log(changedValues, allValues);
-    // 模拟查询表单生效
   },
 })
 class Brand extends PureComponent {
   state={
+    cancelFollow:'取消关注',
+    overFollow:'已关注'
 
   }
   componentDidMount() {
@@ -67,11 +66,31 @@ class Brand extends PureComponent {
     }
   }
 
+  //点击关注
+  handleFollow=() => {
+    const {match,dispatch}=this.props;
+    const {brandModel:{follow,brandsGoods:{ifOnload,attentionType,advimg,brandName,brandimg,goods,pagination}} } = this.props;
+    if(ifOnload==1){
+      this.props.dispatch({
+        type: 'brandModel/getUserCollection',
+        payload: {
+          collectionValue:match.params.brandsName,
+          type:attentionType==0?1:0,
+          collectionType:2
+        },
+      });
+   
+    }else {
+      message.error('请登入账号！');
+    }
+   
+  }
+
   render() {
 
     const {brandModel:{brandsGoods} } = this.props;
-    const {brandModel:{brandsGoods:{attentionType,advimg,brandName,brandimg,goods,pagination}} } = this.props;
-    console.log(777777,attentionType)
+    const {brandModel:{follow,brandsGoods:{attentionType,advimg,brandName,brandimg,goods,pagination}} } = this.props;
+    
     const {
       list: { list = [] },
       loading,
@@ -88,18 +107,7 @@ class Brand extends PureComponent {
         dataSource={goods}
         pagination={{
           onChange: (page) => {
-           // console.log(page);
-            // const {match,dispatch}=this.props;
-            // const {brandModel:{brandsGoods:{advimg,brandName,brandimg,goods,pagination}} } = this.props;
-            // this.props.dispatch({
-            //   type: 'brandModel/getBrandsGoods',
-            //   payload: {
-            //     brandsName:match.params.brandsName,
-            //     current:page,
-            //     pageSize:pagination.pageSize
-            //   },
-            // });
-          //  console.log('page',page)
+
             this.inchange(page)
           },
           onShowSizeChange: (current, pageSize) => {
@@ -187,9 +195,8 @@ class Brand extends PureComponent {
                     <h2>{brandName}</h2>
                     <h3>在售商品 <span style={{color:'red'}}>{pagination.total}</span>个 </h3>
                     {/* <Tag color="#f5222d">attentionType</Tag> */}
-                    {
-                      
-                      attentionType=='0'?(<Tag color="#f5222d">+关注</Tag>):(<Tag color="#f5222d">已关注</Tag>)
+                    {                      
+                      attentionType=='0'?(<Tag onClick={this.handleFollow} color="#f5222d">+关注</Tag>):(<Tag onClick={this.handleFollow}  color="#f5222d">{this.state.overFollow}</Tag>)
                     }
                   </div>
                  

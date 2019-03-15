@@ -21,16 +21,8 @@ const { Description } = DescriptionList;
 class GoodsDetails extends PureComponent {
 
   state={
-
-    // carouselImg :'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
-    // imgArr:[
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg',
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerJapan.jpg',
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerKorea.jpg',
-    //   'http://llwell-wxapp.oss-cn-beijing.aliyuncs.com/A-test/bannerEuropeanAmerican.jpg'
-    // ]
+    
+    
   }
 
   componentDidMount() {
@@ -231,6 +223,7 @@ class GoodsDetails extends PureComponent {
                     {/* <Description term="剩余库存">13</Description> */}
                     {/* <Description term="备注">存储方式成分人群等</Description> */}
                   </DescriptionList>
+                  <div>7777</div>
                 </Col>
                 {/* <Col lg={4} md={4} sm={4} xs={24}> */}
                 {/* <Button type="primary">加入购物车</Button> */}

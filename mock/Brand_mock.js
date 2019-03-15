@@ -12,6 +12,8 @@ function getCity(req, res) {
 export default {
   'GET /api/geographic/province': getProvince,
   'GET /api/geographic/city/:province': getCity,
-
+  //获取列表分页
   //'POST /llback/NewHomePage/BrandsGoods': getDownPart,
+  //获取关注
+  //'POST /llback/NewHomePage/UserCollection': getDownPart,
 };

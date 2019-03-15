@@ -1,11 +1,13 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-import { getBrandsGoods } from '@/services/Brand_S';
+import { getBrandsGoods ,getUserCollection} from '@/services/Brand_S';
 import { message } from 'antd';
 export default {
   namespace: 'brandModel',
 
   state: {
+    
     brandsGoods:{
+      ifOnload:'',
       advimg:[],
       brandName:'',
       brandimg:'',
@@ -13,7 +15,8 @@ export default {
       goods:[],
       pagination:{
         pageSize:0,
-      }
+      },
+      
     }
   },
 
@@ -33,21 +36,44 @@ export default {
       }
     },
 
+    
 
+    //获取关注接口
+    *getUserCollection({ payload }, { call, put }) {
+      const response = yield call(getUserCollection, payload);
+      if(response!==undefined){
 
-
-
-
-
+        if(response.type==1){
+          //message.success(response.msg);
+          yield put({
+            type: 'getUserCollectionR',
+            payload: payload.type
+          });
+        }else{
+          message.error(response.msg);
+        }
+      }
+    },
 
   },
 
   reducers: {
     getBrandsGoodsR(state, action){
-
       return {
         ...state,
          brandsGoods:action.payload
+      }
+    },
+
+    getUserCollectionR(state, action){
+     
+      return {
+        ...state,
+        brandsGoods:{
+          ...state.brandsGoods,
+          attentionType:action.payload
+        }
+        
       }
     },
 
