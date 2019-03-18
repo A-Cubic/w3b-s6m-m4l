@@ -17,7 +17,8 @@ export default {
       img:[],
       imgone:'',
       ifOnload:'',
-      attentionType:''
+      attentionType:'',
+      imgZipUrl:''
     },
     getDownPart: {
       goodsList:[]
@@ -94,7 +95,8 @@ export default {
           price:action.payload.price,
           goodsDetailImgArr:action.payload.goodsDetailImgArr,
           ifOnload:action.payload.ifOnload,
-          attentionType:action.payload.attentionType
+          attentionType:action.payload.attentionType,
+          imgZipUrl:action.payload.imgZipUrl,
         }
       }
     },

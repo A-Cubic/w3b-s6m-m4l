@@ -6,6 +6,7 @@ import styles from './GoodsDetails.less';
 import Ellipsis from '@/components/Ellipsis';
 import DescriptionList from '@/components/DescriptionList';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+
 import { message } from 'antd';
 const { Description } = DescriptionList;
 
@@ -91,9 +92,22 @@ class GoodsDetails extends PureComponent {
     }
    
   }
+  handleDownload=() => {
+    const {match,dispatch}=this.props;
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+
+    if(ifOnload==1){
+      
+   
+    }else {
+     // message.error('请登入账号！');
+     this.props.dispatch(routerRedux.push('/http://console.llwell.net/#/user/login/' ));
+    }
+  }
 
   render() {
-    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{imgZipUrl,attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+   //console.log(7777,goodsDetails)
     const mainSearch = (
       <div style={{ textAlign: 'center' }}>
         <Row type="flex" justify="center">
@@ -234,7 +248,7 @@ class GoodsDetails extends PureComponent {
                   <h3>{goodsDes}</h3>
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description style={{fontSize:'16px'}} term="价格">{price}</Description>
+                    <Description style={{fontSize:'16px',marginBottom:'34px'}} term="价格">{price}</Description>
                     {/* <Description term="原产地/国">日本</Description> */}
                     {/* <Description term="所属分类">入浴剂</Description> */}
                     {/* <Description term="单位型号">700g/桶</Description> */}
@@ -248,13 +262,17 @@ class GoodsDetails extends PureComponent {
 
                   {                      
                       attentionType=='0'?(
-                        <div onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>):
-                      (<div  onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer'}}><Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></div>)
+                        <span onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}><Icon type="heart" theme="filled" style={{fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></span>):
+                      (<span  onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}><Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></span>)
+                  }
+                  {                      
+                      ifOnload=='0'?(
+                      <span  style={{marginTop:'48px',cursor:'pointer'}}><a href='http://console.llwell.net/#/user/login'><Icon type="upload"  style={{color:'#f5222d',fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span></a></span>):
+                      (<span  style={{marginTop:'48px',cursor:'pointer'}}><a href={imgZipUrl}><Icon type="upload"  style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span></a></span>)
                   }
 
-
                 </Col>
-                {/* <Col lg={4} md={4} sm={4} xs={24}> */}
+                {/* <Col lg={4} md={4} sm={4} xs={24}>  onClick={this.handleDownload} */   }
                 {/* <Button type="primary">加入购物车</Button> */}
                 {/* </Col> */}
               </Row>

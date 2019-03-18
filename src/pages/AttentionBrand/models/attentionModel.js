@@ -1,55 +1,55 @@
 import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
-
+import { message } from 'antd';
+import { getUserCollectionBrands } from '@/services/AttentionBrand_S';
 export default {
-  namespace: 'japanPavilionModel',
+  namespace: 'attentionModel',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
+    
+    attentionBrand: {
+      brandsList:[
+        
+      ],
+      ifOnload:'',
+      pagination:{
+        pageSize:0,
+      },
+      
+    }
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const response = yield call(queryRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
+    
+    // 获取关注品牌面接口
+    *getUserCollectionBrands({ payload }, { call, put }) {
+      const response = yield call(getUserCollectionBrands, payload);
+      if(response!==undefined){
+        if(response.type==1){
+          yield put({
+            type: 'getUserCollectionBrandsR',
+            payload: response,
+          });
+        }else{
+          message.error('不可输入特殊字符');
+        }
+      }
     },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
-    *update({ payload, callback }, { call, put }) {
-      const response = yield call(updateRule, payload);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-      if (callback) callback();
-    },
+
+
+
+
   },
 
   reducers: {
-    save(state, action) {
+  
+
+    getUserCollectionBrandsR(state, action){
+      //console.log(action.payload)
       return {
         ...state,
-        data: action.payload,
-      };
+        attentionBrand:action.payload
+      }
     },
+
   },
 };
