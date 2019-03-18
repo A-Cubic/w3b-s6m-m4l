@@ -1,5 +1,6 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
+import { routerRedux } from 'dva/router';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
@@ -25,22 +26,69 @@ const codeMessage = {
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
 };
+// 业务错误列表
+const serverCodeMessage = {
+  '1': { code: 401, msg: '登录信息过期，请重新登录' },
+  '2': { code: 403, msg: '没有该功能相关权限' },
+  '3': { code: 401, msg: '登录信息有误，请重新登录' },
+  '4': { code: 404, msg: '请求目标数据不存在' },
+  '5': { code: 500, msg: '服务器繁忙，请稍后重试' },
+  '6': { code: 500, msg: '数据处理有误' },
+  '7': { code: 500, msg: '请求参数不正确' },
+  'default': { code: 500, msg: '未知错误' },
 
-const checkStatus = response => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const errortext = codeMessage[response.status] || response.statusText;
-  notification.error({
-    message: `请求错误 ${response.status}: ${response.url}`,
-    description: errortext,
-  });
-  const error = new Error(errortext);
-  error.name = response.status;
-  error.response = response;
-  throw error;
+  '500': { code: 5003, msg: '数据处理有误' },
+  '4000': { code: 401, msg: '登录信息过期，请重新登录' },
+  '4003': { code: 4031, msg: '没有该功能相关权限' },
 };
+// const checkStatus = response => {
+//   console.log('res',response)
+//   if (response.status >= 200 && response.status < 300) {
+//     return response;
+//   }
+//   const errortext = codeMessage[response.status] || response.statusText;
+//   notification.error({
+//     message: `请求错误 ${response.status}: ${response.url}`,
+//     description: errortext,
+//   });
+//   const error = new Error(errortext);
+//   error.name = response.status;
+//   error.response = response;
+//   throw error;
+// };
+  const checkStatus=(response)=> {
+    console.log('res',response)
+    if (response.status >= 200 && response.status < 300) {
+      const code = response.headers.get('code');
+      console.log('code',code)
 
+      if (code !== null && code !== '0') {
+        const error = new Error(response.headers.get('msg'));
+        error.response = response;
+        const serverCode = serverCodeMessage[code].code || serverCodeMessage['default'].code;
+        const serverMsg = serverCodeMessage[code].msg || serverCodeMessage['default'].msg;
+        notification.error({
+          message: serverMsg,
+          description: response.headers.get('msg'),
+        });
+        error.name = serverCode;
+        throw error;
+      }
+      if(serverCodeMessage[code].code==4003){
+        window.open('http://console.llwell.net/#/user/login')
+      }
+      return response;
+    }
+    const errorText = codeMessage[response.status] || response.statusText;
+    notification.error({
+      message: `请求错误 ${response.status}: ${response.url}`,
+      description: errorText,
+    });
+    const error = new Error(errorText);
+    error.name = response.status;
+    error.response = response;
+    throw error;
+  }
 const cachedSave = (response, hashcode) => {
   /**
    * Clone a response data and store it in sessionStorage
