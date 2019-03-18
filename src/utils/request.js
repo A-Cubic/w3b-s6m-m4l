@@ -56,11 +56,11 @@ const serverCodeMessage = {
 //   error.response = response;
 //   throw error;
 // };
-  const checkStatus=(response)=> {
+  function checkStatus(response){
     console.log('res',response)
     if (response.status >= 200 && response.status < 300) {
       const code = response.headers.get('code');
-      console.log('code',code)
+      // console.log('sssscode',code)
 
       if (code !== null && code !== '0') {
         const error = new Error(response.headers.get('msg'));
@@ -73,8 +73,7 @@ const serverCodeMessage = {
         });
         error.name = serverCode;
         throw error;
-      }
-      if(serverCodeMessage[code].code==4003){
+      } else if(code==4000){
         window.open('http://console.llwell.net/#/user/login')
       }
       return response;
@@ -164,7 +163,7 @@ export default function request(url, option) {
     }
 
   }
-
+// console.warn('oooooo',newOptions)
   const expirys = options.expirys && 60;
   // options.expirys !== false, return the cache,
   if (options.expirys !== false) {
@@ -193,6 +192,7 @@ export default function request(url, option) {
     })
     .catch(e => {
       const status = e.name;
+      console.log('catch',status)
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */
