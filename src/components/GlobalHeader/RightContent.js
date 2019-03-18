@@ -8,6 +8,7 @@ import HeaderSearch from '../HeaderSearch';
 import HeaderDropdown from '../HeaderDropdown';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
+import { routerRedux } from 'dva/router';
 
 export default class GlobalHeaderRight extends PureComponent {
   getNoticeData() {
@@ -76,6 +77,11 @@ export default class GlobalHeaderRight extends PureComponent {
       },
     });
   };
+  onMenuClick=(item)=>{
+    if(item.key==='userCenter'){
+      window.open('http://console.llwell.net/#/mediaPlatform',"_blank")
+    }
+  }
 
   render() {
     const {
@@ -84,14 +90,14 @@ export default class GlobalHeaderRight extends PureComponent {
       fetchingNotices,
       loadedAllNotices,
       onNoticeVisibleChange,
-      onMenuClick,
+      // onMenuClick,
       onNoticeClear,
       skeletonCount,
       theme,
     } = this.props;
     const menu = (
-      <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item key="userCenter" disabled>
+      <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
+        <Menu.Item key="userCenter">
           <Icon type="user" />
           <FormattedMessage id="menu.account.center" defaultMessage="account center" />
         </Menu.Item>

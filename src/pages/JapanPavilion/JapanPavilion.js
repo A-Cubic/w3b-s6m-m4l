@@ -6,6 +6,7 @@ import TagSelect from '@/components/TagSelect';
 import Ellipsis from '@/components/Ellipsis';
 import StandardFormRow from '@/components/StandardFormRow';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import { message } from 'antd';
 import styles from './JapanPavilion.less';
 import { stringify } from 'qs';
 const { Option } = Select;
@@ -110,8 +111,8 @@ class JapanPavilion extends PureComponent {
               cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
             >
               <Card.Meta
-                    // title={<a>{item.subDescription}</a>}
-                description={<Ellipsis lines={2}>{item.brandsName}</Ellipsis>}
+                    title={<a>{item.brandsName}</a>}
+                // description={<Ellipsis lines={2}>{item.brandsName}</Ellipsis>}
               />
             </Card>
           </List.Item>
