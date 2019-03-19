@@ -82,6 +82,13 @@ export default {
       }
     },
 
+    clearR(state, action){
+      return {
+        ...state,
+        clickClassificationSED:'',
+        clickBrand:'全部',
+      }
+    }
 
 
   },

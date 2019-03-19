@@ -32,9 +32,15 @@ class Category extends PureComponent {
   }
 
   componentDidMount() {
+    this.clearClickClassificationSEDClickBrand()
     this.init()
   }
-
+  clearClickClassificationSEDClickBrand(){
+    this.props.dispatch({
+      type: 'categoryModel/clearR',
+      payload: {},
+    });
+  }
   init(){
     const payloadParams = this.props.match.params;
     const bolPayloadParams = JSON.stringify(this.props.match.params)==="{}"
