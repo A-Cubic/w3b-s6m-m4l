@@ -52,30 +52,50 @@ const FooterView = () => (
     {/* </div> */}
     <BackTop />
     <GlobalFooter
-      links={[
-       {
-       key: '日本馆',
-       title: '日本馆',
-       href: 'https://pro.ant.design',
-       blankTarget: true,
-       },
-       {
-       key: '韩国馆',
-       title: '韩国馆',
-       href: 'https://github.com/ant-design/ant-design-pro',
-       blankTarget: true,
-       },
-       {
-       key: '欧美馆',
-       title: '欧美馆',
-       href: 'https://ant.design',
-       blankTarget: true,
-       },
-     ]}
+     //  links={[
+     //   {
+     //   key: '日本馆',
+     //   title: '日本馆',
+     //   href: 'https://pro.ant.design',
+     //   blankTarget: true,
+     //   },
+     //   {
+     //   key: '韩国馆',
+     //   title: '韩国馆',
+     //   href: 'https://github.com/ant-design/ant-design-pro',
+     //   blankTarget: true,
+     //   },
+     //   {
+     //   key: '欧美馆',
+     //   title: '欧美馆',
+     //   href: 'https://ant.design',
+     //   blankTarget: true,
+     //   },
+     // ]}
       copyright={
-        <Fragment>
-     Copyright <Icon type="copyright" /> 2018 岂止科技（大连）有限公司
-        </Fragment>
+        <div>
+          <div>
+            <Fragment>
+              联系方式：（86）0411-8813 5549
+            </Fragment>
+          </div>
+          <div>
+            <Fragment>
+              邮箱：market@llwell.net
+            </Fragment>
+          </div>
+          <div>
+            <Fragment>
+              地址： 辽宁省大连市中山区五五路港湾中心2213A
+            </Fragment>
+          </div>
+          <div>
+            <Fragment>
+              辽ICP备15018646号-4
+              {/* Copyright <Icon type="copyright" /> 2018 岂止科技（大连）有限公司 */}
+            </Fragment>
+          </div>
+        </div>
      }
     />
   </Footer>

@@ -55,7 +55,7 @@ class Home extends PureComponent {
   handleUp = (item,index) => {
 
     //console.log('num',index)
-   
+
     if(item.country=='国内购'){
       this.props.dispatch({
         type: 'homeModel/getChain',
@@ -75,7 +75,7 @@ class Home extends PureComponent {
         },
       });
     }
-    
+
   }
 
   handleBrand = (item) => {
@@ -141,7 +141,8 @@ class Home extends PureComponent {
                      <span
                        style={{textAlign:'right', marginBottom:'10px',float:'right'}}
                      >
-                       <Tag color="#f5222d">{item.allclassification}</Tag>
+                       <Tag color="red">{item.allclassification}</Tag>
+                       {/*<Tag color="#f5222d">{item.allclassification}</Tag>*/}
                      </span>
                    </Link>
                  ))
@@ -178,9 +179,10 @@ class Home extends PureComponent {
             )}
             />
           </Row>
-          <Row type="flex" align="middle">
+          {homePageChangeGoodsItem[index].brandimgs != ''?
+          <Row type="flex" align="middle" className={styles.bgRow}>
             <Col lg={2} md={4} sm={6} xs={8} style={{padding:'0'}}>
-              <div style={{textAlign:'center'}}>热卖品牌</div>
+              <div style={{textAlign:'center',color:'#F5222D',fontSize:16}}>热卖品牌</div>
             </Col>
             {
             homePageChangeGoodsItem[index].brandimgs.map((item,index) =>
@@ -197,7 +199,7 @@ class Home extends PureComponent {
               </Col>
             ))
           }
-          </Row>
+          </Row>:''}
         </div>
       ))
     ):null;
