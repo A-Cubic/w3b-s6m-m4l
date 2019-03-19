@@ -47,7 +47,7 @@ class Category extends PureComponent {
         curClassificationST:payloadParams.category,
         country:payloadParams.country
       })
-      this.getData()
+      this.getData('','全部')
     }
   }
 
@@ -89,7 +89,7 @@ class Category extends PureComponent {
         this.setState({
           curClassificationST:item.classificationST
         })
-        this.getData()
+        this.getData('','全部')
       }
     })
   }
@@ -248,7 +248,7 @@ class Category extends PureComponent {
                       {
                         classificationSED.map((item,index) =>
                         (
-                          item.classificationST===clickClassificationSED?(
+                          item.classificationST==clickClassificationSED?(
                             <TagSelect.Option
                               backgroudColor="#f5222d"
                               fontColor="#fff"
@@ -293,7 +293,7 @@ class Category extends PureComponent {
                       {
                         brands.map((item,index) =>
                         (
-                          item===clickBrand?(
+                          item==clickBrand?(
                             <TagSelect.Option
                               backgroudColor="#f5222d"
                               fontColor="#fff"

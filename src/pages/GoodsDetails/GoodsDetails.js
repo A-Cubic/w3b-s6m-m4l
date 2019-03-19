@@ -97,8 +97,8 @@ class GoodsDetails extends PureComponent {
     const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
 
     if(ifOnload==1){
-      
-   
+
+
     }else {
      // message.error('请登入账号！');
      this.props.dispatch(routerRedux.push('/http://console.llwell.net/#/user/login/' ));
@@ -262,15 +262,30 @@ class GoodsDetails extends PureComponent {
 
                   {
                       attentionType=='0'?(
-                        <span onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}><Icon type="heart" theme="filled" style={{fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></span>):
-                      (<span  onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}><Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span></span>)
+                        <span onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}>
+                          <Icon type="heart" theme="filled" style={{fontSize:'20px'}}  />
+                          <span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span>
+                        </span>):
+                      (<span onClick={this.handleCollection} style={{marginTop:'48px',cursor:'pointer',marginRight:'40px'}}>
+                        <Icon type="heart" theme="filled" style={{color:'#f5222d',fontSize:'20px'}} />
+                        <span style={{marginLeft:'20px',fontSize:'16px'}}>收藏</span>
+                      </span>)
                   }
-                  {                      
+                  {
                       ifOnload=='0'?(
-                      <span  style={{marginTop:'48px',cursor:'pointer'}}><a href='http://console.llwell.net/#/user/login'><Icon type="upload"  style={{color:'#f5222d',fontSize:'20px'}}  /><span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span></a></span>):
-                      (<span  style={{marginTop:'48px',cursor:'pointer'}}><a href={imgZipUrl}><Icon type="upload"  style={{color:'#f5222d',fontSize:'20px'}} /><span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span></a></span>)
+                      <span style={{marginTop:'48px',cursor:'pointer'}}>
+                        <a href='http://console.llwell.net/#/user/login'>
+                          <Icon type="download" style={{color:'#f5222d',fontSize:'20px'}}  />
+                          <span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span>
+                        </a>
+                      </span>):
+                      (<span style={{marginTop:'48px',cursor:'pointer'}}>
+                        <a href={imgZipUrl} target="_blank">
+                          <Icon type="download" style={{color:'#f5222d',fontSize:'20px'}} />
+                          <span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span>
+                        </a>
+                      </span>)
                   }
-
                 </Col>
                 {/* <Col lg={4} md={4} sm={4} xs={24}>  onClick={this.handleDownload} */   }
                 {/* <Button type="primary">加入购物车</Button> */}
