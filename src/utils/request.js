@@ -74,6 +74,7 @@ const serverCodeMessage = {
         error.name = serverCode;
         throw error;
       } else if(code=='4000'){
+        console.log('code4000',code)
         window.open('http://console.llwell.net/#/user/login','_blank')
       }
       return response;
@@ -199,7 +200,7 @@ export default function request(url, option) {
         // window.g_app._store.dispatch({
         //   type: 'login/logout',
         // });
-        window.open('http://console.llwell.net/#/user/login')
+        window.location.href='http://console.llwell.net/#/user/login'
         return;
       }
       // environment should not be used
