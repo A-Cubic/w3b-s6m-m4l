@@ -74,7 +74,7 @@ const serverCodeMessage = {
         error.name = serverCode;
         throw error;
       } else if(code==4000){
-        window.open('http://console.llwell.net/#/user/login')
+        window.open('http://console.llwell.net')
       }
       return response;
     }
