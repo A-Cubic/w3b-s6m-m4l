@@ -93,16 +93,17 @@ class GoodsDetails extends PureComponent {
 
   }
   handleDownload=() => {
-    const {match,dispatch}=this.props;
-    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
-
-    if(ifOnload==1){
-
+    const {goodsDetailsModel:{getDownPart:{goodsList},goodsDetails,goodsDetails:{imgZipUrl,attentionType,ifOnload,img,imgone,goodsDes,goodsName,goodsParameters,price,goodsDetailImgArr}} } = this.props;
+    //console.log('imgZipUrl',imgZipUrl)
+    if(imgZipUrl != ''){
+      //本页面跳转
+      window.location.href=imgZipUrl
+     //top.location.href=imgZipUrl
 
     }else {
-     // message.error('请登入账号！');
-     this.props.dispatch(routerRedux.push('/http://console.llwell.net/#/user/login/' ));
+      message.error('暂无链接，敬请期待！');
     }
+    
   }
 
   render() {
@@ -248,7 +249,7 @@ class GoodsDetails extends PureComponent {
                   <h3>{goodsDes}</h3>
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description style={{fontSize:'16px',marginBottom:'34px'}} term="价格">{price}</Description>
+                    <Description style={{fontSize:'16px',marginBottom:'34px'}} term="价格"><span style={{color:'#f5222d'}}>{price}</span></Description>
                     {/* <Description term="原产地/国">日本</Description> */}
                     {/* <Description term="所属分类">入浴剂</Description> */}
                     {/* <Description term="单位型号">700g/桶</Description> */}
@@ -280,7 +281,8 @@ class GoodsDetails extends PureComponent {
                         </a>
                       </span>):
                       (<span style={{marginTop:'48px',cursor:'pointer'}}>
-                        <a href={imgZipUrl} target="_blank">
+                        {/* <a href={imgZipUrl==''? message.error('暂无地址，敬请期待!'):{imgZipUrl}} target="_blank">handleDownload onClick={() =>  this.handleBrand(item,index)} */}
+                        <a onClick={this.handleDownload}  target="_blank">
                           <Icon type="download" style={{color:'#f5222d',fontSize:'20px'}} />
                           <span style={{marginLeft:'20px',fontSize:'16px',color:'#999'}}>下载</span>
                         </a>

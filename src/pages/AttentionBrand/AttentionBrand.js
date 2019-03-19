@@ -104,7 +104,7 @@ class AttentionBrand extends PureComponent {
               <List.Item>
                 <div><div  onClick={() => this.handleUp(item)} style={{cursor:'pointer',textAlign:'right',fontSize:'14px',color:'#888',marginBottom:'10px'}}>查看全部</div>
                     <Row type="flex" align="middle">
-                        <Col  lg={4} md={6} sm={12} xs={24} >
+                        <Col style={{cursor:'pointer'}}  lg={4} md={6} sm={12} xs={24} onClick={() => this.handleUp(item)}>
                           <img src={item.slt} style={{width:'100%',padding: 20}} />
                           <div style={{textAlign:'center',color:'#888'}}>已关注</div>
                         </Col>
@@ -112,7 +112,7 @@ class AttentionBrand extends PureComponent {
                         item.goodsList.map((item,index) =>
                           (
                             <Col
-                              style={{padding:"0 6px",textAlign: 'center'}}
+                              style={{padding:"8px 6px",textAlign: 'center'}}
                               lg={4} md={6} sm={12} xs={24}
                               key={index}
                             >
