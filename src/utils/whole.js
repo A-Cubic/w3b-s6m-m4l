@@ -4,6 +4,9 @@ const AuthorityDefault = 'guest';
 const TokenKey = 'acbc-token';
 
 
+export function clearStorage() {
+  return localStorage.clear();
+}
 export function getAuthority() {
   return localStorage.getItem(AuthorityKey) || AuthorityDefault;
 }

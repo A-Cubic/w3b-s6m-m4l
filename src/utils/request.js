@@ -4,7 +4,7 @@ import { routerRedux } from 'dva/router';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
-import { getHeader } from './whole';
+import { getHeader,clearStorage } from './whole';
 
 const apiUrl = process.env.NODE_ENV === 'development' ? 'http://console.llwell.net' : '';
 const testUrl = process.env.NODE_ENV === 'development' ? 'http://192.168.0.127:54195' : '';
@@ -75,6 +75,7 @@ const serverCodeMessage = {
         throw error;
       } else if(code=='4000'){
         // console.log('code4000',code)
+        clearStorage()
         window.open('http://console.llwell.net/#/user/login','_blank')
       }
       return response;
@@ -200,6 +201,7 @@ export default function request(url, option) {
         // window.g_app._store.dispatch({
         //   type: 'login/logout',
         // });
+        clearStorage()
         window.location.href='http://console.llwell.net/#/user/login'
         return;
       }
