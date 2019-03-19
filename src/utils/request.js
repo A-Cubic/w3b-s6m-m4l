@@ -73,7 +73,7 @@ const serverCodeMessage = {
         });
         error.name = serverCode;
         throw error;
-      } else if(code==4000){
+      } else if(code=='4000'){
         window.open('http://console.llwell.net/#/user/login','_blank')
       }
       return response;
@@ -196,9 +196,10 @@ export default function request(url, option) {
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */
-        window.g_app._store.dispatch({
-          type: 'login/logout',
-        });
+        // window.g_app._store.dispatch({
+        //   type: 'login/logout',
+        // });
+        window.open('http://console.llwell.net/#/user/login')
         return;
       }
       // environment should not be used
