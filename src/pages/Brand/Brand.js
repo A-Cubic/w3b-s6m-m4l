@@ -79,18 +79,18 @@ class Brand extends PureComponent {
           collectionType:2
         },
       });
-   
+
     }else {
       message.error('请登入账号！');
     }
-   
+
   }
 
   render() {
 
     const {brandModel:{brandsGoods} } = this.props;
     const {brandModel:{follow,brandsGoods:{attentionType,advimg,brandName,brandimg,goods,pagination}} } = this.props;
-    
+
     const {
       list: { list = [] },
       loading,
@@ -133,7 +133,7 @@ class Brand extends PureComponent {
               <Card
                 className={styles.card}
                 hoverable
-                cover={<img style={{padding: 20}}  src={item.imgurl} />}
+                cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
               >
                 <Card.Meta
                   description={
@@ -195,11 +195,11 @@ class Brand extends PureComponent {
                     <h2>{brandName}</h2>
                     <h3>在售商品 <span style={{color:'red'}}>{pagination.total}</span>个 </h3>
                     {/* <Tag color="#f5222d">attentionType</Tag> */}
-                    {                      
+                    {
                       attentionType=='0'?(<Tag onClick={this.handleFollow} color="#f5222d">+关注</Tag>):(<Tag onClick={this.handleFollow}  color="#f5222d">{this.state.overFollow}</Tag>)
                     }
                   </div>
-                 
+
                 </div>
                 <Divider dashed />
                 <h4>

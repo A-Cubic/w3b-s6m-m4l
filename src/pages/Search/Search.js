@@ -56,14 +56,14 @@ class Search extends PureComponent {
 
   // 切换分类
   handleCategory = (a) => {
-    
+
     const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
     this.props.dispatch({
       type: 'searchModel/saveClickClassificationSEDR',
       payload: a,
     });
     this.props.dispatch({
-      
+
       type: 'searchModel/getSelectGoods',
       payload: {
         select,
@@ -75,7 +75,7 @@ class Search extends PureComponent {
   }
 
 
-  
+
   // 切换品牌
   handleCategoryBrands = (b) =>{
     const {match,dispatch,searchModel:{clickClassificationSED,clickBrand,search,search:{brands,changeGoods,classificationSED,pagination,select}} } = this.props;
@@ -156,7 +156,7 @@ class Search extends PureComponent {
               <Card
                 className={styles.card}
                 hoverable
-                cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
               >
                 <Card.Meta
                   description={
@@ -203,7 +203,7 @@ class Search extends PureComponent {
           <Card bordered={false}>
             <Form layout="inline">
               <StandardFormRow title="分类" block style={{ paddingBottom: 11 }}>
-                
+
                   <FormItem>
                   {getFieldDecorator('category')(
                     <TagSelect hideCheckAll expandable style={{background:'none'}}>
@@ -250,7 +250,7 @@ class Search extends PureComponent {
 
               </StandardFormRow>
               <StandardFormRow title="品牌" block style={{ paddingBottom: 11 }}>
-                
+
 
                 <FormItem>
                   {getFieldDecorator('Brand')(
@@ -290,7 +290,7 @@ class Search extends PureComponent {
 
                     </TagSelect>
                   )}
-                </FormItem>  
+                </FormItem>
 
 
 

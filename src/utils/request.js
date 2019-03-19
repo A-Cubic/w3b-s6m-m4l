@@ -57,7 +57,7 @@ const serverCodeMessage = {
 //   throw error;
 // };
   function checkStatus(response){
-    console.log('res',response)
+    // console.log('res',response)
     if (response.status >= 200 && response.status < 300) {
       const code = response.headers.get('code');
       // console.log('sssscode',code)
@@ -74,7 +74,7 @@ const serverCodeMessage = {
         error.name = serverCode;
         throw error;
       } else if(code=='4000'){
-        console.log('code4000',code)
+        // console.log('code4000',code)
         window.open('http://console.llwell.net/#/user/login','_blank')
       }
       return response;
@@ -193,7 +193,7 @@ export default function request(url, option) {
     })
     .catch(e => {
       const status = e.name;
-      console.log('catch',status)
+      // console.log('catch',status)
       if (status === 401) {
         // @HACK
         /* eslint-disable no-underscore-dangle */

@@ -28,6 +28,10 @@ const plugins = [
           importWorkboxFrom: 'local',
         },
       },
+      metas: [
+        { name: 'keywords',content:'全球，跨境，日本直邮，电商，供应链，批发，一件代发，创业，供应链服务' },
+        { name: 'description',content:'流连供应链专注进口货源供应链服务，低成本采购，零风险，100%正品保障，全球精选商品，奶粉、纸尿裤、辅食、孕产妇用品、美妆个护、食品保健等海外正品...' },
+      ],
       ...(!process.env.TEST && os.platform() === 'darwin'
         ? {
             dll: {
