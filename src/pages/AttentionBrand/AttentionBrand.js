@@ -20,30 +20,18 @@ const FormItem = Form.Item;
   attentionModel
 }))
 @Form.create({
- 
+
 })
 class AttentionBrand extends PureComponent {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
     this.init()
   }
 
-
   init(){
-   
     this.props.dispatch({
       type: 'attentionModel/getUserCollectionBrands',
-      payload: {
-        
-      },
+      payload: {},
     });
-
   }
   handleFormSubmit = (value) => {
     if(value.includes('/')){
@@ -54,18 +42,9 @@ class AttentionBrand extends PureComponent {
     }
   }
 
-  // handleBands = (val) => {
-  //   console.log('val',val)
-  //   console.log(7777777)
-
-  //   //this.props.dispatch(routerRedux.push('/search/'));
-  // }
 
   handleUp = (item) => {
-
-    console.log('item',item)
     this.props.dispatch(routerRedux.push('/brand/' + item.brand));
-    
   }
 
 
@@ -85,8 +64,6 @@ class AttentionBrand extends PureComponent {
 
   render() {
     const {attentionModel:{attentionBrand,attentionBrand:{brandsList,ifOnload,pagination,brandsList:{goodsList}}}} = this.props;
-   // console.log(77777,attentionBrand)
-
     const {
       list: { list = [] },
       loading,
@@ -197,7 +174,7 @@ class AttentionBrand extends PureComponent {
         <div className={styles.coverCardList}>
           <div className={styles.cardList}>
             {allList}
-           
+
           </div>
         </div>
       </PageHeaderWrapper>

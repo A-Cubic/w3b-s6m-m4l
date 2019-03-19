@@ -1,25 +1,20 @@
-import { queryRule, removeRule, addRule, updateRule } from '@/services/api';
 import { message } from 'antd';
 import { getUserCollectionBrands } from '@/services/AttentionBrand_S';
 export default {
   namespace: 'attentionModel',
 
   state: {
-    
     attentionBrand: {
-      brandsList:[
-        
-      ],
+      brandsList:[],
       ifOnload:'',
       pagination:{
         pageSize:0,
       },
-      
     }
   },
 
   effects: {
-    
+
     // 获取关注品牌面接口
     *getUserCollectionBrands({ payload }, { call, put }) {
       const response = yield call(getUserCollectionBrands, payload);
@@ -34,17 +29,10 @@ export default {
         }
       }
     },
-
-
-
-
   },
 
   reducers: {
-  
-
     getUserCollectionBrandsR(state, action){
-      //console.log(action.payload)
       return {
         ...state,
         attentionBrand:action.payload

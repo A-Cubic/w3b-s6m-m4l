@@ -19,17 +19,10 @@ const FormItem = Form.Item;
   collectionGoodsModel
 }))
 @Form.create({
- 
+
 })
 class CollectionGoods extends PureComponent {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'list/fetch',
-      payload: {
-        count: 18,
-      },
-    });
     this.init()
   }
 
@@ -41,7 +34,7 @@ class CollectionGoods extends PureComponent {
         country:'韩国'
       },
     });
-  } 
+  }
 
   handleFormSubmit = (value) => {
     if(value.includes('/')){
@@ -52,7 +45,7 @@ class CollectionGoods extends PureComponent {
   }
   changePage(page){
     const {collectionGoodsModel:{collectionGoods,collectionGoods:{goodsList,pagination}} } = this.props;
-   
+
     this.props.dispatch({
       type: 'collectionGoodsModel/getUserCollectionGoods',
       payload: {
@@ -63,7 +56,7 @@ class CollectionGoods extends PureComponent {
   }
 
   changePageSize(current, pageSize){
-   
+
     const {collectionGoodsModel:{collectionGoods,collectionGoods:{goodsList,pagination}} } = this.props;
     this.props.dispatch({
       type: 'collectionGoodsModel/getUserCollectionGoods',
@@ -96,7 +89,7 @@ class CollectionGoods extends PureComponent {
           onShowSizeChange: (current, pageSize) => {
             // console.log('page',current, pageSize)
              this.changePageSize(current, pageSize)
- 
+
            },
           pageSize: pagination.pageSize,
           showSizeChanger: true,
@@ -157,7 +150,7 @@ class CollectionGoods extends PureComponent {
 
         <div className={styles.coverCardList}>
           <div style={{width: '100%',height: '50px',marginTop:'50px',marginBottom:'2px'}} className={styles.nav_top}>
-            <span style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 我收藏的商品</span> 
+            <span style={{float: 'left',fontSize:'24px',fontWeight:'bold'}}> 我收藏的商品</span>
           </div>
           <div className={styles.cardList}>
             {cardList}
