@@ -89,7 +89,7 @@ class KoreaPavilion extends PureComponent {
                   onClick={() => this.handleBrand(item)}
                   className={styles.card}
                   hoverable
-                  cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                  cover={<img style={{padding: 20}} alt={item.brandsName} src={item.imgurl} />}
                 >
                   <Card.Meta
                     title={<a>{item.brandsName}</a>}
@@ -121,7 +121,7 @@ class KoreaPavilion extends PureComponent {
                   <Card
                     className={styles.card}
                     hoverable
-                    cover={<img style={{padding: 20}} alt={item.title} src={item.imgurl} />}
+                    cover={<img style={{padding: 20}} alt={item.goodsName} src={item.imgurl} />}
                   >
                     <Card.Meta
                       // title={<p>{item.goodsName}</p>}
