@@ -11,7 +11,6 @@ import styles from './JapanPavilion.less';
 import { stringify } from 'qs';
 const { Option } = Select;
 const FormItem = Form.Item;
-import { message } from 'antd';
 
 /* eslint react/no-array-index-key: 0 */
 

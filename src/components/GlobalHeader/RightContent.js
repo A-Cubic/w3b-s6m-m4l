@@ -80,6 +80,10 @@ export default class GlobalHeaderRight extends PureComponent {
   onMenuClick=(item)=>{
     if(item.key==='userCenter'){
       window.open('http://console.llwell.net/#/mediaPlatform',"_blank")
+    }else if(item.key==='collectionGoods'){
+      window.location.href='http://console.llwell.net/mall/collectionGoods'
+    }else if(item.key==='attentionBrand'){
+      window.location.href='http://console.llwell.net/mall/attentionBrand'
     }
   }
 
@@ -101,15 +105,23 @@ export default class GlobalHeaderRight extends PureComponent {
           <Icon type="user" />
           <FormattedMessage id="menu.account.center" defaultMessage="account center" />
         </Menu.Item>
-        <Menu.Item key="userinfo" disabled>
-          <Icon type="setting" />
-          <FormattedMessage id="menu.account.settings" defaultMessage="account settings" />
+        <Menu.Item key="collectionGoods">
+          <Icon type="heart" />
+          <FormattedMessage id="menu.account.collectionGoods" defaultMessage="account center" />
         </Menu.Item>
-        <Menu.Item key="triggerError" disabled>
-          <Icon type="close-circle" />
-          <FormattedMessage id="menu.account.trigger" defaultMessage="Trigger Error" />
+        <Menu.Item key="attentionBrand">
+          <Icon type="like" />
+          <FormattedMessage id="menu.account.attentionBrand" defaultMessage="account center" />
         </Menu.Item>
-        <Menu.Divider />
+        {/*<Menu.Item key="userinfo" disabled>*/}
+          {/*<Icon type="setting" />*/}
+          {/*<FormattedMessage id="menu.account.settings" defaultMessage="account settings" />*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Item key="triggerError" disabled>*/}
+          {/*<Icon type="close-circle" />*/}
+          {/*<FormattedMessage id="menu.account.trigger" defaultMessage="Trigger Error" />*/}
+        {/*</Menu.Item>*/}
+        {/*<Menu.Divider />*/}
         {/*<Menu.Item key="logout">*/}
           {/*<Icon type="logout" />*/}
           {/*<FormattedMessage id="menu.account.logout" defaultMessage="logout" />*/}
@@ -201,7 +213,7 @@ export default class GlobalHeaderRight extends PureComponent {
         {/* {...loadMoreProps} */}
         {/* /> */}
         {/* </NoticeIcon> */}
-        {currentUser.userid ? (
+        {currentUser.userid==undefined ? (
           <HeaderDropdown overlay={menu}>
             <span className={`${styles.action} ${styles.account}`}>
               <Avatar

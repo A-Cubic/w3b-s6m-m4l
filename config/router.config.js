@@ -142,12 +142,14 @@ export default [
           path: '/collectionGoods',
           name: 'collectionGoods',
           component: './CollectionGoods/CollectionGoods',
+          hideInMenu: true,
       },
       //关注的品牌
       {
           path: '/attentionBrand',
           name: 'attentionBrand',
           component: './AttentionBrand/AttentionBrand',
+          hideInMenu: true,
       },
       { path: '/', redirect: '/home' },
       // // dashboard
