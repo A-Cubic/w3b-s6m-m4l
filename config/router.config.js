@@ -104,7 +104,16 @@ export default [
         path: '/KoreaPavilion',
         component: './KoreaPavilion/KoreaPavilion',
       },
-      // 欧美馆
+
+      // 欧美馆 - 欧美馆
+      {
+        name: 'EuropeAndAmericaHousue',
+        path: '/EuropeAndAmericaHousue',
+        component: './EuropeAndAmericaHousue/EuropeAndAmericaHousue',
+      },
+
+
+      // 欧美馆 - 中国馆
       {
         name: 'EuropeanAmericanPavilion',
         path: '/EuropeanAmericanPavilion',
