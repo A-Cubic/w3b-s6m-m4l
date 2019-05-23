@@ -196,7 +196,7 @@ class GoodsDetails extends PureComponent {
                       description={
                         <div>
                           <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
-                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price=='￥0'?'缺货':item.price}</Ellipsis>
                         </div>
                       }
                     />
@@ -249,7 +249,7 @@ class GoodsDetails extends PureComponent {
                   <h3>{goodsDes}</h3>
                   <Divider dashed />
                   <DescriptionList size="small" col="1">
-                    <Description style={{fontSize:'16px',marginBottom:'34px'}} term="价格"><span style={{color:'#f5222d'}}>{price}</span></Description>
+                    <Description style={{fontSize:'16px',marginBottom:'34px'}} term="价格"><span style={{color:'#f5222d'}}>{price=='￥0'?'缺货':price}</span></Description>
                     {/* <Description term="原产地/国">日本</Description> */}
                     {/* <Description term="所属分类">入浴剂</Description> */}
                     {/* <Description term="单位型号">700g/桶</Description> */}
