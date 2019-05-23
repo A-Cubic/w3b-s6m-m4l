@@ -128,7 +128,7 @@ class EuropeAndAmericaHousue extends PureComponent {
                       description={
                         <div>
                           <Ellipsis className={styles.ellipsisName} lines={2}>{item.goodsName}</Ellipsis>
-                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price}</Ellipsis>
+                          <Ellipsis className={styles.ellipsis} lines={2}>{item.price=='￥0'?'缺货':item.price}</Ellipsis>
                         </div>
                       }
                     />
